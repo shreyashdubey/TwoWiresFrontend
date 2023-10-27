@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
-import { Link, useNavigate } from "react-router-dom";
-import home from './Home'
+import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
@@ -12,11 +11,11 @@ const Signup = () => {
   const [user, setUser] = useState();
   const [currentStep, setCurrentStep] = useState(1); // Track the current step
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
     profession: '',
-    expertise: '',
+    experiences: '',
     confirmPassword: '',
   });
   const [isModalOpen, setIsModalOpen] = useState(false); // Add state for the modal
@@ -37,8 +36,6 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      // Your form submission logic here
-      
       if (currentStep === 2) {
         // If it's the final step, submit the form
         const response = await fetch('http://localhost:3001/api/users/signup', {
@@ -47,16 +44,16 @@ const Signup = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-          credentials: 'include' ,
+          credentials: 'include',
         });
-        // You should see the 'token' cookie in the 'cookies' string
-        // You can parse it to extract the token value if needed
-        const data= await response.json();
-       const { message } = data;
+
+        const data = await response.json();
+        const { message } = data;
+        console.log(data)
         if (response.ok) {
           alert(message);
           navigate("/home");
-      }  else {
+        } else {
           // Signup failed
           alert(data.message || 'Signup failed. Please try again.');
         }
@@ -79,13 +76,12 @@ const Signup = () => {
   };
 
   if (user) {
-    console.log(user)
-    window.location.href = '/home';
+    navigate("/home");
   }
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      <h2>Registration Form</h2>
       <button onClick={openModal}>Create an Account</button>
       <Modal
         isOpen={isModalOpen}
@@ -106,41 +102,45 @@ const Signup = () => {
           <div>
             <h3>Step 1: Email and Password</h3>
             <form onSubmit={handleSubmit}>
-              {/* Email and password fields */}
-                 <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-              {/* ... */}
+              <div>
+                <label htmlFor="username">Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  className='Na'
+                  placeholder='Username'
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className='Na'
+                  placeholder='Email'
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className='Na'
+                  placeholder='Password'
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <button type="button" onClick={handleNextStep}>Next</button>
             </form>
           </div>
@@ -149,41 +149,43 @@ const Signup = () => {
           <div>
             <h3>Step 2: Other Information</h3>
             <form onSubmit={handleSubmit}>
-              {/* Other information fields */}
-                <div>
-          <label htmlFor="profession">Profession:</label>
-          <input
-            type="text"
-            id="profession"
-            name="profession"
-            value={formData.profession}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="expertise">Expertise:</label>
-          <input
-            type="text"
-            id="expertise"
-            name="expertise"
-            value={formData.expertise}
-            onChange={handleChange}
-            required
-          />
-           <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        </div>
-              {/* ... */}
+              <div>
+                <label htmlFor="profession">Profession:</label>
+                <input
+                  type="text"
+                  id="profession"
+                  name="profession"
+                  className='Na'
+                  placeholder='Profession'
+                  value={formData.profession}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="experiences">Experiences:</label>
+                <input
+                  type="text"
+                  id="experiences"
+                  name="experiences"
+                  className='Na spacer'
+                  placeholder='Experiences'
+                  value={formData.experiences}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="confirmPassword">Confirm Password:</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <button type="submit">Sign Up</button>
             </form>
           </div>
@@ -192,12 +194,11 @@ const Signup = () => {
       </Modal>
       <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
         <div className="Appp">
-          <GoogleLogin setUser={setUser}></GoogleLogin>
+          <GoogleLogin setUser={setUser} />
         </div>
       </GoogleOAuthProvider>
     </div>
   );
 };
-
 
 export default Signup;

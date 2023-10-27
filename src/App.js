@@ -18,8 +18,9 @@ const App = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/user/:userId" component={UserProfile} />
       <Route path="/friend-requests" element={<FriendRequest/>} />
-      <Route path="/Create_new" element={<Create_new />}
+      <Route path="/Create_new" element={<Create_new />} />
       {/* Add other routes for different pages */}
+
     </Routes>
   );
 };
