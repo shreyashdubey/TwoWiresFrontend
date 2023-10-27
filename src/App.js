@@ -10,6 +10,7 @@ import FriendRequest from './components/FriendRequest';
 import Create_new from './components/create_new/Create_new';
 import Forge from './components/Forget/Forge';
 import Verify from './components/sendotp/Verify';
+import Pass_change from './components/pass_change/Pass_change';
 const App = () => {
 
   return (
@@ -23,6 +24,7 @@ const App = () => {
       <Route path="/Create_new" element={<Create_new />} />
       <Route path="/Forge" element={<Forge/>} />
       <Route path="/Verify" element={<Verify/>} />
+      <Route path="/Pass_change" element={<Pass_change/>} />
       {/* Add other routes for different pages */}
 
     </Routes>
