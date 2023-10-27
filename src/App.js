@@ -8,6 +8,8 @@ import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import FriendRequest from './components/FriendRequest';
 import Create_new from './components/create_new/Create_new';
+import Forge from './components/Forget/Forge';
+import Verify from './components/sendotp/Verify';
 const App = () => {
 
   return (
@@ -19,6 +21,8 @@ const App = () => {
       <Route path="/user/:userId" component={UserProfile} />
       <Route path="/friend-requests" element={<FriendRequest/>} />
       <Route path="/Create_new" element={<Create_new />} />
+      <Route path="/Forge" element={<Forge/>} />
+      <Route path="/Verify" element={<Verify/>} />
       {/* Add other routes for different pages */}
 
     </Routes>
