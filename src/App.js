@@ -7,6 +7,7 @@ import Login from './components/Login_com/login'; // Your Login component
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import FriendRequest from './components/FriendRequest';
+import Create_new from './components/create_new/Create_new';
 const App = () => {
 
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/user/:userId" component={UserProfile} />
       <Route path="/friend-requests" element={<FriendRequest/>} />
+      <Route path="/Create_new" element={<Create_new />}
       {/* Add other routes for different pages */}
     </Routes>
   );
