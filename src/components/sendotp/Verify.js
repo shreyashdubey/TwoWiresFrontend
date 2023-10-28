@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, navigate, useNavigate} from 'react-router-dom'
+import './otp.css'
 
 export default function Verify() {
     
@@ -11,7 +12,7 @@ export default function Verify() {
 
 
     return (
-    <div>
+    <div className='entire'>
         <h2>OTP Verification</h2>
         <h5>Enter the 4 digit code sent on your email address</h5>
         <div>
