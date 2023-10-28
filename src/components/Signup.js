@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
 import { useNavigate } from "react-router-dom";
+import './CSS_Files/signup.css';
 
 Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
@@ -80,30 +81,12 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className='bodys'>
       <h2>Registration Form</h2>
-      <button onClick={openModal}>Create an Account</button>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Signup Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          },
-          content: {
-            width: '400px',
-            height: 'auto',
-            margin: 'auto',
-          },
-        }}
-      >
-        {currentStep === 1 && (
-          <div>
-            <h3>Step 1: Email and Password</h3>
+      <h5>Fill this form to create an account</h5>
+          <div className='alinger'>
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="username">Username:</label>
                 <input
                   type="text"
                   id="username"
@@ -116,7 +99,6 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email">Email:</label>
                 <input
                   type="email"
                   id="email"
@@ -129,7 +111,6 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <label htmlFor="password">Password:</label>
                 <input
                   type="password"
                   id="password"
@@ -141,16 +122,11 @@ const Signup = () => {
                   required
                 />
               </div>
-              <button type="button" onClick={handleNextStep}>Next</button>
             </form>
           </div>
-        )}
-        {currentStep === 2 && (
           <div>
-            <h3>Step 2: Other Information</h3>
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="profession">Profession:</label>
                 <input
                   type="text"
                   id="profession"
@@ -163,7 +139,6 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <label htmlFor="experiences">Experiences:</label>
                 <input
                   type="text"
                   id="experiences"
@@ -186,17 +161,9 @@ const Signup = () => {
                   required
                 />
               </div>
-              <button type="submit">Sign Up</button>
+              <button type="submit" className='burn'>Sign Up</button>
             </form>
           </div>
-        )}
-        <button onClick={closeModal}>Close</button>
-      </Modal>
-      <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
-        <div className="Appp">
-          <GoogleLogin setUser={setUser} />
-        </div>
-      </GoogleOAuthProvider>
     </div>
   );
 };
