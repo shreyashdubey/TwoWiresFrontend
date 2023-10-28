@@ -57,7 +57,7 @@ const Login = () => {
             <h2 className='h2sty'>Authorization</h2>
             <form onSubmit={handleSubmit}>
                 <div className='mib'>
-                <label htmlFor="email" className='labelss' id='remov'></label>
+                <label htmlFor="email" className='labelss' id='remov'>Enter your Email</label>
                 <input
                 placeholder='Enter your email'
                 type="email"
@@ -70,7 +70,7 @@ const Login = () => {
                 />
             </div>
         <div className='mib'>
-            <label htmlFor="password" className='labelss' id='reo'></label>
+            <label htmlFor="password" className='labelss' id='reo'>Enter your password</label>
             <input
                 placeholder='Enter your password'
                 type="password"
@@ -82,10 +82,10 @@ const Login = () => {
                 id='str'
             />
         </div>
-            <button type="submit" className='bun'>Login</button>
-            <div className='achor'>
-                <Link to='../Forge'>Forgot Password</Link>
+        <div className='achor'>
+                <Link to='../Forge' className='under'>Forgot Password</Link>
             </div>
+            <button type="submit" className='bun'>Login</button>
         </form>
         <div className='google'>
             <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
@@ -94,7 +94,7 @@ const Login = () => {
                 </div>
             </GoogleOAuthProvider>
             <h3>Don't have an account now</h3>
-            <Link to='../Signup'>Register now</Link>
+            <Link to='../Signup' className='und'>Register now</Link>
         </div>
         </div>
     </div>
