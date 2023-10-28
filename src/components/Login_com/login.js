@@ -93,7 +93,7 @@ const Login = () => {
                     <GoogleLogin setUser={setUser}></GoogleLogin>
                 </div>
             </GoogleOAuthProvider>
-            <h3>Don't have an account now</h3>
+            <h3 className='stylefo'>Don't have an account now</h3>
             <Link to='../Signup' className='und'>Register now</Link>
         </div>
         </div>
