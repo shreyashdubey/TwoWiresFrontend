@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Routes>
       {/* Define your routes here */}
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/Signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/user/:userId" component={UserProfile} />

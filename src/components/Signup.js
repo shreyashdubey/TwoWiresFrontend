@@ -10,7 +10,6 @@ Modal.setAppElement('#root'); // Set the root element as the modal's parent
 const Signup = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +18,6 @@ const Signup = () => {
     experiences: '',
     confirmPassword: '',
   });
-  const [isModalOpen, setIsModalOpen] = useState(false); // Add state for the modal
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,16 +27,13 @@ const Signup = () => {
     }));
   };
 
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      if (currentStep === 2) {
+  try {
         // If it's the final step, submit the form
+        console.log("Just for a check");
         const response = await fetch('http://localhost:3001/api/users/signup', {
           method: 'POST',
           headers: {
@@ -50,7 +45,7 @@ const Signup = () => {
 
         const data = await response.json();
         const { message } = data;
-        console.log(data)
+        console.log(data);
         if (response.ok) {
           alert(message);
           navigate("/home");
@@ -58,10 +53,6 @@ const Signup = () => {
           // Signup failed
           alert(data.message || 'Signup failed. Please try again.');
         }
-      } else {
-        // If it's not the final step, proceed to the next step
-        handleNextStep();
-      }
     } catch (error) {
       alert('An error occurred during signup. Please try again later.');
     }
@@ -149,10 +140,10 @@ const Signup = () => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  required
+                  requried 
                 />
               </div>
-              <button type="submit" className='burn'>Sign Up</button>
+              <button type="submit" className='burn'> Sign up</button>
             </form>
           </div>
     </div>
