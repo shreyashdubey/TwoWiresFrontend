@@ -67,15 +67,6 @@ const Signup = () => {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setCurrentStep(1); // Reset the step when the modal is closed
-  };
-
   if (user) {
     navigate("/home");
   }
