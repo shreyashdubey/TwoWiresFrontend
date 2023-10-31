@@ -11,7 +11,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     profession: '',
@@ -40,7 +40,6 @@ const Signup = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-          credentials: 'include',
         });
 
         const data = await response.json();
