@@ -32,12 +32,11 @@ const Login = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
-            credentials: 'include'
             });
             const data= await response.json();
             const { message } = data;
             if (response.ok) {
-            alert(message);
+            alert('login successfully');
             navigate("/home");
             } else {
             const data = await response.json();
