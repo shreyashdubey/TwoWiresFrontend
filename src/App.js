@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Route, Routes } from 'react-router-dom';
 import Signup from './components/Signup'; // Your Signup component
-import Login from './components/Login_com/login'; // Your Login component
+import Login from './components/login' // Your Login component
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import FriendRequest from './components/FriendRequest';
