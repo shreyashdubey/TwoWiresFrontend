@@ -34,9 +34,11 @@ const Login = () => {
             body: JSON.stringify(formData),
             });
             const data= await response.json();
-            const { message } = data;
-            if (response.ok) {
+            const { accessToken, refreshToken} = data;
+            if (accessToken) {
             alert('login successfully');
+            localStorage.setItem("crediantials", accessToken)
+            // localStorage.setItem("crediantials", accessToken)
             navigate("/home");
             } else {
             const data = await response.json();

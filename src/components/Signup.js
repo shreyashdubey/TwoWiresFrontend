@@ -4,6 +4,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
 import { useNavigate } from "react-router-dom";
 import './CSS_Files/signup.css';
+import instance from '../utils/api';
+import { LOGIN, SIGNUP } from '../utils/endpoints';
 
 Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
@@ -34,18 +36,19 @@ const Signup = () => {
   try {
         // If it's the final step, submit the form
         console.log("Just for a check");
-        const response = await fetch('http://localhost:3001/api/users/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
+        // const response = await fetch('http://localhost:3001/api/users/signup', {
+        //   method: 'POST',
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // },
+        //   body: JSON.stringify(formData),
+        // });
 
-        const data = await response.json();
-        const { message } = data;
-        console.log(data);
-        if (response.ok) {
+        const response = await instance.post(SIGNUP,formData, {'Content-Type': 'application/json'})
+        const data = response;
+        const { success, message } = data;
+        
+        if (success) {
           alert(message);
           navigate("/home");
         } else {
@@ -53,6 +56,7 @@ const Signup = () => {
           alert(data.message || 'Signup failed. Please try again.');
         }
     } catch (error) {
+      console.log(error)
       alert('An error occurred during signup. Please try again later.');
     }
   };
