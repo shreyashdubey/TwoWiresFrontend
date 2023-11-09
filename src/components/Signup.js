@@ -63,88 +63,95 @@ const Signup = () => {
 
   return (
     <div className='bodys'>
-      <h2>Registration Form</h2>
-      <h5>Fill this form to create an account</h5>
-          <div className='alinger'>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className='Na'
-                  placeholder='Username'
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className='Na'
-                  placeholder='Email'
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className='Na'
-                  placeholder='Password'
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </form>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <input
-                  type="text"
-                  id="profession"
-                  name="profession"
-                  className='Na'
-                  placeholder='Profession'
-                  value={formData.profession}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  id="experiences"
-                  name="experiences"
-                  className='Na spacer'
-                  placeholder='Experiences'
-                  value={formData.experiences}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="confirmPassword">Confirm Password:</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  requried 
-                />
-              </div>
-              <button type="submit" className='burn'> Sign up</button>
-            </form>
-          </div>
+      <div>
+        <div className='register'>
+        <h2>Registration</h2>
+        <h5>Fill this form to create an account</h5>
+        </div>
+            
+              <form onSubmit={handleSubmit}>
+                <div className='form'>
+                    <div>
+                      <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        className='Na'
+                        placeholder='Username'
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className='Na'
+                        placeholder='Email'
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        className='Na'
+                        placeholder='Password'
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        id="profession"
+                        name="profession"
+                        className='Na'
+                        placeholder='Profession'
+                        value={formData.profession}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        id="experiences"
+                        name="experiences"
+                        className='Na'
+                        placeholder='Experiences'
+                        value={formData.experiences}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        className='Na'
+                        placeholder='confirmPassword'
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        requried 
+                      />
+                    </div>
+                </div> 
+                <div className="signup-terms">
+                    <h5>By signing up you agree to our <a href="/terms" className="link">Terms and Conditions</a> and <a href="/privacy" className="link">Privacy Policy</a></h5>
+                </div>  
+                <div className='button'>
+                  <button type="submit" className='burn'> Sign up</button>
+                </div>
+              </form>
+      </div>        
     </div>
   );
 };
