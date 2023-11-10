@@ -2,7 +2,8 @@
 import React from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { googleAuth } from "../services/api";
-
+import { Button ,Image } from '@chakra-ui/react';
+import googlelogo from '../images/googlelogo.jpg'
 
 export default (props) => {
     const responseGoogle = async (authResult) => {
@@ -28,13 +29,16 @@ export default (props) => {
     });
 
     return (
-        <button
-            style={{
-                padding: "10px 20px",
-            }}
-            onClick={googleLogin}
-        >
-            Sign in with Google
-        </button>
+        <Button
+        mb = '10px'
+        align = 'center'
+        w = '270px'
+        padding="10px 20px"
+        onClick={googleLogin}
+        colorScheme="blue"
+        leftIcon={<Image src={googlelogo} alt="Google Logo" boxSize="20px" />}
+      >
+        Sign in with Google
+      </Button>
     );
 };
