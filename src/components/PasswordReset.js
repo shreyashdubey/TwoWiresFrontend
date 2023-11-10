@@ -7,10 +7,10 @@ import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery
 import startup from '../images/startup.jpg'
 import Forgot from './Forgot'
 
-const Login = () => {
+const PasswordReset = () => {
     const [formData, setFormData] = useState({
-        email: '',
         password: '',
+        confirmPassword : ''
     });
     const [isBelow500px] = useMediaQuery("(max-width: 500px)");
     const [isabove1000px] = useMediaQuery("(max-Hight: 900px)");
@@ -27,8 +27,9 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        navigate('/home');
         try {
-            const response = await fetch('http://localhost:3001/api/users/login', {
+            const response = await fetch('http://localhost:3001/api/password/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ const Login = () => {
             });
 
             if (response.ok) {
-                alert('Login successful');
+                alert('Password changes');
                 navigate('/home');
             } else {
                 const data = await response.json();
@@ -48,10 +49,6 @@ const Login = () => {
         }
     };
 
-    if (user) {
-        window.location.href = '/home';
-    }
-
     return (
         <Flex
           direction="column"
@@ -59,14 +56,10 @@ const Login = () => {
           justify="center"
           height="100vh"
         >
-          <Flex direction="row" align="center" justify="center">
-            <Hide below='500px'>
-              <Image src={startup} alt="Your Image" width = "300px" height="550px" objectFit="cover" borderRadius="8px" mr = '10px' /> {/* Replace with your actual image component */}
-            </Hide>
             <Box
               ml = "10px"
               width="300px"
-              height="550px"
+              height="400px"
               p="4"
               border="1px"
               borderColor="gray.200"
@@ -76,15 +69,18 @@ const Login = () => {
               <Text fontSize="2xl" fontWeight="i" mb="4" textAlign="center">
                 Sparrow
               </Text>
+              <Text fontSize="13.5px" mt="2" textAlign="center">
+                  change your password
+              </Text>
                <form  onSubmit={handleSubmit}>
               <FormControl mb="3" mt = "20">
                 <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="password"
                   bg = '#F7FAFC'
-                  value={formData.email}
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />
@@ -92,51 +88,30 @@ const Login = () => {
               <FormControl mb="3">
                 <Input
                   type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="confirmPassword"
                   bg = '#F7FAFC'
-                  value={formData.password}
+                  value={formData.confirmPassword}
                   onChange={handleChange}
                   required
                 />
               </FormControl>
-              <Text fontSize="13.5px" mt="2" textAlign="center">
-                  By signing up you agree to our{' '}
-                  <ChakraLink href="/terms" color="blue.500">
-                    Terms and Conditions
-                  </ChakraLink>{' '}
-                  and{' '}
-                  <ChakraLink href="/privacy" color="blue.500">
-                    Privacy Policy
-                  </ChakraLink>
-              </Text>
-              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px">
-                   Log in
-              </Button>
-    
-            </form>
-            <Text fontSize="ms" mb="2" textAlign="center">
-                or
-            </Text>
-            <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
-                <GoogleLogin setUser={setUser}></GoogleLogin>
-            </GoogleOAuthProvider>
-            <Text mt="8" textAlign="center">
-                <ChakraLink href = "account/password/reset" color="grey" fontSize='13.5'>
-                    forgotten your password?
-                </ChakraLink>
-              </Text>
-              <Text mt="8" textAlign="center">
-                Don't Have an account?{' '}
-                <ChakraLink href = "Signup" color="blue.500">
-                  Sign up
-                </ChakraLink>
-              </Text>
+              <Button
+                mt = '30px'
+                w = '270px'
+                type='Submit'
+                loadingText='Submitting'
+                colorScheme='teal'
+                variant='outline'
+                align = 'center'
+              >
+                Submit
+            </Button>
+             </form>
             </Box>
           </Flex>
-        </Flex>
       );
     };
 
-export default Login;
+export default PasswordReset;

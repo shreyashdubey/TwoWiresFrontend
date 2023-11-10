@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import startup from '../images/startup.jpg'
 import { Show, Hide } from '@chakra-ui/react'
 import { useMediaQuery } from "@chakra-ui/react";
+import Login from './login'
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const Signup = () => {
           <Text fontSize="sm" mb="4" textAlign="center">
             Sign up for the entrepreneurial haven
           </Text>
-          <GoogleOAuthProvider clientId="YOUR_CLIENT_ID">
+          <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
             <GoogleLogin setUser={setUser}></GoogleLogin>
           </GoogleOAuthProvider>
           <Text fontSize="ms" mb="2" textAlign="center">
@@ -156,7 +157,7 @@ const Signup = () => {
         </form>
           <Text mt="4" textAlign="center">
             Have an account?{' '}
-            <ChakraLink to='../Login' color="blue.500">
+            <ChakraLink href='Login' color="blue.500">
               Sign in
             </ChakraLink>
           </Text>

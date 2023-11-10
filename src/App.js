@@ -7,10 +7,10 @@ import Login from './components/login' // Your Login component
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import FriendRequest from './components/FriendRequest';
-import Create_new from './components/create_new/Create_new';
-import Forge from './components/Forget/Forge';
-import Verify from './components/sendotp/Verify';
-import Pass_change from './components/pass_change/Pass_change';
+import Forgot from './components/Forgot';
+import Authentication from './components/Authentication'
+import PasswordReset from './components/PasswordReset'
+
 const App = () => {
 
   return (
@@ -21,10 +21,9 @@ const App = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/user/:userId" component={UserProfile} />
       <Route path="/friend-requests" element={<FriendRequest/>} />
-      <Route path="/Create_new" element={<Create_new />} />
-      <Route path="/Forge" element={<Forge/>} />
-      <Route path="/Verify" element={<Verify/>} />
-      <Route path="/Pass_change" element={<Pass_change/>} />
+      <Route path="account/password/reset" element={<Forgot/>} />
+      <Route path="/authentication" element={<Authentication/>} />
+      <Route path="/account/password/confirm" element={<PasswordReset/>} />
       {/* Add other routes for different pages */}
 
     </Routes>
