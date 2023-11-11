@@ -8,7 +8,6 @@ import FriendRequest from './FriendRequest';
 import { Link } from 'react-router-dom';
 import ChatRoom from './ChatWindow'
 import FriendsListModal from './FriendListModal';
-import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
