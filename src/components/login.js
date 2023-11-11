@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormControl, FormLabel, Input, Text, Flex, Box } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -28,13 +28,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/users/login', {
-                method: 'POST',
+            const response = await fetch(
+              "https://troubled-elk-glasses.cyclic.app/api/users/login",
+              {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify(formData),
-            });
+              }
+            );
 
             if (response.ok) {
                 alert('Login successful');
@@ -51,6 +54,13 @@ const Login = () => {
     if (user) {
         window.location.href = '/home';
     }
+
+  useEffect(() => {
+    window.otpless = (otplessUser) => {
+      alert(JSON.stringify(otplessUser));
+    };
+  }, []);
+	
 
     return (
         <Flex
