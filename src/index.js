@@ -9,11 +9,17 @@ import App from './App';
 const rootElement = document.getElementById('root');
 ReactDOM.createRoot(rootElement).render(
   <ChakraProvider>
+    <div id="otpless-login-page"></div>
+    <script
+      type="text/javascript"
+      src="https://otpless.com/auth.js"
+      cid="OZKDMIB9EXXJIOH8XBB89OMBI4SBNMMG"
+    ></script>
     <Router>
       <React.StrictMode>
-          <App />
+        <App />
       </React.StrictMode>
     </Router>
-    </ChakraProvider>  
+  </ChakraProvider>
 );
 
