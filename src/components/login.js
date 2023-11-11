@@ -28,26 +28,22 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(
-              "https://troubled-elk-glasses.cyclic.app/api/users/login",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-              }
-            );
+          const response = await instance.post(SIGNUP, formData, {
+            "Content-Type": "application/json",
+          });
+          const data = response;
+          const { success, message } = data;
 
-            if (response.ok) {
-                alert('Login successful');
-                navigate('/home');
-            } else {
-                const data = await response.json();
-                alert(data.message || 'Login failed. Please try again.');
-            }
+          if (success) {
+            alert(message);
+            navigate("/home");
+          } else {
+            // Signup failed
+            alert(data.message || "Signup failed. Please try again.");
+          }
         } catch (error) {
-            alert('An error occurred during login. Please try again later.');
+          console.log(error);
+          alert("An error occurred during signup. Please try again later.");
         }
     };
 
