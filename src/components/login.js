@@ -35,8 +35,11 @@ const Login = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
-            if (response.ok) {
+            const data = await response.json();
+            const { accessToken, userId} = data;
+            if (accessToken) {
+              localStorage.setItem("ACCESS_TOKEN", accessToken)
+              localStorage.setItem("USER_ID", userId)
                 alert('Login successful');
                 navigate('/home');
             } else {
