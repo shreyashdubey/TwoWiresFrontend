@@ -3,11 +3,10 @@ import { Button, Input, Text, Link as ChakraLink, Flex, Box, FormControl, FormLa
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
 import { useNavigate } from "react-router-dom";
-import './CSS_Files/signup.css';
+
 import instance from '../utils/api';
 import { LOGIN, SIGNUP } from '../utils/endpoints';
 
-Modal.setAppElement('#root'); // Set the root element as the modal's parent
 import startup from '../images/startup.jpg'
 import { Show, Hide } from '@chakra-ui/react'
 import { useMediaQuery } from "@chakra-ui/react";
