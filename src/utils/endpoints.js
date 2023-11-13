@@ -1,2 +1,6 @@
 export const LOGIN = "/api/users/login"
 export const SIGNUP = "/api/users/signup"
+export const  CREATE_TEAM  = "/api/team/create"
+export const GET_ALL_TEAM = "/api/team/all"
+export const INVITE_USER = ""
+export const GET_TEAM_MEMBER = ""

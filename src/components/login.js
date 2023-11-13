@@ -6,6 +6,8 @@ import GoogleLogin from "./GoogleLogin";
 import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery } from '@chakra-ui/react'
 import startup from '../images/startup.jpg'
 import Forgot from './Forgot'
+import instance from '../utils/api';
+import { LOGIN, SIGNUP } from '../utils/endpoints';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -28,23 +30,15 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            const data = await response.json();
-            const { accessToken, userId} = data;
+            const response = await instance.post(LOGIN,formData, {'Content-Type': 'application/json'})
+            const { accessToken, userId} = response;
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("USER_ID", userId)
                 alert('Login successful');
-                navigate('/home');
-            } else {
-                const data = await response.json();
-                alert(data.message || 'Login failed. Please try again.');
+                navigate('/team');
+            } else{
+                alert('Login failed. Please try again.');
             }
         } catch (error) {
             alert('An error occurred during login. Please try again later.');

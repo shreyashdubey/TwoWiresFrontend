@@ -3,15 +3,15 @@ import { Button, Input, Text, Link as ChakraLink, Flex, Box, FormControl, FormLa
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
 import { useNavigate } from "react-router-dom";
-import './CSS_Files/signup.css';
 import instance from '../utils/api';
 import { LOGIN, SIGNUP } from '../utils/endpoints';
-
-Modal.setAppElement('#root'); // Set the root element as the modal's parent
 import startup from '../images/startup.jpg'
-import { Show, Hide } from '@chakra-ui/react'
+import { Show, Hide} from '@chakra-ui/react'
 import { useMediaQuery } from "@chakra-ui/react";
+import Modal from 'react-modal';
 import Login from './login'
+Modal.setAppElement('#root'); // Set the root element as the modal's parent
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -36,16 +36,6 @@ const Signup = () => {
     e.preventDefault();
 
   try {
-        // If it's the final step, submit the form
-        console.log("Just for a check");
-        // const response = await fetch('http://localhost:3001/api/users/signup', {
-        //   method: 'POST',
-          // headers: {
-          //   'Content-Type': 'application/json',
-          // },
-        //   body: JSON.stringify(formData),
-        // });
-
         const response = await instance.post(SIGNUP,formData, {'Content-Type': 'application/json'})
         const data = response;
         const { success, message } = data;

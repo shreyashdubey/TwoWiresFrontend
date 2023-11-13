@@ -10,6 +10,10 @@ import FriendRequest from './components/FriendRequest';
 import Forgot from './components/Forgot';
 import Authentication from './components/Authentication'
 import PasswordReset from './components/PasswordReset'
+import Team from './components/Team'
+import CreateNewTeam from './components/CreateTeam';
+import InviteUsers from './components/InviteUser';
+import ModalTesting from './components/ModalTesting';
 
 const App = () => {
 
@@ -19,11 +23,15 @@ const App = () => {
       <Route path="/Signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/user/:userId" component={UserProfile} />
+      <Route path="/user" element={<UserProfile/>} />
       <Route path="/friend-requests" element={<FriendRequest/>} />
       <Route path="account/password/reset" element={<Forgot/>} />
       <Route path="/authentication" element={<Authentication/>} />
       <Route path="/account/password/confirm" element={<PasswordReset/>} />
+      <Route path="/team" element={<Team/>} />
+      <Route path="/create-new-team" element={<CreateNewTeam />} />
+      <Route path="/invite-users/:teamName" element={<InviteUsers />} />
+      <Route path="/modaltesting" element={<ModalTesting />} />
       {/* Add other routes for different pages */}
 
     </Routes>
