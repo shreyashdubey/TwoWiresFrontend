@@ -15,9 +15,13 @@ import {
   Td,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import instance from '../utils/api';
+import {GET_USERID} from '../utils/endpoints';
+import {INVITE_USER} from '../utils/endpoints';
+import { jwtDecode } from "jwt-decode";
 
 const InviteUsers = () => {
-  const { teamName } = useParams();
+  const { team} = useParams();
   const [username, setUsername] = useState('');
   const [invitedUsers, setInvitedUsers] = useState([]);
 
@@ -32,36 +36,38 @@ const InviteUsers = () => {
   };
 
   const handleInviteUser = async (e) =>{
-  //   e.preventDefault();
-  //   // Add your user invitation logic here
-  //   try {
-  //     const accessToken = localStorage.getItem('ACCESS_TOKEN');
-  //     const decodedToken = jwtDecode(accessToken);
-  //     const owner = decodedToken.user._id
-  //     const response = await instance.post(INVITE_USER ,{username,owner}, {'Content-Type': 'application/json'})
-  //     if (response) {
-  //       setInvitedUsers(User)
-  //     } else {
-  //       alert('Some error');
-  //     }
-  // } catch (error) {
-  //   console.log(error)
-  //   alert('An error occurred during inviting user. Please try again later.');
-  // }
+    e.preventDefault();
+    // Add your user invitation logic here
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const sender = decodedToken.user._id;
+      const response_username = await instance.get(`${GET_USERID}${username}`);
+      const reciever = response_username.id
+      const response_team = await instance.post(INVITE_USER ,{reciever,sender ,team}, {'Content-Type': 'application/json'})
+      if (response_team) {
+        const status = response_team.inviteStatus; 
+        const User = {
+          user: username,
+          status: status,
+          action: '', // You can modify this based on your requirements
+        };
+        setInvitedUsers((prevUsers) => [...prevUsers,User]);
+        setUsername('');
+      } else {
+        alert('Some error');
+      }
+  } catch (error) {
+    console.log(error)
+    alert('An error occurred during inviting user. Please try again later.');
+  }
 
     // Update the invitedUsers state with the new user
    // setInvitedUsers((prevUsers) => [...prevUsers, { user: username, status: 'Invited' }]);
     
     // Clear the input field after inviting the user
-    const User = {
-      user: username,
-      status: 'Invited',
-      action: '', // You can modify this based on your requirements
-    };
-  
     // Update the invitedUsers state with the new user
-    setInvitedUsers((prevUsers) => [...prevUsers,User]);
-    setUsername('');
+    
     // You can add additional logic or API calls here based on your needs
   };
 
@@ -106,7 +112,7 @@ const InviteUsers = () => {
   return (
     <Box p={4}>
       <Heading as="h3" size="lg" mb={4}>
-        Invite Users to Team {teamName}
+        Invite Users to Team {team}
       </Heading>
       <FormControl mb={4}>
         <FormLabel>Username</FormLabel>

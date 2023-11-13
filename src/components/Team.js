@@ -25,7 +25,6 @@ const TeamTab = () => {
         // };
          const response = await instance.get(`${GET_ALL_TEAM}?page=${currentPage}&pageSize=${pageSize}&owner=${owner}`);
         // const response = await instance.get(GET_ALL_TEAM, {params});
-         console.log(response.teams[0].members[1])
          setTeamData(response.teams);
       } catch (error) {
         console.log('Error fetching team data:', error);

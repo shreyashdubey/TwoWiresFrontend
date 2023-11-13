@@ -30,7 +30,7 @@ const App = () => {
       <Route path="/account/password/confirm" element={<PasswordReset/>} />
       <Route path="/team" element={<Team/>} />
       <Route path="/create-new-team" element={<CreateNewTeam />} />
-      <Route path="/invite-users/:teamName" element={<InviteUsers />} />
+      <Route path="/invite-users/:team" element={<InviteUsers />} />
       <Route path="/modaltesting" element={<ModalTesting />} />
       {/* Add other routes for different pages */}
 

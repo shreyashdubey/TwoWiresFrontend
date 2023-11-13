@@ -22,9 +22,10 @@ const CreateNewTeam = () => {
         const decodedToken = jwtDecode(accessToken);
         const owner = decodedToken.user._id
         const response = await instance.post(CREATE_TEAM ,{teamName,owner}, {'Content-Type': 'application/json'})
+        const team = response._id;
         if (response) {
           alert('team created')
-          navigate(`/invite-users/${teamName}`);
+          navigate(`/invite-users/${team}`);
         } else {
           // Signup failed
           alert('Some error');
