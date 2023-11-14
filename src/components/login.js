@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormControl, FormLabel, Input, Text, Flex, Box } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -41,13 +41,21 @@ const Login = () => {
                 alert('Login failed. Please try again.');
             }
         } catch (error) {
-            alert('An error occurred during login. Please try again later.');
+          console.log(error);
+          alert("An error occurred during signup. Please try again later.");
         }
     };
 
     if (user) {
         window.location.href = '/home';
     }
+
+  useEffect(() => {
+    window.otpless = (otplessUser) => {
+      alert(JSON.stringify(otplessUser));
+    };
+  }, []);
+	
 
     return (
         <Flex
