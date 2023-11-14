@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Signup from './components/Signup'; // Your Signup component
 import Login from './components/login' // Your Login component
 import Home from './components/Home';
-import UserProfile from './components/UserProfile';
+import DashBoard from './components/DashBoard.js';
 import FriendRequest from './components/FriendRequest';
 import Forgot from './components/Forgot';
 import Authentication from './components/Authentication'
@@ -14,7 +14,9 @@ import Team from './components/Team'
 import CreateNewTeam from './components/CreateTeam';
 import InviteUsers from './components/InviteUser';
 import ModalTesting from './components/ModalTesting';
-
+import SkillComponent from './components/SkillComponent';
+import EducationComponent from './components/EducationComponent';
+import UserProfile from './components/UserProfile.js';
 const App = () => {
 
   return (
@@ -32,6 +34,9 @@ const App = () => {
       <Route path="/create-new-team" element={<CreateNewTeam />} />
       <Route path="/invite-users/:team" element={<InviteUsers />} />
       <Route path="/modaltesting" element={<ModalTesting />} />
+      <Route path="/skill" element={<SkillComponent />} />
+      <Route path="/education" element={<EducationComponent />} />
+      <Route path="/dashboard" element={<DashBoard />} />
       {/* Add other routes for different pages */}
 
     </Routes>

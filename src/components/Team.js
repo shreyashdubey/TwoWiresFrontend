@@ -69,6 +69,9 @@ const TeamTab = () => {
                   </Tbody>
                 </Table>
               </Td>
+              <Td>
+                <ChakraLink to={`/invite-users/${team._id}`}>Edit</ChakraLink>
+              </Td>
             </Tr>
           ))}
         </Tbody>

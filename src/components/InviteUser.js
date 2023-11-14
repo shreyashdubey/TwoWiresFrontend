@@ -19,6 +19,7 @@ import instance from '../utils/api';
 import {GET_USERID} from '../utils/endpoints';
 import {INVITE_USER} from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
+import { GET_TEAM_MEMBER } from '../utils/endpoints';
 
 const InviteUsers = () => {
   const { team} = useParams();
@@ -28,8 +29,8 @@ const InviteUsers = () => {
   useEffect(() => {
     // Simulate updating the status when the component mounts or when invitedUsers changes
    // updateStatusForAcceptedUsers();
-   // fetchTeamMember();
-  }, [invitedUsers]);
+     fetchTeamMember();
+  }, []);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -48,8 +49,8 @@ const InviteUsers = () => {
       if (response_team) {
         const status = response_team.inviteStatus; 
         const User = {
-          user: username,
-          status: status,
+          username: username,
+          inviteStatus: status,
           action: '', // You can modify this based on your requirements
         };
         setInvitedUsers((prevUsers) => [...prevUsers,User]);
@@ -93,21 +94,22 @@ const InviteUsers = () => {
     });
   };
 
-// const fetchTeamMember = async () => {
-//   try {
-//    // Replace the URL with your actual API endpoint
-//     const accessToken = localStorage.getItem('ACCESS_TOKEN');
-//     const decodedToken = jwtDecode(accessToken);
-//     const owner = decodedToken.user._id
-//     const response = await instance.get(GET_TEAM_MEMBER ,{teamName ,owner}, {'Content-Type': 'application/json'})
-//     if(response){
-//       const teammember = response.teammember
-//       setInvitedUsers(teammember)
-//     }
-//   } catch (error) {
-//     console.error('Error fetching team data:', error);
-//   }
-// };
+const fetchTeamMember = async () => {
+  try {
+   // Replace the URL with your actual API endpoint
+    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+    const decodedToken = jwtDecode(accessToken);
+    const owner = decodedToken.user._id
+   // const response = await instance.get(GET_TEAM_MEMBER/`${team}` ,{team ,owner}, {'Content-Type': 'application/json'})
+    const response = await instance.get(`${GET_TEAM_MEMBER}${team}`);
+    if(response){
+      const teammember = response.members;
+      setInvitedUsers(teammember)
+    }
+  } catch (error) {
+    console.error('Error fetching team data:', error);
+  }
+};
 
   return (
     <Box p={4}>
@@ -139,8 +141,8 @@ const InviteUsers = () => {
         <Tbody>
           {invitedUsers.map((user, index) => (
             <Tr key={index}>
-              <Td>{user.user}</Td>
-              <Td>{user.status}</Td>
+              <Td>{user.username}</Td>
+              <Td>{user.inviteStatus}</Td>
               <Td>
                 <Button colorScheme="red" size="sm" onClick={() => handleRemoveUser(index)}>
                   Remove
