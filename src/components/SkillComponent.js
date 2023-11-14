@@ -45,7 +45,7 @@ const SkillComponent = () => {
   return (
     <Box>
       <Heading fontSize={20}>Skills</Heading>
-      <Box mt={4}>
+      <Box mt={4} w = '60%'>
         <Box align="center">
           <HStack align="flex-start" spacing={2} ml={2} flexWrap="wrap">
             {submittedSkills.map((skill, index) => (

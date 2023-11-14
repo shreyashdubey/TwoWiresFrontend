@@ -62,7 +62,7 @@ const EducationComponent = () => {
   };
 
   return (
-    <Box>
+    <Box  mt={2}>
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         Education
       </Text>
