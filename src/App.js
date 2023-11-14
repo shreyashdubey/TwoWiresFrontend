@@ -22,8 +22,10 @@ const App = () => {
     const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    console.log('hey')
+    const token = localStorage.getItem("ACCESS_TOKEN");
     if (token) {
+      console.log('hey2')
       setAuth(token);
     } else {
       navigate("/login");
@@ -42,14 +44,22 @@ const App = () => {
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/account/password/confirm" element={<PasswordReset />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/user/:userId" component={UserProfile} />
+          <Route path="/user" element={<UserProfile/>} />
           <Route path="/friend-requests" element={<FriendRequest/>} />
           <Route path="account/password/reset" element={<Forgot/>} />
           <Route path="/authentication" element={<Authentication/>} />
           <Route path="/account/password/confirm" element={<PasswordReset/>} />
+          <Route path="/team" element={<Team/>} />
+          <Route path="/create-new-team" element={<CreateNewTeam/>} />
+          <Route path="/invite-users/:team" element={<InviteUsers />} />
+          <Route path="/modaltesting" element={<ModalTesting />} />
+          <Route path="/skill" element={<SkillComponent />} />
+          <Route path="/education" element={<EducationComponent />} />
+          <Route path="/dashboard" element={<DashBoard />} />
         </>
+
       )}
-      <Route path="/Signup" element={<Signup />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
