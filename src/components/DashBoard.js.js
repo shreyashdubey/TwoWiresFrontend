@@ -39,9 +39,9 @@ const DashBoard = () => {
   }, [location]);
 
   return (
-    <Flex direction="column" h="100vh" > {/* Parent Flex for the whole screen */}
+    <> {/* Parent Flex for the whole screen */}
     {/* Dashboard Flex */}
-    <Flex bg="green.100" h={16} align="center">
+    <Flex bg="green.100" h={16} align="center" position={'fixed'} as="header" width='100%' backdropFilter="saturate(180%) blur(5px)" >
       <Heading ml={4} fontSize={30} fontWeight={10}>
         Sparrow
       </Heading>
@@ -77,7 +77,7 @@ const DashBoard = () => {
       </Tabs>
     </Flex>
    
-  </Flex>
+  </>
     
   );
 };

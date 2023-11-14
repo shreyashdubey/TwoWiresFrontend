@@ -19,7 +19,7 @@ const UserProfile = () => {
 
   return (
     <Layout>
-    <Flex   ml = {300} mt={10} >
+    <Flex   ml = {300} mt='100px' >
         {/* <Box ml={200} bgColor={'red.100'}></Box> */}
        <Stack direction = 'column' w = {800}>
         <Flex > 
