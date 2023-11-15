@@ -6,6 +6,8 @@ import axios from 'axios'; // Import axios for making API requests
 import instance from '../utils/api';
 import { GET_ALL_TEAM } from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
+import UserProfile from './UserProfile'
+import About from './About';
 
 const TeamTab = () => {
   const [teamData, setTeamData] = useState([]);
@@ -39,48 +41,51 @@ const TeamTab = () => {
   };
 
   return (
-    <Flex direction="column">
-      <ChakraLink to="/create-new-team">Create New Team</ChakraLink>
+    <>
+      <About/>
+      <Flex direction="column">
+        <ChakraLink to="/create-new-team">Create New Team</ChakraLink>
 
-      <Table variant="simple" mt={4} bg={'gray.200'}>
-        <Thead>
-          <Tr>
-            <Th w='30%'>Team Name</Th>
-            <Th w='70%'>Team Members</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {teamData.map((team) => (
-            <Tr key={team._id}>
-              <Td>{team.teamName}</Td>
-              <Td>
-                <Table>
-                  <Thead>
-                    <Tr>
-                      <Th>Member Name</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {team.members.map((member) => (
-                      <Tr key={member._id}>
-                        <Td>{member.username}</Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                </Table>
-              </Td>
-              <Td>
-                <ChakraLink to={`/invite-users/${team._id}`}>Edit</ChakraLink>
-              </Td>
+        <Table variant="simple" mt={4} bg={'gray.200'}>
+          <Thead>
+            <Tr>
+              <Th w='30%'>Team Name</Th>
+              <Th w='70%'>Team Members</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {teamData.map((team) => (
+              <Tr key={team._id}>
+                <Td>{team.teamName}</Td>
+                <Td>
+                  <Table>
+                    <Thead>
+                      <Tr>
+                        <Th>Member Name</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {team.members.map((member) => (
+                        <Tr key={member._id}>
+                          <Td>{member.username}</Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </Td>
+                <Td>
+                  <ChakraLink to={`/invite-users/${team._id}`}>Edit</ChakraLink>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
 
-      <Button onClick={handleNextPage} mt={4}>
-        Next Page
-      </Button>
-    </Flex>
+        <Button onClick={handleNextPage} mt={4}>
+          Next Page
+        </Button>
+      </Flex>
+      </>
   );
 };
 

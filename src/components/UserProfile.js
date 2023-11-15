@@ -1,6 +1,6 @@
 import React, { useContext, useState , useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import { UserContext } from '../UserContext'; // Import the UserContext
 import { Box, Center } from '@chakra-ui/react'
 import {Image , Stack, Text,Avatar , Flex, Spacer , Heading , ChakraProvider, Input, InputGroup, InputLeftElement, Icon ,Button , IconButton , Tabs, TabList, TabPanels, Tab, TabPanel , VStack ,  } from '@chakra-ui/react'
@@ -14,15 +14,22 @@ import DashBoard from './DashBoard.js.js';
 import Layout from './DashBoard.js.js';
 
 
-const UserProfile = () => {
-  
 
+const User = () => {
+
+    const navigate = useNavigate();
+    
+    const handleTeamTabClick = () => {
+        // Redirect to the "/user" route
+         navigate('/team');
+      };
+   
   return (
     <Layout>
     <Flex   ml = {300} mt='100px' >
         {/* <Box ml={200} bgColor={'red.100'}></Box> */}
        <Stack direction = 'column' w = {800}>
-        <Flex > 
+           <Flex > 
             <Stack direction='row'>
                 <Image
                     src={pixels}
@@ -41,38 +48,20 @@ const UserProfile = () => {
                     </Box>  
             </Stack>
             </Flex>
-            <Flex mt='15px' w='100%'>
-                <Tabs ml={3} mt="20px" w ='100%'>
-                    <TabList>
-                        <Tab>
-                        About     
-                        </Tab>
-                        <Spacer/>
-                        <Tab>
-                        Competition   
-                        </Tab>
-                        <Spacer/>
-                        <Tab>
-                        Team     
-                        </Tab>
-                        <Spacer/>
-                        <Tab>
-                        Statistics
-                        </Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
-                            <SkillComponent/>
-                            <EducationComponent/>
-                        </TabPanel>
-                    </TabPanels>
-                    </Tabs>
-            </Flex>
+            
          </Stack>    
 
     </Flex>
     </Layout>
   );
 };
+const UserProfile = ({ children }) => {
+    return (
+      <Flex direction="column" h="50vh">
+        <User/>
+        {children}
+      </Flex>
+    );
+  };
 
 export default UserProfile;

@@ -17,6 +17,7 @@ import ModalTesting from './components/ModalTesting';
 import SkillComponent from './components/SkillComponent';
 import EducationComponent from './components/EducationComponent';
 import UserProfile from './components/UserProfile.js';
+import About from './components/About.js';
 const App = () => {
   const [auth, setAuth] = useState('');
     const navigate = useNavigate();
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/skill" element={<SkillComponent />} />
           <Route path="/education" element={<EducationComponent />} />
           <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/about" element={<About />} />
         </>
 
       )}
