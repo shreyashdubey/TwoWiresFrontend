@@ -25,6 +25,11 @@ const DashBoard = () => {
     navigate('/about');
   };
 
+  const handleContestTabClick = () => {
+    navigate('/contest');
+  };
+
+
   useEffect(() => {
     const { pathname } = location;
     switch (pathname) {
@@ -42,6 +47,10 @@ const DashBoard = () => {
         break;
       case '/team':
         setActiveTab(3)  
+        break;
+      case '/contest':
+        setActiveTab(4)  
+        break;  
     }
   }, [location]);
 
@@ -86,14 +95,15 @@ const DashBoard = () => {
           <Tab>
             <FaBell size={20} />
           </Tab>
-          <Tab>
-            <Tab onClick={handleUserTabClick}>
+          <Tab  onClick={handleUserTabClick}>
               <FaUser size={20} />
-            </Tab>
+          </Tab>
+          <Tab  onClick={handleContestTabClick}>
+              Contest
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>home</TabPanel>
+          <TabPanel></TabPanel>
           <TabPanel></TabPanel>
           <TabPanel></TabPanel>
           <TabPanel></TabPanel>

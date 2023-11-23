@@ -11,6 +11,7 @@ import pixels from './images/pixels.jpg'
 import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
 import UserProfile from './UserProfile';
+import UserContest from './UserContest.js';
 import Layout from './DashBoard.js.js';
 
 const About = () => {
@@ -21,6 +22,15 @@ const About = () => {
         // Redirect to the "/user" route
          navigate('/team');
       };
+      const handleAboutTabClick = () => {
+        // Redirect to the "/user" route
+         navigate('/about');
+      };
+      const handleCompetitionTabClick = () => {
+        // Redirect to the "/user" route
+         navigate('/competition');
+      };
+
 
       useEffect(() => {
         console.log('mey')
@@ -29,7 +39,7 @@ const About = () => {
           case '/about':
             setActiveTab(0);
             break;
-          case '/copmetition':
+          case '/competition':
             setActiveTab(1);
             break;
           case '/team':
@@ -41,7 +51,7 @@ const About = () => {
         }
       }, [location]);
     
-      const handleTeamChange = (index) => {
+      const handleTabChange = (index) => {
         console.log(index)
         setActiveTab(index);
       };
@@ -52,11 +62,12 @@ const About = () => {
         <Box>
             <Flex mt='15px' w='100%'>
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
-                            onChange={handleTeamChange} >
+                            onChange={handleTabChange} >
                         <TabList>
-                            <Tab>About</Tab>
+                            <Tab onClick={handleAboutTabClick}>About</Tab>
                             <Spacer/>
-                            <Tab>
+                            <Tab  onClick={handleCompetitionTabClick}
+                            > 
                             Competition   
                             </Tab>
                             <Spacer/>
@@ -76,7 +87,7 @@ const About = () => {
                                 <EducationComponent/>
                             </TabPanel>
                             <TabPanel>
-                                hey
+                                
                             </TabPanel>
                             <TabPanel>
                             </TabPanel>
