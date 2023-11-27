@@ -60,7 +60,7 @@ const About = () => {
     
     <UserProfile>
         <Box>
-            <Flex mt='15px' w='100%'>
+            <Flex mt='15px' w='100%'> 
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
                         <TabList>

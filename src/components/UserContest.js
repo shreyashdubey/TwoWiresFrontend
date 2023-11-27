@@ -1,43 +1,159 @@
 // UserContest.js
 import React from 'react';
 import About from './About';
-import { Table, Thead, Tbody, Tr, Th, Td, Container } from "@chakra-ui/react";
+import { Box, Container, Card, Text, Image , Link , Badge , HStack , Spacer , SimpleGrid ,useColorModeValue} from '@chakra-ui/react';
+import contest1 from './images/contest1.jpeg'
 
 const UserContest = () => {
-  const contestEntries = [
-    { name: "Contest1", rank: 1, participant: "Participant1", startTime: "YYYY-MM-DD HH:mm" },
-    { name: "Contest2", rank: 2, participant: "Participant2", startTime: "YYYY-MM-DD HH:mm" },
-    { name: "Contest3", rank: 3, participant: "Participant3", startTime: "YYYY-MM-DD HH:mm" },
-    // Add more entries as needed
+  const chakraUIColor = useColorModeValue('rgba(0, 87, 255, 1)', 'rgba(0, 87, 255, 1)');
+  const chakraUIColorLastbox = useColorModeValue('#FFBA93', '#FFBA93');
+  const contestData = [
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+    {
+      imageSrc: contest1,
+      heading: 'Contest 1',
+      description: 'Solve interesting problems and win exciting prizes.',
+      prize: 1000,
+      monthsLeft: 2,
+    },
+   
+    // Add more contests as needed
   ];
 
   return (
     <>
-      <About/>  
-      <Container maxW="container.xl" centerContent>
-        <Table variant="simple" ml='10px' mr='25px' w='50%' align='center' borderColor="gray.300" borderWidth="1px" mt='30px'>
-          <Thead>
-            <Tr>
-              <Th>Index</Th>
-              <Th>Name</Th>
-              <Th>Rank</Th>
-              <Th>Participant</Th>
-              <Th>Start Time</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {contestEntries.map((entry, index) => (
-              <Tr key={index} bg={index % 2 === 0 ? "gray.200" : "gray.300"}>
-                <Td>{index + 1}</Td>
-                <Td>{entry.name}</Td>
-                <Td>{entry.rank}</Td>
-                <Td>{entry.participant}</Td>
-                <Td>{entry.startTime}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+      <About />
+      <Container maxW="container.xl" centerContent bgColor={'blackAlpha.100'} width={1440}>
+        <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
+        {contestData.map((contest, index) => (
+          <Link key={index} to={`/contest/${index}`}>
+            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden">
+              <Box borderRadius="50px 50px 0 0" h='25%'>
+                <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
+              </Box>
+
+              <Box p="6">
+                <Box d="flex" alignItems="baseline">
+                  <Badge borderRadius="full" px="2" colorScheme="teal">
+                    Completed
+                  </Badge>
+                </Box>
+
+                <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+                  {contest.heading}
+                </Box>
+
+                <Text mt={2} color="gray.600">
+                  {contest.description}
+                </Text>
+
+                {/* Add a boundary after the problem description */}
+               
+                <Box mt='30px' borderTop="1px solid #e1e1e1" pt={2}>
+                  <Link color={chakraUIColor}>Know More</Link>
+                </Box>
+               
+              </Box>
+            </Card>
+          </Link>
+        ))}
+      </SimpleGrid>
       </Container>
+      <Box bgColor={chakraUIColorLastbox} width={1280} height={250}mt={50} ml={120}>
+              <Text>Damn you mother fucker</Text>
+      </Box>
+      <Box  width={1440} height={5}mt={50} ml={50}>
+      </Box>
     </>
   );
 };
