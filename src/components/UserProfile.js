@@ -25,8 +25,7 @@ const User = () => {
       };
    
   return (
-    <Layout>
-    <Flex   ml = {300} mt='100px' >
+    <Flex   ml = {300} mt='100px'  >
         {/* <Box ml={200} bgColor={'red.100'}></Box> */}
        <Stack direction = 'column' w = {800}>
            <Flex > 
@@ -52,15 +51,16 @@ const User = () => {
          </Stack>    
 
     </Flex>
-    </Layout>
   );
 };
 const UserProfile = ({ children }) => {
     return (
-      <Flex direction="column" >
-        <User/>
-        {children}
-      </Flex>
+      <Layout>
+        <Flex direction="column" >
+          <User/>
+          {children}
+        </Flex>
+      </Layout>  
     );
   };
 

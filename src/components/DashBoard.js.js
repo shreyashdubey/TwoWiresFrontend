@@ -114,7 +114,7 @@ const DashBoard = () => {
 
 const Layout = ({ children }) => {
   return (
-    <Flex direction="column" height='100vh' bgColor={'blackAlpha.100'}>
+    <Flex direction="column" minHeight='100vh'>
       <DashBoard />
       {children}
     </Flex>
