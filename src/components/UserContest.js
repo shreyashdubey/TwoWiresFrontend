@@ -1,7 +1,7 @@
 // UserContest.js
 import React from 'react';
 import About from './About';
-import { Box, Container, Card, Text, Image , Link , Badge , HStack , Spacer , SimpleGrid ,useColorModeValue} from '@chakra-ui/react';
+import { Box, Container, Card, Text, Image , Link , Badge , HStack , Spacer , SimpleGrid ,useColorModeValue , Heading} from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 
 const UserContest = () => {
@@ -113,7 +113,8 @@ const UserContest = () => {
   return (
     <>
       <About />
-      <Container maxW="container.xl" centerContent bgColor={'blackAlpha.100'} width={1440}>
+      <Container maxW="container.xl" centerContent  width={1440}>
+        <Heading mr={780} mt={5} mb={7} fontSize={20} fontWeight={30} color='blackAlpha.900' >My Competition</Heading>
         <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>

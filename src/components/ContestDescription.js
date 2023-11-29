@@ -1,16 +1,28 @@
 // ContestDetailsPage.js
 import React , {useState , useEffect } from 'react';
 import Scrollspy from 'react-scrollspy';
-import { Box, Center, Image, Text, VStack  ,Tabs, TabList, Tab , Modal, TabPanel , TabPanels , Heading ,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalCloseButton,
-    ModalBody,
-    ModalFooter,
-    HStack,
-    Spacer,
-    Button,} from '@chakra-ui/react';
+import { Box,
+  Center,
+  Image,
+  Text,
+  VStack,
+  Tabs,
+  TabList,
+  Tab,
+  Modal,
+  TabPanel,
+  TabPanels,
+  Heading,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  HStack,
+  Spacer,
+  Button,
+  Input,} from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 
 const ContestDiscription = () => {
@@ -20,6 +32,7 @@ const ContestDiscription = () => {
   const [showSubmissionTab, setShowSubmissionTab] = useState(false);
   const [hideJoinButton, setHideJoinButton] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
+  const [file, setFile] = useState(null);
  
 
 
@@ -43,6 +56,16 @@ const ContestDiscription = () => {
     prize: '$1000',
     monthsLeft: 2,
     imageSrc: contest1, // Replace with the actual image source
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleFileSubmit = () => {
+    // You can now use the 'file' state to upload the file to your backend server
+    // Implement your file upload logic here
+    console.log('File submitted:', file);
   };
 
   return (
@@ -109,7 +132,8 @@ const ContestDiscription = () => {
               <Tab>Submission</Tab>
             </TabList>
           </Tabs>
-          <Button colorScheme="teal" mt={2}>
+          <Input type="file" onChange={handleFileChange} mt={2} w='10%' />
+          <Button colorScheme="teal" mt={2} onClick={handleFileSubmit}>
             Submit
           </Button>
         </>

@@ -22,7 +22,6 @@ import ActiveCompetitions from './components/Contest.js';
 import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
 
-
 const App = () => {
   const [auth, setAuth] = useState('');
     const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'; // Assuming you're using React Router f
 import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer } from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
+import Layout from './DashBoard.js';
 
 const ActiveCompetitions = () => {
   const contestData = [
@@ -250,9 +251,10 @@ const ActiveCompetitions = () => {
 
   
   return (
-    <Container maxW="container.xl" centerContent>
+    <Layout>
+    <Container maxW="container.xl" centerContent mt='40' > 
       <Heading mb={4}>Active Competitions</Heading>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
+      <SimpleGrid columns={[1, null, 2, 3]} spacing={4} mt={5}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
             <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="50px" overflow="hidden">
@@ -291,6 +293,7 @@ const ActiveCompetitions = () => {
         ))}
       </SimpleGrid>
     </Container>
+    </Layout>
   );
 };
 

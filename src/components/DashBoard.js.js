@@ -61,9 +61,8 @@ const DashBoard = () => {
   return (
     <Flex
       bg="green.100"
-      h={16}
       align="center"
-      position="fixed"
+      style={{ position: 'sticky', top: '0', zIndex: 1000 }}
       as="header"
       width="100%"
       backdropFilter="saturate(180%) blur(5px)"
@@ -115,7 +114,7 @@ const DashBoard = () => {
 
 const Layout = ({ children }) => {
   return (
-    <Flex direction="column" h="100vh">
+    <Flex direction="column" height='100vh' bgColor={'blackAlpha.100'}>
       <DashBoard />
       {children}
     </Flex>

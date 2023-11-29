@@ -57,7 +57,7 @@ const User = () => {
 };
 const UserProfile = ({ children }) => {
     return (
-      <Flex direction="column" h="50vh">
+      <Flex direction="column" >
         <User/>
         {children}
       </Flex>
