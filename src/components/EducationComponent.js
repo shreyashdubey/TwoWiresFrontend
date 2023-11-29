@@ -17,6 +17,10 @@ import {
   HStack,
   Card,
   Text,
+  SimpleGrid ,
+  NumberDecrementStepper ,
+  NumberIncrementStepper ,
+  NumberInputStepper
 } from '@chakra-ui/react';
 
 const EducationComponent = () => {
@@ -90,38 +94,58 @@ const EducationComponent = () => {
                 value={newEducation.fieldOfStudy}
                 onChange={(e) => handleInputChange('fieldOfStudy', e.target.value)}
               />
-              <HStack>
-                <Select
-                  placeholder="Start Month"
-                  value={newEducation.startMonth}
-                  onChange={(e) => handleInputChange('startMonth', e.target.value)}
-                >
-                  {/* Include your month options here */}
-                </Select>
-                <NumberInput
-                  placeholder="Start Year"
-                  value={newEducation.startYear}
-                  onChange={(value) => handleInputChange('startYear', value)}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </HStack>
-              <HStack>
-                <Select
-                  placeholder="End Month"
-                  value={newEducation.endMonth}
-                  onChange={(e) => handleInputChange('endMonth', e.target.value)}
-                >
-                  {/* Include your month options here */}
-                </Select>
-                <NumberInput
-                  placeholder="End Year"
-                  value={newEducation.endYear}
-                  onChange={(value) => handleInputChange('endYear', value)}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </HStack>
+              <Box position="relative" h="100vh" >
+                 <SimpleGrid gap={12} p={12} columns={2}>
+                   <Box >
+                      <NumberInput variant="filled" min={1} max={12}>
+                        <NumberInputField placeholder="month" 
+                        value={newEducation.startMonth}
+                        onChange={(e) => handleInputChange('startMonth', e.target.value)}
+                        />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </Box>
+             <Box >
+              <NumberInput variant="filled" min={1970} max={2023}>
+                <NumberInputField placeholder="year" 
+                value={newEducation.startYear}
+                onChange={(e) => handleInputChange('startYear', e.target.value)}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </Box>
+          <Box >
+            <NumberInput variant="filled" min={1} max={12}>
+              <NumberInputField placeholder="month" 
+              value={newEducation.endMonth}
+              onChange={(e) => handleInputChange('endMonth', e.target.value)}
+              />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </Box>
+          <Box >
+            <NumberInput variant="filled" min={1970} max={2023}>
+              <NumberInputField placeholder="year" 
+              value={newEducation.endYear}
+              onChange={(e) => handleInputChange('endYear', e.target.value)}
+              />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </Box>
+        </SimpleGrid>
+      </Box>
             </VStack>
           </ModalBody>
           <ModalFooter>
@@ -140,7 +164,7 @@ const EducationComponent = () => {
           </Text>
           <Text>{education.college}</Text>
           <Text>
-            {education.startMonth} {education.startYear} - {education.endMonth} {education.endYear}
+            {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
           </Text>
         </Card>
       ))}

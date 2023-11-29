@@ -21,6 +21,8 @@ import About from './components/About.js';
 import ActiveCompetitions from './components/Contest.js';
 import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
+import CreateConcept from './components/CreateContest.js';
+
 
 const App = () => {
   const [auth, setAuth] = useState('');
@@ -65,6 +67,8 @@ const App = () => {
           <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
           <Route path="/discription" element={<ContestDiscription />} />
+          <Route path="/create" element={<CreateConcept />} />
+
 
         </>
 
