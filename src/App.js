@@ -23,6 +23,7 @@ import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
 import CreateConcept from './components/CreateContest.js';
 import Experience from './components/Experience.js';
+import TestCalendar from './components/TestCalendar.js';
 
 
 const App = () => {
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/competition" element={<UserContest />} />
           <Route path="/discription" element={<ContestDiscription />} />
           <Route path="/create" element={<CreateConcept />} />
+          <Route path="/calendar" element={<TestCalendar />} />
 
         </>
 

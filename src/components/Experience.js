@@ -21,7 +21,8 @@ import {
   NumberDecrementStepper ,
   NumberIncrementStepper ,
   NumberInputStepper,
-  Heading
+  Heading ,
+  Grid
 } from '@chakra-ui/react';
 import { FaItalic } from 'react-icons/fa';
 
@@ -39,7 +40,8 @@ const Experience = () => {
     endYear: '',
     Product : '' ,
   });
-
+  const months = Array.from({ length: 12 }, (_, index) => index + 1);
+  const years = Array.from({ length: 80 }, (_, index) => index + 1960);
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -110,58 +112,62 @@ const Experience = () => {
                 value={newEducation.Location}
                 onChange={(e) => handleInputChange('Location', e.target.value)}
               />
-              <Box position="relative" h="100vh" >
-                 <SimpleGrid gap={12} p={12} columns={2}>
-                   <Box >
-                      <NumberInput variant="filled" min={1} max={12}>
-                        <NumberInputField placeholder="month" 
-                        value={newEducation.startMonth}
-                        onChange={(e) => handleInputChange('startMonth', e.target.value)}
-                        />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </Box>
-             <Box >
-              <NumberInput variant="filled" min={1970} max={2023}>
-                <NumberInputField placeholder="year" 
-                value={newEducation.startYear}
-                onChange={(e) => handleInputChange('startYear', e.target.value)}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </Box>
-          <Box >
-            <NumberInput variant="filled" min={1} max={12}>
-              <NumberInputField placeholder="month" 
-              value={newEducation.endMonth}
-              onChange={(e) => handleInputChange('endMonth', e.target.value)}
-              />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </Box>
-          <Box >
-            <NumberInput variant="filled" min={1970} max={2023}>
-              <NumberInputField placeholder="year" 
-              value={newEducation.endYear}
-              onChange={(e) => handleInputChange('endYear', e.target.value)}
-              />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </Box>
-        </SimpleGrid>
-      </Box>
+              <Box  w='100%'>
+                  <Grid
+                    templateColumns="repeat(2, 1fr)"
+                    gap={4}
+                    p={4}
+                    alignItems="center"
+                    justifyContent='center'
+                  >
+                    <Select
+                      placeholder="Start Month"
+                      value={newEducation.startMonth}
+                      onChange={(e) => handleInputChange('startMonth', e.target.value)}
+                    >
+                      {months.map((month) => (
+                        <option key={month} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </Select>
+                    <Select
+                      placeholder="Start Year"
+                      value={newEducation.startYear}
+                      onChange={(e) => handleInputChange('startYear', e.target.value)}
+                    >
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </Select>
+
+                    <Select
+                      placeholder="End Month"
+                      value={newEducation.endMonth}
+                      onChange={(e) => handleInputChange('endMonth', e.target.value)}
+                    >
+                      {months.map((month) => (
+                        <option key={month} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </Select>
+                    <Select
+                      placeholder="End Year"
+                      value={newEducation.endYear}
+                      onChange={(e) => handleInputChange('endYear', e.target.value)}
+                    >
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </Select>
+                  </Grid>
+
+                </Box>
             </VStack>
           </ModalBody>
           <ModalFooter>
