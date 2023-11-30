@@ -111,10 +111,10 @@ const UserContest = () => {
   ];
 
   return (
-    <>
-      <About />
-      <Container maxW="container.xl" centerContent  width={1440}>
-        <Heading mr={780} mt={5} mb={7} fontSize={20} fontWeight={30} color='blackAlpha.900' >My Competition</Heading>
+    <About>
+      
+      <Container maxW="container.xl" centerContent  width={1440} mt={10} >
+        <Heading mr={780}  mb={7} fontSize={20} fontWeight={30} color='blackAlpha.900' >My Competition</Heading>
         <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
@@ -155,7 +155,7 @@ const UserContest = () => {
       </Box>
       <Box  width={1440} height={5}mt={50} ml={50}>
       </Box>
-    </>
+    </About>
   );
 };
 

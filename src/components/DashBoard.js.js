@@ -61,6 +61,7 @@ const DashBoard = () => {
   return (
     <Flex
       bg="green.100"
+      h='55px'
       align="center"
       style={{ position: 'sticky', top: '0', zIndex: 1000 }}
       as="header"
@@ -114,7 +115,7 @@ const DashBoard = () => {
 
 const Layout = ({ children }) => {
   return (
-    <Flex direction="column" minHeight='100vh'>
+    <Flex direction="column" minHeight='100vh' >
       <DashBoard />
       {children}
     </Flex>

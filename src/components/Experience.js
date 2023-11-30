@@ -100,8 +100,6 @@ const Experience = () => {
                 value={newEducation.CompanyName}
                 onChange={(e) => handleInputChange('CompanyName', e.target.value)}
               />
-              <Heading>Product</Heading>
-              <Text >Add your company’s products that you focus on (e.g. build, sell, or support) in this role.</Text>
                <Input
                 placeholder="Product"
                 value={newEducation.Product}

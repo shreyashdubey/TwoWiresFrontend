@@ -41,8 +41,7 @@ const TeamTab = () => {
   };
 
   return (
-    <>
-      <About/>
+    <About>
       <Flex direction="column">
         <ChakraLink to="/create-new-team">Create New Team</ChakraLink>
 
@@ -85,7 +84,7 @@ const TeamTab = () => {
           Next Page
         </Button>
       </Flex>
-      </>
+      </About>
   );
 };
 

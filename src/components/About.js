@@ -15,7 +15,7 @@ import UserContest from './UserContest.js';
 import Layout from './DashBoard.js.js';
 import Experience from './Experience.js';
 
-const About = () => {
+const User = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [activeTab, setActiveTab] = useState(0);
@@ -58,9 +58,7 @@ const About = () => {
       };
 
     return(
-    
-    <UserProfile>
-        <Box>
+        <Box > 
             <Flex mt='15px' w='100%'> 
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
@@ -88,20 +86,25 @@ const About = () => {
                                 <EducationComponent/>
                                 <Experience/>
                             </TabPanel>
-                            <TabPanel>
-                                
-                            </TabPanel>
-                            <TabPanel>
-                            </TabPanel>
                         </TabPanels>
                         </Tabs>
                 </Flex>
         {/* Your page content goes here */}
         </Box>
-    </UserProfile>
         
     )
 
 }
+
+const About = ({ children }) => {
+  return (
+    <UserProfile>
+    <Flex direction="column" >
+      <User />
+      {children}
+    </Flex>
+    </UserProfile>
+  );
+};
 
 export default About;
