@@ -36,7 +36,7 @@ const Login = () => {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("USER_ID", userId)
                 alert('Login successful');
-                navigate('/home');
+                navigate('/contest');
             } else{
                 alert('Login failed. Please try again.');
             }

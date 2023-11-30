@@ -35,23 +35,14 @@ const DashBoard = () => {
   useEffect(() => {
     const { pathname } = location;
     switch (pathname) {
-      case '/home':
-        setActiveTab(0);
-        break;
-      case '/inbox':
-        setActiveTab(1);
-        break;
-      case '/notifications':
-        setActiveTab(2);
-        break;
       case '/about':
-        setActiveTab(3);
+        setActiveTab(1);
         break;
       case '/team':
         setActiveTab(3)  
         break;
       case '/contest':
-        setActiveTab(4)  
+        setActiveTab(0)  
         break;  
     }
   }, [location]);
@@ -88,16 +79,16 @@ const DashBoard = () => {
         onChange={handleTabChange}
       >
         <TabList>
-          <Tab  onClick={handleUserTabClick}>
-              <FaUser size={20} />
-          </Tab>
-          <Tab  onClick={handleContestTabClick}>
+        <Tab  onClick={handleContestTabClick}>
           <Image
             boxSize='25px'
             objectFit='cover'
             src={trophy}
             alt='Dan Abramov'
           />
+          </Tab>
+          <Tab  onClick={handleUserTabClick}>
+              <FaUser size={20} />
           </Tab>
         </TabList>
         <TabPanels>

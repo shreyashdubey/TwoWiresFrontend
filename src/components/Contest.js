@@ -1,12 +1,14 @@
 // ActiveCompetitions.js
 import React from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
-import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer } from '@chakra-ui/react';
+import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue , } from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
 
 const ActiveCompetitions = () => {
+  const chakraUIColor = useColorModeValue('rgba(0, 87, 255, 1)', 'rgba(0, 87, 255, 1)');
+  const chakraUIColorLastbox = useColorModeValue('#FFBA93', '#FFBA93');
   const contestData = [
     {
       imageSrc: contest1,
@@ -252,12 +254,12 @@ const ActiveCompetitions = () => {
   
   return (
     <Layout>
-    <Container maxW="container.xl" centerContent mt='40' > 
-      <Heading mb={4}>Active Competitions</Heading>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={4} mt={5}>
+     <Container maxW="container.xl" centerContent  width={1440} mt={10} >
+        <Heading  mb={7} fontSize={20} fontWeight={50} color='blackAlpha.900' >Active Competition</Heading>
+        <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
-            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="50px" overflow="hidden">
+            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden">
               <Box borderRadius="50px 50px 0 0" h='25%'>
                 <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
               </Box>
@@ -280,11 +282,7 @@ const ActiveCompetitions = () => {
                 {/* Add a boundary after the problem description */}
                
                 <Box mt='30px' borderTop="1px solid #e1e1e1" pt={2}>
-                <HStack>
-                  <Text>${contest.prize} Prize</Text>
-                  <Spacer/>
-                  <Text>{contest.monthsLeft} Months Left</Text> 
-                </HStack>
+                  <Link color={chakraUIColor}>Know More</Link>
                 </Box>
                
               </Box>
@@ -292,7 +290,12 @@ const ActiveCompetitions = () => {
           </Link>
         ))}
       </SimpleGrid>
-    </Container>
+      </Container>
+      <Box bgColor={chakraUIColorLastbox} width={1280} height={250}mt={50} ml={120}>
+              <Text>Damn you mother fucker</Text>
+      </Box>
+      <Box  width={1440} height={5}mt={50} ml={50}>
+      </Box>
     </Layout>
   );
 };
