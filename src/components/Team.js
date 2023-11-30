@@ -1,6 +1,6 @@
 // TeamTab.js
 import React, { useState, useEffect } from 'react';
-import { Flex, Table, Thead, Tbody, Tr, Th, Td, Button } from '@chakra-ui/react';
+import { Flex, Table, Thead, Tbody, Tr, Th, Td, Button , TableContainer, Card, Center, HStack,Text, VStack} from '@chakra-ui/react';
 import { Link as ChakraLink } from 'react-router-dom';
 import axios from 'axios'; // Import axios for making API requests
 import instance from '../utils/api';
@@ -39,50 +39,63 @@ const TeamTab = () => {
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage -1);
+  };
 
   return (
     <About>
-      <Flex direction="column">
-        <ChakraLink to="/create-new-team">Create New Team</ChakraLink>
-
-        <Table variant="simple" mt={4} bg={'gray.200'}>
-          <Thead>
-            <Tr>
-              <Th w='30%'>Team Name</Th>
-              <Th w='70%'>Team Members</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {teamData.map((team) => (
-              <Tr key={team._id}>
-                <Td>{team.teamName}</Td>
-                <Td>
-                  <Table>
-                    <Thead>
-                      <Tr>
-                        <Th>Member Name</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {team.members.map((member) => (
-                        <Tr key={member._id}>
-                          <Td>{member.username}</Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </Td>
-                <Td>
-                  <ChakraLink to={`/invite-users/${team._id}`}>Edit</ChakraLink>
-                </Td>
+      <Flex direction="column" w='50%' ml='385px' mt='20px'>
+      <Center>
+          <ChakraLink to="/create-new-team">
+          <Button colorScheme='teal' variant='link'>
+              Create a team
+          </Button>
+        </ChakraLink>
+        </Center> 
+        <Card ml='13px' mt='20px' borderColor="black" borderTopColor={'blackAlpha.900'}>
+        <TableContainer ml='55px' >
+          <Table  variant='unstyled' 
+          mt={4} color={'blackAlpha.900'}>
+            <Thead>
+              <Tr>
+                <Th w="5%">#</Th>
+                <Th w='30%'>Team Name</Th>
+                <Th w='40%'>Team Members</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-
-        <Button onClick={handleNextPage} mt={4}>
-          Next Page
-        </Button>
+            </Thead>
+            <Tbody>
+               {teamData.map((team, index) => (
+                <Tr key={team._id}>
+                  <Td>{index + 1}</Td>
+                  <Td>{team.teamName}</Td>
+                  <Td>
+                      {team.members.map((member) => (
+                          <Td>{member.username}</Td>
+                      ))}
+                  </Td>
+                  <Td>
+                    <ChakraLink to={`/invite-users/${team._id}`}>Edit</ChakraLink>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>  
+        </Card>
+        <Center>
+          <VStack>
+          <Text>{`Page ${currentPage}`}</Text>
+          <HStack>
+          <Button onClick={handlePrevPage} mt={4}>
+              Prev Page
+            </Button>
+            <Button onClick={handleNextPage} mt={4}>
+              Next Page
+            </Button>
+            </HStack>  
+            </VStack>
+        </Center>  
       </Flex>
       </About>
   );

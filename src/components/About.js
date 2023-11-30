@@ -58,7 +58,7 @@ const User = () => {
       };
 
     return(
-        <Box > 
+        <Box   w='50%' ml='385px'> 
             <Flex mt='15px' w='100%'> 
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
