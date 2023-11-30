@@ -20,6 +20,7 @@ import {GET_USERID} from '../utils/endpoints';
 import {INVITE_USER} from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
 import { GET_TEAM_MEMBER } from '../utils/endpoints';
+import Layout from './DashBoard.js'
 
 const InviteUsers = () => {
   const { team} = useParams();
@@ -112,7 +113,8 @@ const fetchTeamMember = async () => {
 };
 
   return (
-    <Box p={4}>
+    <Layout>
+    <Box p={4} mt ='15px'>
       <Heading as="h3" size="lg" mb={4}>
         Invite Users to Team {team}
       </Heading>
@@ -153,6 +155,7 @@ const fetchTeamMember = async () => {
         </Tbody>
       </Table>
     </Box>
+    </Layout>
   );
 };
 
