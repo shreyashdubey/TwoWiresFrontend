@@ -13,6 +13,7 @@ import {
   Tr,
   Th,
   Td,
+  Center ,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import instance from '../utils/api';
@@ -30,6 +31,7 @@ const InviteUsers = () => {
   useEffect(() => {
     // Simulate updating the status when the component mounts or when invitedUsers changes
    // updateStatusForAcceptedUsers();
+    
      fetchTeamMember();
   }, []);
 
@@ -113,48 +115,54 @@ const fetchTeamMember = async () => {
 };
 
   return (
-    <Layout>
-    <Box p={4} mt ='15px'>
-      <Heading as="h3" size="lg" mb={4}>
-        Invite Users to Team {team}
-      </Heading>
-      <FormControl mb={4}>
-        <FormLabel>Username</FormLabel>
-        <Input
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-      </FormControl>
-      <Button colorScheme="teal" onClick={handleInviteUser}>
-        Invite User
-      </Button>
+    <Layout > 
+    <Center>
+        <Box p={4} mt="150px" w="50%" borderColor="red.900">
+          <Heading as="h3" size="lg" mb={4}>
+            Invite Users to Team {team}
+          </Heading>
+          <FormControl mb={4}>
+            <FormLabel>Username</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </FormControl>
+          <Button colorScheme="teal" onClick={handleInviteUser}>
+            Invite User
+          </Button>
 
-      {/* Display the invited users in a table */}
-      <Table variant="simple" mt={4}>
-        <Thead>
-          <Tr>
-            <Th>User</Th>
-            <Th>Status</Th>
-            <Th>Action</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {invitedUsers.map((user, index) => (
-            <Tr key={index}>
-              <Td>{user.username}</Td>
-              <Td>{user.inviteStatus}</Td>
-              <Td>
-                <Button colorScheme="red" size="sm" onClick={() => handleRemoveUser(index)}>
-                  Remove
-                </Button>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </Box>
+          {/* Display the invited users in a table */}
+          <Table variant="simple" mt={4}>
+            <Thead>
+              <Tr>
+                <Th>User</Th>
+                <Th>Status</Th>
+                <Th>Action</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {invitedUsers.map((user, index) => (
+                <Tr key={index}>
+                  <Td>{user.username}</Td>
+                  <Td>{user.inviteStatus}</Td>
+                  <Td>
+                    <Button
+                      colorScheme="red"
+                      size="sm"
+                      onClick={() => handleRemoveUser(index)}
+                    >
+                      Remove
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
+      </Center>
     </Layout>
   );
 };

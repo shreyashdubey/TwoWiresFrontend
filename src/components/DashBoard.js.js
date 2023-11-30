@@ -12,9 +12,11 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Image
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
+import trophy from './images/trophy.png'
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -68,10 +70,10 @@ const DashBoard = () => {
       width="100%"
       backdropFilter="saturate(180%) blur(5px)"
     >
-      <Heading ml={4} fontSize={30} fontWeight={10}>
-        Sparrow
+      <Heading ml={8} fontSize={30} fontWeight={10}>
+        SourcedStartup
       </Heading>
-      <InputGroup w="250px" ml="20px" borderColor="blackAlpha.400" left="720">
+      <InputGroup w="250px" ml="20px" borderColor="blackAlpha.400" left="400px">
         <InputLeftElement
           pointerEvents="none"
           children={<Icon as={SearchIcon} color="black.300" />}
@@ -86,20 +88,16 @@ const DashBoard = () => {
         onChange={handleTabChange}
       >
         <TabList>
-          <Tab>
-            <FaHome size={20} />
-          </Tab>
-          <Tab>
-            <FaEnvelope size={20} />
-          </Tab>
-          <Tab>
-            <FaBell size={20} />
-          </Tab>
           <Tab  onClick={handleUserTabClick}>
               <FaUser size={20} />
           </Tab>
           <Tab  onClick={handleContestTabClick}>
-              Contest
+          <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={trophy}
+            alt='Dan Abramov'
+          />
           </Tab>
         </TabList>
         <TabPanels>
