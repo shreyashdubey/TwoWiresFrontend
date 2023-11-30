@@ -17,8 +17,9 @@ import {
   useDisclosure,
   HStack,
   Heading,
+  Text ,
 } from '@chakra-ui/react';
-
+import theme from '../utils/color';
 const SkillComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newSkill, setNewSkill] = useState('');
@@ -44,7 +45,7 @@ const SkillComponent = () => {
 
   return (
     <Box>
-      <Heading fontSize={20}>Skills</Heading>
+      <Heading fontSize={20} color='custom.white'>Skills</Heading>
       <Box mt={4} w = '30%'>
         <Box align="center">
           <HStack align="flex-start" spacing={2} ml={2} flexWrap="wrap">
@@ -56,8 +57,8 @@ const SkillComponent = () => {
             ))}
           </HStack>
         </Box>
-        <Button mt={2} onClick={handleSkillChange}>
-          Change
+        <Button mt={2} onClick={handleSkillChange} bgColor='custom.darkSlateBlue' > 
+           <Text color='custom.white'>Change</Text>
         </Button>
       </Box>
 

@@ -66,11 +66,11 @@ const EducationComponent = () => {
   };
 
   return (
-    <Box  mt={2}>
-      <Text fontSize="xl" fontWeight="bold" mb={4}>
+    <Box  mt={5}>
+      <Text fontSize="xl" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' w='14%'>
         Education
       </Text>
-      <Button onClick={handleOpenModal}>Add Education</Button>
+      <Button onClick={handleOpenModal} bgColor='custom.darkSlateBlue'><Text color='custom.white'>Add Education</Text></Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />

@@ -17,6 +17,7 @@ import {
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
 import trophy from './images/trophy.png'
+import theme from '../utils/color';
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const DashBoard = () => {
 
   return (
     <Flex
-      bg="green.100"
+      bgColor = 'custom.charcoal'
       h='55px'
       align="center"
       style={{ position: 'sticky', top: '0', zIndex: 1000 }}
@@ -61,15 +62,15 @@ const DashBoard = () => {
       width="100%"
       backdropFilter="saturate(180%) blur(5px)"
     >
-      <Heading ml={8} fontSize={30} fontWeight={10}>
+      <Heading ml={8} fontSize={30} fontWeight={10} color='custom.white'>
         SourcedStartup
       </Heading>
-      <InputGroup w="250px" ml="20px" borderColor="blackAlpha.400" left="400px">
+      <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue" left="400px">
         <InputLeftElement
           pointerEvents="none"
-          children={<Icon as={SearchIcon} color="black.300" />}
+          children={<Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />}
         />
-        <Input type="text" placeholder="Search..." color="blackAlpha.300" />
+        <Input type="text" placeholder="Search..." color="custom.white" />
       </InputGroup>
       <Tabs
         ml={5}
@@ -77,9 +78,10 @@ const DashBoard = () => {
         left="750px"
         index={activeTab}
         onChange={handleTabChange}
+        Color='custom.darkStateBlue'
       >
         <TabList>
-        <Tab  onClick={handleContestTabClick}>
+        <Tab  onClick={handleContestTabClick} Color='custom.darkStateBlue'>
           <Image
             boxSize='25px'
             objectFit='cover'
@@ -104,7 +106,7 @@ const DashBoard = () => {
 
 const Layout = ({ children }) => {
   return (
-    <Flex direction="column" minHeight='100vh' >
+    <Flex direction="column" minHeight='100vh' bgColor="custom.midnightBlue">
       <DashBoard />
       {children}
     </Flex>

@@ -63,21 +63,21 @@ const User = () => {
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
                         <TabList>
-                            <Tab onClick={handleAboutTabClick}>About</Tab>
+                            <Tab onClick={handleAboutTabClick}><Text color='custom.white'>About</Text></Tab>
                             <Spacer/>
                             <Tab  onClick={handleCompetitionTabClick}
                             > 
-                            Competition   
+                            <Text color='custom.white'>Competition</Text>
                             </Tab>
                             <Spacer/>
                             <Tab 
                             onClick={handleTeamTabClick}
                             >
-                                Team
+                              <Text color='custom.white'>Team</Text>
                             </Tab>
                             <Spacer/>
                             <Tab>
-                            Statistics
+                            <Text color='custom.white'>Statistics</Text>
                             </Tab>
                         </TabList>
                         <TabPanels>

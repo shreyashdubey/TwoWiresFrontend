@@ -48,19 +48,19 @@ const TeamTab = () => {
       <Flex direction="column" w="50%" ml="385px" mt="20px">
         <Center>
           <ChakraLink to="/create-new-team">
-            <Button colorScheme="teal" variant="link">
-              Create a team
+            <Button  bgColor='custom.darkSlateBlue'   mt='8px'>
+               <Text color='custom.white'>Create a Team</Text>
             </Button>
           </ChakraLink>
         </Center>
-        <Card ml="13px" mt="20px" borderColor="black" borderTopColor={'blackAlpha.900'}>
+        <Card ml="13px" mt="20px"  bgColor='custom.darkSlateBlue'>
           <TableContainer ml="55px">
-            <Table variant="unstyled" mt={4} color={'blackAlpha.900'}>
+            <Table variant="unstyled" mt={4} >
               <Thead>
-                <Tr bgColor={'blackAlpha.900'} color={'whiteAlpha.900'}>
-                  <Th w="5%">#</Th>
-                  <Th w="30%">Team Name</Th>
-                  <Th w="40%">Team Members</Th>
+                <Tr >
+                  <Th w="5%"><Text color='custom.white'>#</Text></Th>
+                  <Th w="30%"><Text color='custom.white'>Team Name</Text></Th>
+                  <Th w="40%"><Text color='custom.white'>Team Members</Text></Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -69,26 +69,26 @@ const TeamTab = () => {
                     <Tr  alignItems='center'>
                     <Td >
                       <Center  h='80px' w='80px'>
-                        <Text>{index + 1}</Text>
+                        <Text color='custom.white'>{index + 1}</Text>
                         <Divider orientation='vertical' colorScheme='red' height='100%' mx={7} align='center'/>
                       </Center>
                       </Td>
                       <Td>
                         <Center  h='80px' w='80px'>
-                        <Button colorScheme='teal' variant='link'>{team.teamName}</Button>
+                        <Button colorScheme='teal' variant='link'><Text color='custom.white'>{team.teamName}</Text></Button>
                         <Divider orientation='vertical' colorScheme='red' height='100%' mx={7} align='center'/>
                       </Center>
                       </Td>
                       <Td>
                          <Center  h='80px' w='80px'>
                          {team.members.map((member) => (
-                          <Td key={member.username}><Button colorScheme='teal' variant='link'>{member.username}</Button></Td>
+                          <Td key={member.username}><Button colorScheme='teal' variant='link'><Text color='custom.white'>{member.username}</Text></Button></Td>
                         ))}
                         <Divider orientation='vertical' colorScheme='red' height='100%' mx={7} align='center'/>
                         </Center>
                       </Td>
                       <Td>
-                        <ChakraLink to={`/invite-users/${team._id}`}><Button colorScheme='red'>edit</Button></ChakraLink>
+                        <ChakraLink to={`/invite-users?t=${team._id}&v=${encodeURIComponent(team.teamName)}`}><Button  bgColor='custom.darkSlateBlue'><Text color='custom.white't>edit</Text></Button></ChakraLink>
 
                       </Td>
                     </Tr>
@@ -107,12 +107,12 @@ const TeamTab = () => {
         </Card>
         <Center>
           <HStack>
-            <Button onClick={handlePrevPage} mt={4}>
-              Previous
+            <Button  bgColor='custom.darkSlateBlue' onClick={handlePrevPage} mt={4}>
+            <Text color='custom.white'>Previous</Text>
             </Button>
-            <Text mt="17px">{`<<<Page ${currentPage}>>>`}</Text>
-            <Button onClick={handleNextPage} mt={4}>
-              Next
+            <Text color='custom.white' mt="17px">{`Page ${currentPage}`}</Text>
+            <Button  bgColor='custom.darkSlateBlue' onClick={handleNextPage} mt={4}>
+            <Text color='custom.white'>Next</Text> 
             </Button>
           </HStack>
         </Center>

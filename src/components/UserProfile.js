@@ -12,8 +12,7 @@ import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
 import DashBoard from './DashBoard.js.js';
 import Layout from './DashBoard.js.js';
-
-
+import theme from '../utils/color';
 
 const User = () => {
 
@@ -39,10 +38,10 @@ const User = () => {
                 />
                     <Box ml={2}  mt={7}>
                     <Stack spacing={3} direction={'column'}>
-                        <Text fontSize='20'> Mrs. chamnd0</Text>
-                        <Text fontSize='15'> Joined this platform 3years+ ago.</Text>
-                        <Text fontSize='12'> New Delhi , Delhi , INDIA</Text>
-                        <Text fontSize='10'> MASCOT’S team member</Text>
+                        <Text fontSize='20' color='custom.white'> Mrs. chamnd0</Text>
+                        <Text fontSize='15' color='custom.white'> Joined this platform 3years+ ago.</Text>
+                        <Text fontSize='12' color='custom.white'> New Delhi , Delhi , INDIA</Text>
+                        <Text fontSize='10' color='custom.white'> MASCOT’S team member</Text>
                     </Stack>
                     </Box>  
             </Stack>

@@ -1,11 +1,12 @@
 // CreateNewTeam.js
 import React, { useState } from 'react';
-import { Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
+import { Box, Heading, FormControl, FormLabel, Input, Button, Center } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import instance from '../utils/api';
 import { LOGIN, SIGNUP , CREATE_TEAM } from '../utils/endpoints';
 import InviteUsers from './InviteUser';
 import { jwtDecode } from "jwt-decode";
+import Layout from './DashBoard.js';
 
 const CreateNewTeam = () => {
   const [teamName, setTeamName] = useState('');
@@ -22,10 +23,10 @@ const CreateNewTeam = () => {
         const decodedToken = jwtDecode(accessToken);
         const owner = decodedToken.user._id
         const response = await instance.post(CREATE_TEAM ,{teamName,owner}, {'Content-Type': 'application/json'})
-        const team = response._id;
+        const teamID = response._id;
         if (response) {
           alert('team created')
-          navigate(`/invite-users/${team}`);
+          navigate(`/invite-users?t=${teamID}&v=${encodeURIComponent(teamName)}`);
         } else {
           // Signup failed
           alert('Some error');
@@ -42,23 +43,27 @@ const CreateNewTeam = () => {
   
 
   return (
-    <Box p={4}>
-      <Heading as="h3" size="lg" mb={4}>
-        Create New Team
-      </Heading>
-      <FormControl mb={4}>
-        <FormLabel>Team Name</FormLabel>
-        <Input
-          type="text"
-          placeholder="Enter team name"
-          value={teamName}
-          onChange={handleTeamNameChange}
-        />
-      </FormControl>
-      <Button colorScheme="teal" onClick={handleCreateTeam}>
-        Create Team
-      </Button>
-    </Box>
+    <Layout>
+      <Center>
+        <Box  w='50%' mt='150px' h='300px' >
+          <Heading as="h3" size="lg" mb={4}>
+            Create New Team
+          </Heading>
+          <FormControl mb={4} w='30%'>
+            <FormLabel>Team Name</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter team name"
+              value={teamName}
+              onChange={handleTeamNameChange}
+            />
+          </FormControl>
+          <Button colorScheme="teal" onClick={handleCreateTeam}>
+            Create Team
+          </Button>
+        </Box>
+      </Center>  
+    </Layout>    
   );
 };
 

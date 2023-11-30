@@ -22,6 +22,7 @@ import ActiveCompetitions from './components/Contest.js';
 import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
 import CreateConcept from './components/CreateContest.js';
+import Experience from './components/Experience.js';
 
 
 const App = () => {
@@ -58,7 +59,7 @@ const App = () => {
           <Route path="/account/password/confirm" element={<PasswordReset/>} />
           <Route path="/team" element={<Team/>} />
           <Route path="/create-new-team" element={<CreateNewTeam/>} />
-          <Route path="/invite-users/:team" element={<InviteUsers />} />
+          <Route path="/invite-users" element={<InviteUsers />} />
           <Route path="/modaltesting" element={<ModalTesting />} />
           <Route path="/skill" element={<SkillComponent />} />
           <Route path="/education" element={<EducationComponent />} />
@@ -68,7 +69,6 @@ const App = () => {
           <Route path="/competition" element={<UserContest />} />
           <Route path="/discription" element={<ContestDiscription />} />
           <Route path="/create" element={<CreateConcept />} />
-
 
         </>
 

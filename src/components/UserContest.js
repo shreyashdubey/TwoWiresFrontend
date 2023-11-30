@@ -114,34 +114,34 @@ const UserContest = () => {
     <About>
       
       <Container maxW="container.xl" centerContent  width={1440} mt={10} >
-        <Heading mr={780}  mb={7} fontSize={20} fontWeight={30} color='blackAlpha.900' >My Competition</Heading>
+        <Heading mr={780}  mb={7} fontSize={20} fontWeight={30} color='custom.white' >My Competition</Heading>
         <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
-            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden">
+            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden" bgColor='custom.darkSlateBlue'>
               <Box borderRadius="50px 50px 0 0" h='25%'>
                 <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
               </Box>
 
               <Box p="6">
                 <Box d="flex" alignItems="baseline">
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    Completed
+                  <Badge borderRadius="full" px="2" bgColor='custom.darkSlateBlue'>
+                    <Text color='custom.white'>Completed</Text>
                   </Badge>
                 </Box>
 
                 <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-                  {contest.heading}
+                  <Heading color='custom.white' fontSize='md'>{contest.heading}</Heading>
                 </Box>
 
-                <Text mt={2} color="gray.600">
+                <Text mt={2} color='custom.white'>
                   {contest.description}
                 </Text>
 
                 {/* Add a boundary after the problem description */}
                
                 <Box mt='30px' borderTop="1px solid #e1e1e1" pt={2}>
-                  <Link color={chakraUIColor}>Know More</Link>
+                  <Link color='custom.white'>Know More</Link>
                 </Box>
                
               </Box>

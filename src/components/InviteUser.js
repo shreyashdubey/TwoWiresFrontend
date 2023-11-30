@@ -1,5 +1,6 @@
 // InviteUsers.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Box,
   Heading,
@@ -21,17 +22,21 @@ import {GET_USERID} from '../utils/endpoints';
 import {INVITE_USER} from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
 import { GET_TEAM_MEMBER } from '../utils/endpoints';
-import Layout from './DashBoard.js'
+import Layout from './DashBoard.js';
+import { TeamContext } from './CreateTeam.js';
 
 const InviteUsers = () => {
-  const { team} = useParams();
   const [username, setUsername] = useState('');
   const [invitedUsers, setInvitedUsers] = useState([]);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('t'); // Get the team paramete
+  const teamName=searchParams.get('v')
 
   useEffect(() => {
     // Simulate updating the status when the component mounts or when invitedUsers changes
    // updateStatusForAcceptedUsers();
-    
+    console.log(teamId)
      fetchTeamMember();
   }, []);
 
@@ -48,7 +53,7 @@ const InviteUsers = () => {
       const sender = decodedToken.user._id;
       const response_username = await instance.get(`${GET_USERID}${username}`);
       const reciever = response_username.id
-      const response_team = await instance.post(INVITE_USER ,{reciever,sender ,team}, {'Content-Type': 'application/json'})
+      const response_team = await instance.post(INVITE_USER ,{reciever,sender ,teamId}, {'Content-Type': 'application/json'})
       if (response_team) {
         const status = response_team.inviteStatus; 
         const User = {
@@ -104,7 +109,7 @@ const fetchTeamMember = async () => {
     const decodedToken = jwtDecode(accessToken);
     const owner = decodedToken.user._id
    // const response = await instance.get(GET_TEAM_MEMBER/`${team}` ,{team ,owner}, {'Content-Type': 'application/json'})
-    const response = await instance.get(`${GET_TEAM_MEMBER}${team}`);
+    const response = await instance.get(`${GET_TEAM_MEMBER}${teamId}`);
     if(response){
       const teammember = response.members;
       setInvitedUsers(teammember)
@@ -119,7 +124,7 @@ const fetchTeamMember = async () => {
     <Center>
         <Box p={4} mt="150px" w="50%" borderColor="red.900">
           <Heading as="h3" size="lg" mb={4}>
-            Invite Users to Team {team}
+            Invite Users to Team {teamName}
           </Heading>
           <FormControl mb={4}>
             <FormLabel>Username</FormLabel>
