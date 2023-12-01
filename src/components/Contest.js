@@ -255,34 +255,34 @@ const ActiveCompetitions = () => {
   return (
     <Layout>
      <Container maxW="container.xl" centerContent  width={1440} mt={10} >
-        <Heading  mb={7} fontSize={20} fontWeight={50} color='blackAlpha.900' >Active Competition</Heading>
+        <Heading  mb={7} fontSize={20} fontWeight={50} color='custom.white' >Active Competition</Heading>
         <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
-            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden">
+            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden" bgColor='custom.darkSlateBlue'>
               <Box borderRadius="50px 50px 0 0" h='25%'>
                 <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
               </Box>
 
               <Box p="6">
                 <Box d="flex" alignItems="baseline">
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    Active
+                  <Badge borderRadius="full" px="2" colorScheme="teal" bgColor='custom.active'>
+                    <Text color='custom.white'>Active</Text>
                   </Badge>
                 </Box>
 
                 <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-                  {contest.heading}
+                    <Text color='custom.white'>{contest.heading}</Text>
                 </Box>
 
-                <Text mt={2} color="gray.600">
-                  {contest.description}
+                <Text mt={2} color='custom.white'>
+                    {contest.description}
                 </Text>
 
                 {/* Add a boundary after the problem description */}
                
                 <Box mt='30px' borderTop="1px solid #e1e1e1" pt={2}>
-                  <Link color={chakraUIColor}>Know More</Link>
+                  <Link color={chakraUIColor}><Text color='custom.white'>Know More</Text></Link>
                 </Box>
                
               </Box>

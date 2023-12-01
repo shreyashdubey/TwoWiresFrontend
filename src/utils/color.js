@@ -4,7 +4,7 @@ const theme = extendTheme({
   colors: {
     custom: {
       charcoal: '#1D4044',
-      midnightBlue: '#15202B',
+      midnightBlue: '#1A202C', //seleced one - '#1A202C'
       darkSlateBlue: '#192734',
       white: '#FFFFFF',
       button : '#22303C',

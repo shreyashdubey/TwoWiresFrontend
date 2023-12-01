@@ -24,6 +24,7 @@ import { Box,
   Button,
   Input,} from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
+import Layout from './DashBoard.js';
 
 const ContestDiscription = () => {
   // Assuming you have contest details available
@@ -69,7 +70,7 @@ const ContestDiscription = () => {
   };
 
   return (
-    <>
+    <Layout>
         <Box
         backgroundImage={`url(${contestDetails.imageSrc})`}
         backgroundSize="cover"
@@ -93,18 +94,18 @@ const ContestDiscription = () => {
             </VStack>
         </Center>
         </Box>
-        <Box p={4} bg="gray.100" w = '75%'  ml='175px'>
+        <Box p={4} bg="gray.100" w = '75%'  ml='175px' bgColor='darkSlateBlue'>
             <HStack>
                 <Tabs w = '20%'>
                     <TabList>
-                    <Tab>Overview</Tab>
-                    <Tab>Leaderboard</Tab>
+                    <Tab><Text color='custom.white'>Overview</Text></Tab>
+                    <Tab><Text color='custom.white'>Leaderboard</Text></Tab>
                     </TabList>
                 </Tabs>
                 <Spacer/>
                 {!hideJoinButton && (
-        <Button colorScheme="teal" onClick={handleJoinClick}>
-          Join Competition
+        <Button bgColor='custom.button' onClick={handleJoinClick}>
+          <Text  color='custom.white' >Join Competition</Text>
         </Button>
       )}
 
@@ -115,11 +116,11 @@ const ContestDiscription = () => {
           <ModalCloseButton />
           <ModalBody>
             {/* Add competition rules content here */}
-            <p>Rules go here.</p>
+            <p><Text color='custom.white'></Text>Rules go here.</p>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="teal" mr={3} onClick={handleAcceptClick}>
-              I Understand and Accept
+            <Button bgColor='custom.button' mr={3} onClick={handleAcceptClick}>
+            <Text color='custom.white'></Text>I Understand and Accept
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -129,19 +130,19 @@ const ContestDiscription = () => {
         <>
           <Tabs>
             <TabList>
-              <Tab>Submission</Tab>
+              <Tab><Text color='custom.white'>Submission</Text></Tab>
             </TabList>
           </Tabs>
           <Input type="file" onChange={handleFileChange} mt={2} w='10%' />
           <Button colorScheme="teal" mt={2} onClick={handleFileSubmit}>
-            Submit
+            <Text color='custom.white'>Submit</Text>
           </Button>
         </>
       )}
             </HStack>    
         </Box>
 
-    </>
+    </Layout>
   );
 };
 
