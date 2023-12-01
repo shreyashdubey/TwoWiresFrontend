@@ -10,7 +10,7 @@ const theme = extendTheme({
       button : '#22303C',
       ongoing : '#FFBF00',
       completed : '#CC5500',
-      scheduled: '#FBCEB1'
+      scheduled: '#FBCEB1',
     },
   },
 });

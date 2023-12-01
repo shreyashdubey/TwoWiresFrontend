@@ -21,7 +21,8 @@ import {
   NumberDecrementStepper ,
   NumberIncrementStepper ,
   NumberInputStepper ,
-  Grid
+  Grid ,
+  Flex ,
 } from '@chakra-ui/react';
 
 const EducationComponent = () => {
@@ -36,6 +37,7 @@ const EducationComponent = () => {
     endMonth: '',
     endYear: '',
   });
+  const [errorMessage, setErrorMessage] = useState('');
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
   const handleOpenModal = () => {
@@ -54,6 +56,10 @@ const EducationComponent = () => {
   };
 
   const handleAddEducation = () => {
+    if (!newEducation.college) {
+      setErrorMessage('College name is required');
+      return; // Prevent form submission
+    }
     setEducationData([...educationData, newEducation]);
     setNewEducation({
       college: '',
@@ -64,15 +70,38 @@ const EducationComponent = () => {
       endMonth: '',
       endYear: '',
     });
+    setErrorMessage('');
     handleCloseModal();
   };
+
+  const isEndDateValid = () => {
+    const { startMonth, startYear, endMonth, endYear } = newEducation;
+    if (!startMonth || !startYear || !endMonth || !endYear) {
+      return true; // Not enough information for validation
+    }
+
+    const startDate = new Date(`${startYear}-${startMonth}`);
+    const endDate = new Date(`${endYear}-${endMonth}`);
+    console.log(startDate)
+    console.log(endDate)
+    const what = startDate <= endDate;
+    console.log(what)
+    return startDate <= endDate;
+  };
+
+  const getValidationMessage = () => {
+    if (!isEndDateValid()) {
+      return 'End date can’t be earlier than start date';
+    }
+    return '';
+  }
 
   return (
     <Box  mt={5}>
       <Text fontSize="xl" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' w='14%'>
         Education
       </Text>
-      <Button onClick={handleOpenModal} bgColor='custom.button'><Text color='custom.white'>Add Education</Text></Button>
+      <Button onClick={handleOpenModal} bgColor='custom.button' variant='solid'><Text color='custom.white'>Add Education</Text></Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
@@ -81,11 +110,19 @@ const EducationComponent = () => {
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
+            <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="College"
                 value={newEducation.college}
+                isRequired={true}
                 onChange={(e) => handleInputChange('college', e.target.value)}
               />
+              {!newEducation.college && (
+                <Text color="red.500" fontSize="xs" mt={1}>
+                  {errorMessage}
+                </Text>
+              )}
+            </Flex>
               <Input
                 placeholder="Degree"
                 value={newEducation.degree}
@@ -145,11 +182,14 @@ const EducationComponent = () => {
                       onChange={(e) => handleInputChange('endYear', e.target.value)}
                     >
                       {years.map((year) => (
-                        <option key={year} value={year}>
+                        <option key={year} value={year}  >
                           {year}
                         </option>
                       ))}
                     </Select>
+                    <Text   noOfLines={1} color="red.500" mt={2} w='100%'> 
+                      {getValidationMessage()}
+                    </Text>
                   </Grid>
 
                 </Box>
@@ -166,13 +206,18 @@ const EducationComponent = () => {
 
       {educationData.map((education, index) => (
         <Card key={index} p={4} mt={4} boxShadow="md">
-          <Text fontSize="xl" fontWeight="bold">
-            {education.degree} in {education.fieldOfStudy}
-          </Text>
+              {education.degree && education.fieldOfStudy && (
+              <Text fontSize="xl" fontWeight="bold">
+                {education.degree} in {education.fieldOfStudy}
+              </Text>
+                )}
+
           <Text>{education.college}</Text>
-          <Text>
-            {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
-          </Text>
+          {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
+              <Text>
+                {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
+              </Text>
+                )}
         </Card>
       ))}
     </Box>

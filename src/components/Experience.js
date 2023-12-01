@@ -22,7 +22,8 @@ import {
   NumberIncrementStepper ,
   NumberInputStepper,
   Heading ,
-  Grid
+  Grid ,
+  Flex
 } from '@chakra-ui/react';
 import { FaItalic } from 'react-icons/fa';
 
@@ -40,6 +41,7 @@ const Experience = () => {
     endYear: '',
     Product : '' ,
   });
+  const [errorMessage, setErrorMessage] = useState('');
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
   const handleOpenModal = () => {
@@ -58,6 +60,10 @@ const Experience = () => {
   };
 
   const handleAddEducation = () => {
+    if (!newEducation.Title && !newEducation.CompanyName) {
+      setErrorMessage('College name is required');
+      return; // Prevent form submission
+    }
     setEducationData([...educationData, newEducation]);
     setNewEducation({
         Title: '',
@@ -70,8 +76,31 @@ const Experience = () => {
         endYear: '',
         Product : ''
     });
+    setErrorMessage('');
     handleCloseModal();
   };
+
+  const isEndDateValid = () => {
+    const { startMonth, startYear, endMonth, endYear } = newEducation;
+    if (!startMonth || !startYear || !endMonth || !endYear) {
+      return true; // Not enough information for validation
+    }
+
+    const startDate = new Date(`${startYear}-${startMonth}`);
+    const endDate = new Date(`${endYear}-${endMonth}`);
+    console.log(startDate)
+    console.log(endDate)
+    const what = startDate <= endDate;
+    console.log(what)
+    return startDate <= endDate;
+  };
+
+  const getValidationMessage = () => {
+    if (!isEndDateValid()) {
+      return 'End date can’t be earlier than start date';
+    }
+    return '';
+  }
 
   return (
     <Box  mt={2}>
@@ -87,21 +116,38 @@ const Experience = () => {
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
+              <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="Title"
                 value={newEducation.Title}
+                isRequired={true}
                 onChange={(e) => handleInputChange('Title', e.target.value)}
               />
+              {!newEducation.Title && (
+                <Text color="red.500" fontSize="xs" mt={1}>
+                  {errorMessage}
+                </Text>
+              )}
+            </Flex>
               <Input
                 placeholder="EmploymentType"
                 value={newEducation.EmploymentType}
                 onChange={(e) => handleInputChange('EmploymentType', e.target.value)}
               />
+               <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="CompanyName"
                 value={newEducation.CompanyName}
+                isRequired={true}
                 onChange={(e) => handleInputChange('CompanyName', e.target.value)}
               />
+              {!newEducation.CompanyName && (
+                <Text color="red.500" fontSize="xs" mt={1}>
+                  {errorMessage}
+                </Text>
+              )}
+            </Flex>
+              
                <Input
                 placeholder="Product"
                 value={newEducation.Product}
@@ -165,6 +211,9 @@ const Experience = () => {
                         </option>
                       ))}
                     </Select>
+                    <Text color="red.500" mt={2}>
+                      {getValidationMessage()}
+                    </Text>
                   </Grid>
 
                 </Box>
@@ -184,13 +233,21 @@ const Experience = () => {
           <Text fontSize="xl" fontWeight="bold">
             {education.Title} in {education.CompanyName}
           </Text>
+          {education.Product && (
           <Text>I have built {education.Product}</Text>
-          <Text>{education.Location}</Text>
-          <Text>
-            {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
-          </Text>
+          )}
+
+          {education.Location &&
+          (<Text>{education.Location}</Text>)}
+            
+          {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
+              <Text>
+                {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
+              </Text>
+                )}
         </Card>
       ))}
+      
     </Box>
   );
 };
