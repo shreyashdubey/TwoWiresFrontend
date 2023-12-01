@@ -24,16 +24,21 @@ const SkillComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newSkill, setNewSkill] = useState('');
   const [submittedSkills, setSubmittedSkills] = useState([]);
-
+  const [errorMessage, setErrorMessage] = useState('');
   const handleSkillChange = () => {
     onOpen();
   };
 
   const handleSaveSkill = () => {
     // Implement logic to post newSkill to the server
+    if (!newSkill) {
+      setErrorMessage('Skill is required');
+      return; // Prevent form submission
+    }
     console.log('Skill saved:', newSkill);
     setSubmittedSkills([...submittedSkills, newSkill]);
     setNewSkill('');
+    setErrorMessage('');
     onClose();
   };
 
@@ -62,7 +67,11 @@ const SkillComponent = () => {
         </Button>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={() => {
+          setNewSkill('');
+          setErrorMessage('');
+          onClose();
+        }}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Change Skill</ModalHeader>
@@ -71,8 +80,14 @@ const SkillComponent = () => {
             <Input
               placeholder="Enter your new skill"
               value={newSkill}
+              isRequired = 'true'
               onChange={(e) => setNewSkill(e.target.value)}
             />
+            {!newSkill && (
+                <Text color="red.500" fontSize="xs" mt={1}>
+                  {errorMessage}
+                </Text>
+              )}
           </ModalBody>
 
           <ModalFooter>

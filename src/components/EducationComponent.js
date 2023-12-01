@@ -45,6 +45,16 @@ const EducationComponent = () => {
   };
 
   const handleCloseModal = () => {
+    setNewEducation({
+      college: '',
+      degree: '',
+      fieldOfStudy: '',
+      startMonth: '',
+      startYear: '',
+      endMonth: '',
+      endYear: '',
+    })
+    setErrorMessage('')
     setIsOpen(false);
   };
 

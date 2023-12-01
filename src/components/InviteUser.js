@@ -15,6 +15,7 @@ import {
   Th,
   Td,
   Center ,
+  Text
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import instance from '../utils/api';
@@ -32,6 +33,7 @@ const InviteUsers = () => {
   const searchParams = new URLSearchParams(location.search);
   const teamId = searchParams.get('t'); // Get the team paramete
   const teamName=searchParams.get('v')
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     // Simulate updating the status when the component mounts or when invitedUsers changes
@@ -42,10 +44,16 @@ const InviteUsers = () => {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setErrorMessage('');
   };
 
   const handleInviteUser = async (e) =>{
     e.preventDefault();
+    if (!username.trim()) {
+      setErrorMessage('Username is required');
+      return;
+    }
+
     // Add your user invitation logic here
     try {
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
@@ -63,6 +71,7 @@ const InviteUsers = () => {
         };
         setInvitedUsers((prevUsers) => [...prevUsers,User]);
         setUsername('');
+        setErrorMessage('');
       } else {
         alert('Some error');
       }
@@ -123,7 +132,7 @@ const fetchTeamMember = async () => {
     <Layout > 
     <Center>
         <Box p={4} mt="150px" w="50%" borderColor="red.900">
-          <Heading as="h3" size="lg" mb={4}>
+          <Heading as="h3" size="lg" mb={4} color='custom.white' borderColor='custom.darkSlateBlue'>
             Invite Users to Team {teamName}
           </Heading>
           <FormControl mb={4}>
@@ -133,33 +142,40 @@ const fetchTeamMember = async () => {
               placeholder="Enter username"
               value={username}
               onChange={handleUsernameChange}
+              color='custom.white'
             />
+             {!username && (
+              <Text color="red.500" fontSize="sm" mt={1}>
+                {errorMessage}
+              </Text>
+            )}
           </FormControl>
-          <Button colorScheme="teal" onClick={handleInviteUser}>
-            Invite User
+          <Button bgColor='custom.button' onClick={handleInviteUser}>
+             <Text color='custom.white'>Invite User</Text>
           </Button>
 
           {/* Display the invited users in a table */}
           <Table variant="simple" mt={4}>
             <Thead>
               <Tr>
-                <Th>User</Th>
-                <Th>Status</Th>
-                <Th>Action</Th>
+                <Th><Text color='custom.white'>User</Text></Th>
+                <Th><Text color='custom.white'>Status</Text></Th>
+                <Th><Text color='custom.white' >Action</Text></Th>
               </Tr>
             </Thead>
             <Tbody>
               {invitedUsers.map((user, index) => (
                 <Tr key={index}>
-                  <Td>{user.username}</Td>
-                  <Td>{user.inviteStatus}</Td>
+                  <Td><Text color='custom.white'>{user.username}</Text></Td>
+                  <Td><Text color='custom.white'>{user.inviteStatus}</Text></Td>
                   <Td>
                     <Button
                       colorScheme="red"
                       size="sm"
                       onClick={() => handleRemoveUser(index)}
+                      bgColor='custom.button'
                     >
-                      Remove
+                       <Text color='custom.white' >Remove</Text>
                     </Button>
                   </Td>
                 </Tr>

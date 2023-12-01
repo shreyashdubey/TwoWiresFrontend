@@ -49,6 +49,18 @@ const Experience = () => {
   };
 
   const handleCloseModal = () => {
+    setNewEducation({
+      Title: '',
+      EmploymentType: '',
+      CompanyName: '',
+      Location : '' ,
+      startMonth: '',
+      startYear: '',
+      endMonth: '',
+      endYear: '',
+      Product : '' ,
+    })
+    setErrorMessage('')
     setIsOpen(false);
   };
 
@@ -61,7 +73,7 @@ const Experience = () => {
 
   const handleAddEducation = () => {
     if (!newEducation.Title && !newEducation.CompanyName) {
-      setErrorMessage('College name is required');
+      setErrorMessage(' is required');
       return; // Prevent form submission
     }
     setEducationData([...educationData, newEducation]);

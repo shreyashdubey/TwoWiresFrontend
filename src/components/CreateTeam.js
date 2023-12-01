@@ -1,6 +1,6 @@
 // CreateNewTeam.js
 import React, { useState } from 'react';
-import { Box, Heading, FormControl, FormLabel, Input, Button, Center } from '@chakra-ui/react';
+import { Box, Heading, FormControl, FormLabel, Input, Button, Center , Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import instance from '../utils/api';
 import { LOGIN, SIGNUP , CREATE_TEAM } from '../utils/endpoints';
@@ -11,13 +11,19 @@ import Layout from './DashBoard.js';
 const CreateNewTeam = () => {
   const [teamName, setTeamName] = useState('');
   const navigate = useNavigate();
+  const [isTeamNameValid, setIsTeamNameValid] = useState(true);
 
   const handleTeamNameChange = (e) => {
     setTeamName(e.target.value);
+    setIsTeamNameValid(true);
   };
 
   const handleCreateTeam = async (e) => {
     e.preventDefault();
+    if (teamName.trim() === '') {
+      setIsTeamNameValid(false);
+      return;
+    }
     try {
         const accessToken = localStorage.getItem('ACCESS_TOKEN');
         const decodedToken = jwtDecode(accessToken);
@@ -46,7 +52,7 @@ const CreateNewTeam = () => {
     <Layout>
       <Center>
         <Box  w='50%' mt='150px' h='300px' >
-          <Heading as="h3" size="lg" mb={4}>
+          <Heading as="h3" size="lg" mb={4} color='custom.white' >
             Create New Team
           </Heading>
           <FormControl mb={4} w='30%'>
@@ -56,10 +62,16 @@ const CreateNewTeam = () => {
               placeholder="Enter team name"
               value={teamName}
               onChange={handleTeamNameChange}
+              color='custom.white'
             />
+            {!isTeamNameValid && (
+              <Text color="red.500" fontSize="sm" mt={1}>
+                Team name is required
+              </Text>
+            )}
           </FormControl>
-          <Button colorScheme="teal" onClick={handleCreateTeam}>
-            Create Team
+          <Button bgColor='custom.button' onClick={handleCreateTeam}>
+             <Text color='custom.white'>Create Team</Text>
           </Button>
         </Box>
       </Center>  
