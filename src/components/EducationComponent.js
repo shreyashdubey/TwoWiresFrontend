@@ -113,19 +113,21 @@ const EducationComponent = () => {
       </Text>
       <Button onClick={handleOpenModal} bgColor='custom.button' variant='solid'><Text color='custom.white'>Add Education</Text></Button>
 
-      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+      <Modal isOpen={isOpen} onClose={handleCloseModal} >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add Education</ModalHeader>
+        <ModalContent bgColor='custom.mccolor'>
+          <ModalHeader color='custom.white'>Add Education</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
             <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="College"
+                color='custom.white'
                 value={newEducation.college}
                 isRequired={true}
                 onChange={(e) => handleInputChange('college', e.target.value)}
+                _placeholder={{ color: 'custom.white' }} 
               />
               {!newEducation.college && (
                 <Text color="red.500" fontSize="xs" mt={1}>
@@ -135,11 +137,15 @@ const EducationComponent = () => {
             </Flex>
               <Input
                 placeholder="Degree"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.degree}
                 onChange={(e) => handleInputChange('degree', e.target.value)}
               />
               <Input
                 placeholder="Field of Study"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.fieldOfStudy}
                 onChange={(e) => handleInputChange('fieldOfStudy', e.target.value)}
               />
@@ -155,6 +161,8 @@ const EducationComponent = () => {
                     <Select
                       placeholder="Start Month"
                       value={newEducation.startMonth}
+                      _placeholder={{ color: 'custom.white' }} 
+                       color = 'custom.white'
                       onChange={(e) => handleInputChange('startMonth', e.target.value)}
                     >
                       {months.map((month) => (
@@ -165,6 +173,8 @@ const EducationComponent = () => {
                     </Select>
                     <Select
                       placeholder="Start Year"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.startYear}
                       onChange={(e) => handleInputChange('startYear', e.target.value)}
                     >
@@ -177,6 +187,8 @@ const EducationComponent = () => {
 
                     <Select
                       placeholder="End Month"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.endMonth}
                       onChange={(e) => handleInputChange('endMonth', e.target.value)}
                     >
@@ -189,6 +201,8 @@ const EducationComponent = () => {
                     <Select
                       placeholder="End Year"
                       value={newEducation.endYear}
+                      _placeholder={{ color: 'custom.white' }} 
+                       color = 'custom.white'
                       onChange={(e) => handleInputChange('endYear', e.target.value)}
                     >
                       {years.map((year) => (
@@ -206,10 +220,10 @@ const EducationComponent = () => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={handleAddEducation}>
-              Save
+            <Button bgColor='custom.mbutton' onClick={handleAddEducation}>
+                <Text color='custom.white'>Save</Text>
             </Button>
-            <Button onClick={handleCloseModal}>Cancel</Button>
+            <Button bgColor='custom.mbutton' onClick={handleCloseModal}><Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

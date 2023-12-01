@@ -123,14 +123,16 @@ const Experience = () => {
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add Experience</ModalHeader>
+        <ModalContent bgColor='custom.mccolor'>
+          <ModalHeader color='custom.white'>Add Experience</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody >
             <VStack spacing={4}>
               <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="Title"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.Title}
                 isRequired={true}
                 onChange={(e) => handleInputChange('Title', e.target.value)}
@@ -143,12 +145,16 @@ const Experience = () => {
             </Flex>
               <Input
                 placeholder="EmploymentType"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.EmploymentType}
                 onChange={(e) => handleInputChange('EmploymentType', e.target.value)}
               />
                <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="CompanyName"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.CompanyName}
                 isRequired={true}
                 onChange={(e) => handleInputChange('CompanyName', e.target.value)}
@@ -162,11 +168,15 @@ const Experience = () => {
               
                <Input
                 placeholder="Product"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.Product}
                 onChange={(e) => handleInputChange('Product', e.target.value)}
               />
               <Input
                 placeholder="Location"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.white'
                 value={newEducation.Location}
                 onChange={(e) => handleInputChange('Location', e.target.value)}
               />
@@ -180,6 +190,8 @@ const Experience = () => {
                   >
                     <Select
                       placeholder="Start Month"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.startMonth}
                       onChange={(e) => handleInputChange('startMonth', e.target.value)}
                     >
@@ -191,6 +203,8 @@ const Experience = () => {
                     </Select>
                     <Select
                       placeholder="Start Year"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.startYear}
                       onChange={(e) => handleInputChange('startYear', e.target.value)}
                     >
@@ -203,6 +217,8 @@ const Experience = () => {
 
                     <Select
                       placeholder="End Month"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.endMonth}
                       onChange={(e) => handleInputChange('endMonth', e.target.value)}
                     >
@@ -214,6 +230,8 @@ const Experience = () => {
                     </Select>
                     <Select
                       placeholder="End Year"
+                      _placeholder={{ color: 'custom.white' }} 
+                      color = 'custom.white'
                       value={newEducation.endYear}
                       onChange={(e) => handleInputChange('endYear', e.target.value)}
                     >
@@ -232,10 +250,10 @@ const Experience = () => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={handleAddEducation}>
-              Save
+            <Button bgColor='custom.mbutton' onClick={handleAddEducation}>
+               <Text color='custom.white'>Save</Text>
             </Button>
-            <Button onClick={handleCloseModal}>Cancel</Button>
+            <Button  bgColor='custom.mbutton' onClick={handleCloseModal}> <Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -8,9 +8,11 @@ const theme = extendTheme({
       darkSlateBlue: '#192734',
       white: '#FFFFFF',
       button : '#22303C',
-      ongoing : '#FFBF00',
+      ongoing : '#FFD580',
       completed : '#CC5500',
       scheduled: '#FBCEB1',
+      mccolor : '#6082B6',
+      mbutton : '#00A36C'
     },
   },
 });

@@ -73,12 +73,14 @@ const SkillComponent = () => {
           onClose();
         }}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Change Skill</ModalHeader>
+        <ModalContent bgColor='custom.mccolor'>
+          <ModalHeader color='custom.white'>Change Skill</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Input
               placeholder="Enter your new skill"
+              _placeholder={{ color: 'custom.white' }} 
+              color = 'custom.white'
               value={newSkill}
               isRequired = 'true'
               onChange={(e) => setNewSkill(e.target.value)}
@@ -91,10 +93,10 @@ const SkillComponent = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSaveSkill}>
-              Save
+            <Button bgColor='custom.mbutton' mr={3} onClick={handleSaveSkill}>
+                <Text color='custom.white'>Save</Text>
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button bgColor='custom.mbutton' onClick={onClose}><Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
