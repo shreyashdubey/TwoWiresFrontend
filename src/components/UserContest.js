@@ -125,7 +125,7 @@ const UserContest = () => {
 
               <Box p="6">
                 <Box d="flex" alignItems="baseline">
-                  <Badge borderRadius="full" px="2" bgColor='custom.darkSlateBlue'>
+                  <Badge borderRadius="full" px="2" bgColor='custom.completed'>
                     <Text color='custom.white'>Completed</Text>
                   </Badge>
                 </Box>

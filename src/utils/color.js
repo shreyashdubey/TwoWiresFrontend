@@ -7,6 +7,10 @@ const theme = extendTheme({
       midnightBlue: '#15202B',
       darkSlateBlue: '#192734',
       white: '#FFFFFF',
+      button : '#22303C',
+      ongoing : '#FFBF00',
+      completed : '#CC5500',
+      scheduled: '#FBCEB1'
     },
   },
 });

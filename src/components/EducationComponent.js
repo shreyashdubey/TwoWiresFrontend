@@ -72,7 +72,7 @@ const EducationComponent = () => {
       <Text fontSize="xl" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' w='14%'>
         Education
       </Text>
-      <Button onClick={handleOpenModal} bgColor='custom.darkSlateBlue'><Text color='custom.white'>Add Education</Text></Button>
+      <Button onClick={handleOpenModal} bgColor='custom.button'><Text color='custom.white'>Add Education</Text></Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />

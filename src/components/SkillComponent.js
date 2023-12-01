@@ -57,7 +57,7 @@ const SkillComponent = () => {
             ))}
           </HStack>
         </Box>
-        <Button mt={2} onClick={handleSkillChange} bgColor='custom.darkSlateBlue' > 
+        <Button mt={2} onClick={handleSkillChange} bgColor='custom.button' > 
            <Text color='custom.white'>Change</Text>
         </Button>
       </Box>

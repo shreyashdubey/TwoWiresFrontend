@@ -48,7 +48,7 @@ const TeamTab = () => {
       <Flex direction="column" w="50%" ml="385px" mt="20px">
         <Center>
           <ChakraLink to="/create-new-team">
-            <Button  bgColor='custom.darkSlateBlue'   mt='8px'>
+            <Button  bgColor='custom.button'   mt='8px'>
                <Text color='custom.white'>Create a Team</Text>
             </Button>
           </ChakraLink>
@@ -88,7 +88,7 @@ const TeamTab = () => {
                         </Center>
                       </Td>
                       <Td>
-                        <ChakraLink to={`/invite-users?t=${team._id}&v=${encodeURIComponent(team.teamName)}`}><Button  bgColor='custom.darkSlateBlue'><Text color='custom.white't>edit</Text></Button></ChakraLink>
+                        <ChakraLink to={`/invite-users?t=${team._id}&v=${encodeURIComponent(team.teamName)}`}><Button  bgColor='custom.button'><Text color='custom.white't>edit</Text></Button></ChakraLink>
 
                       </Td>
                     </Tr>
@@ -107,11 +107,11 @@ const TeamTab = () => {
         </Card>
         <Center>
           <HStack>
-            <Button  bgColor='custom.darkSlateBlue' onClick={handlePrevPage} mt={4}>
+            <Button  bgColor='custom.button' onClick={handlePrevPage} mt={4}>
             <Text color='custom.white'>Previous</Text>
             </Button>
             <Text color='custom.white' mt="17px">{`Page ${currentPage}`}</Text>
-            <Button  bgColor='custom.darkSlateBlue' onClick={handleNextPage} mt={4}>
+            <Button  bgColor='custom.button' onClick={handleNextPage} mt={4}>
             <Text color='custom.white'>Next</Text> 
             </Button>
           </HStack>

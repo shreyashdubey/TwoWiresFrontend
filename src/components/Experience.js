@@ -78,7 +78,7 @@ const Experience = () => {
       <Text fontSize="xl" fontWeight="bold" mb={4} color='custom.white' > 
         Experience
       </Text>
-      <Button onClick={handleOpenModal} bgColor='custom.darkSlateBlue'><Text color='custom.white'>Add Experience</Text></Button>
+      <Button onClick={handleOpenModal} bgColor='custom.button'><Text color='custom.white'>Add Experience</Text></Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
