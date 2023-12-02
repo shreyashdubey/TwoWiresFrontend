@@ -87,6 +87,8 @@ const DashBoard = () => {
             objectFit='cover'
             src={trophy}
             alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
           />
           </Tab>
           <Tab  onClick={handleUserTabClick}>

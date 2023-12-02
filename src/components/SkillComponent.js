@@ -18,7 +18,9 @@ import {
   HStack,
   Heading,
   Text ,
+  Image ,
 } from '@chakra-ui/react';
+import plus from './images/plus.png'
 import theme from '../utils/color';
 const SkillComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,7 +65,12 @@ const SkillComponent = () => {
           </HStack>
         </Box>
         <Button mt={2} onClick={handleSkillChange} bgColor='custom.button' > 
-           <Text color='custom.white'>Change</Text>
+          <Image
+          boxSize='25px'
+          objectFit='cover'
+          src={plus}
+          alt='plus'
+          />
         </Button>
       </Box>
 

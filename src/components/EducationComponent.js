@@ -23,7 +23,12 @@ import {
   NumberInputStepper ,
   Grid ,
   Flex ,
+  Image, 
+  Spacer,
 } from '@chakra-ui/react';
+import plus from './images/plus.png'
+import edit from './images/edit.png'
+import remove from './images/delete.png'
 
 const EducationComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +45,7 @@ const EducationComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
+  const [editedEducationIndex, setEditedEducationIndex] = useState(null);
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -70,7 +76,13 @@ const EducationComponent = () => {
       setErrorMessage('College name is required');
       return; // Prevent form submission
     }
-    setEducationData([...educationData, newEducation]);
+    if (editedEducationIndex !== null) {
+      educationData[educationData.length] = newEducation;
+    } else {
+      setEducationData([...educationData, newEducation]);
+    }
+    
+
     setNewEducation({
       college: '',
       degree: '',
@@ -81,6 +93,7 @@ const EducationComponent = () => {
       endYear: '',
     });
     setErrorMessage('');
+    setEditedEducationIndex(null)
     handleCloseModal();
   };
 
@@ -106,12 +119,41 @@ const EducationComponent = () => {
     return '';
   }
 
+  const handleEditEducation = (index) => {
+    const editedEducation = educationData[index];
+    setNewEducation(editedEducation);
+    setIsOpen(true);
+  
+    // Set the index of the education entry being edited
+    setEditedEducationIndex(index);
+  
+    // Remove the existing education data from the array
+    const updatedEducationData = [...educationData];
+    updatedEducationData.splice(index, 1);
+    setEducationData(updatedEducationData);
+    
+  };
+
+  const handleDeleteEducation = (index) => {
+    const updatedEducationData = [...educationData];
+    updatedEducationData.splice(index, 1);
+    setEducationData(updatedEducationData);
+  };
+
+
   return (
     <Box  mt={5}>
       <Text fontSize="xl" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' w='14%'>
         Education
       </Text>
-      <Button onClick={handleOpenModal} bgColor='custom.button' variant='solid'><Text color='custom.white'>Add Education</Text></Button>
+      <Button onClick={handleOpenModal} bgColor='custom.button' variant='solid'>
+        <Image
+        boxSize='25px'
+        objectFit='cover'
+        src={plus}
+        alt='plus'
+        />
+      </Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal} >
         <ModalOverlay />
@@ -230,11 +272,36 @@ const EducationComponent = () => {
 
       {educationData.map((education, index) => (
         <Card key={index} p={4} mt={4} boxShadow="md">
-              {education.degree && education.fieldOfStudy && (
+             <HStack>
+             
+             {education.degree && education.fieldOfStudy && (
               <Text fontSize="xl" fontWeight="bold">
                 {education.degree} in {education.fieldOfStudy}
               </Text>
                 )}
+             <Spacer/>
+             <Button  onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
+                <Image
+                boxSize='25px'
+                objectFit='cover'
+                src={edit}
+                alt='plus'
+                />
+              </Button>
+              <Button
+                onClick={() => handleDeleteEducation(index)}
+                bgColor="custom.button"
+                variant="solid"
+                w="10%"
+              >
+                 <Image
+                boxSize='25px'
+                objectFit='cover'
+                src={remove}
+                alt='remove'
+                />
+              </Button>
+              </HStack>  
 
           <Text>{education.college}</Text>
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
@@ -242,6 +309,7 @@ const EducationComponent = () => {
                 {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
               </Text>
                 )}
+
         </Card>
       ))}
     </Box>

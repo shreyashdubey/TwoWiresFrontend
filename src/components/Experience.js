@@ -23,9 +23,14 @@ import {
   NumberInputStepper,
   Heading ,
   Grid ,
-  Flex
+  Flex ,
+  Image,
+  Spacer,
 } from '@chakra-ui/react';
 import { FaItalic } from 'react-icons/fa';
+import plus from './images/plus.png'
+import edit from './images/edit.png'
+import remove from './images/delete.png'
 
 const Experience = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,10 +49,12 @@ const Experience = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
+
+  const [editedEducationIndex, setEditedEducationIndex] = useState(null);
   const handleOpenModal = () => {
     setIsOpen(true);
   };
-
+  
   const handleCloseModal = () => {
     setNewEducation({
       Title: '',
@@ -76,7 +83,11 @@ const Experience = () => {
       setErrorMessage(' is required');
       return; // Prevent form submission
     }
-    setEducationData([...educationData, newEducation]);
+    if (editedEducationIndex !== null) {
+      educationData[educationData.length] = newEducation;
+    } else {
+      setEducationData([...educationData, newEducation]);
+    }
     setNewEducation({
         Title: '',
         EmploymentType: '',
@@ -88,6 +99,7 @@ const Experience = () => {
         endYear: '',
         Product : ''
     });
+    setEditedEducationIndex(null)
     setErrorMessage('');
     handleCloseModal();
   };
@@ -114,12 +126,42 @@ const Experience = () => {
     return '';
   }
 
+  const handleEditEducation = (index) => {
+    const editedEducation = educationData[index];
+    setNewEducation(editedEducation);
+    setIsOpen(true);
+  
+    // Set the index of the education entry being edited
+    setEditedEducationIndex(index);
+  
+    // Remove the existing education data from the array
+    const updatedEducationData = [...educationData];
+    updatedEducationData.splice(index, 1);
+    setEducationData(updatedEducationData);
+    
+  };
+
+  const handleDeleteEducation = (index) => {
+    const updatedEducationData = [...educationData];
+    updatedEducationData.splice(index, 1);
+    setEducationData(updatedEducationData);
+  };
+
+
+
   return (
     <Box  mt={2}>
       <Text fontSize="xl" fontWeight="bold" mb={4} color='custom.white' > 
         Experience
       </Text>
-      <Button onClick={handleOpenModal} bgColor='custom.button'><Text color='custom.white'>Add Experience</Text></Button>
+      <Button onClick={handleOpenModal} bgColor='custom.button'>
+      <Image
+        boxSize='25px'
+        objectFit='cover'
+        src={plus}
+        alt='plus'
+        />
+      </Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
@@ -260,9 +302,33 @@ const Experience = () => {
 
       {educationData.map((education, index) => (
         <Card key={index} p={4} mt={4} boxShadow="md">
+          <HStack>
           <Text fontSize="xl" fontWeight="bold">
             {education.Title} in {education.CompanyName}
           </Text>
+          <Spacer/>
+          <Button  onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
+                <Image
+                boxSize='25px'
+                objectFit='cover'
+                src={edit}
+                alt='plus'
+                />
+              </Button>
+              <Button
+                onClick={() => handleDeleteEducation(index)}
+                bgColor="custom.button"
+                variant="solid"
+                w="10%"
+              >
+                 <Image
+                boxSize='25px'
+                objectFit='cover'
+                src={remove}
+                alt='remove'
+                />
+              </Button>
+              </HStack> 
           {education.Product && (
           <Text>I have built {education.Product}</Text>
           )}
