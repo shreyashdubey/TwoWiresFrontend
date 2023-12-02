@@ -40,6 +40,7 @@ const Experience = () => {
     EmploymentType: '',
     CompanyName: '',
     Location : '' ,
+    LocationType: '' ,
     startMonth: '',
     startYear: '',
     endMonth: '',
@@ -61,6 +62,7 @@ const Experience = () => {
       EmploymentType: '',
       CompanyName: '',
       Location : '' ,
+      LocationType: '' ,
       startMonth: '',
       startYear: '',
       endMonth: '',
@@ -93,6 +95,7 @@ const Experience = () => {
         EmploymentType: '',
         CompanyName: '',
         Location : '' ,
+        LocationType: '' ,
         startMonth: '',
         startYear: '',
         endMonth: '',
@@ -185,13 +188,20 @@ const Experience = () => {
                 </Text>
               )}
             </Flex>
-              <Input
+              <Select
                 placeholder="EmploymentType"
                 _placeholder={{ color: 'custom.white' }} 
-                color = 'custom.white'
+                color = 'custom.button'
                 value={newEducation.EmploymentType}
                 onChange={(e) => handleInputChange('EmploymentType', e.target.value)}
-              />
+               >
+                <option  value='FULL_TIME'>Full-Time</option>
+                <option value='PART_TIME'>Part-Time</option>
+                <option value='SELF_EMPLOYED'>Self-Employed</option>
+                <option value='FREELANCE'>Freelance</option>
+                <option value='INTERNSHIP'>Internshiip</option>
+                <option value='TRAINEE'>Trainee</option>
+               </Select>
                <Flex  direction="column" align="flex-start" w='100%'>
               <Input
                 placeholder="CompanyName"
@@ -222,6 +232,18 @@ const Experience = () => {
                 value={newEducation.Location}
                 onChange={(e) => handleInputChange('Location', e.target.value)}
               />
+              <Select
+                placeholder="LocationType"
+                _placeholder={{ color: 'custom.white' }} 
+                color = 'custom.button'
+                value={newEducation.LocationType}
+                onChange={(e) => handleInputChange('LocationType', e.target.value)}
+               >
+                <option  value='ON_SITE'>Full-Time</option>
+                <option value='REMOTE'>Part-Time</option>
+                <option value='HYBRID'>Self-Employed</option>
+                
+               </Select>
               <Box  w='100%'>
                   <Grid
                     templateColumns="repeat(2, 1fr)"

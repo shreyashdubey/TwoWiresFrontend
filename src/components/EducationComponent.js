@@ -29,6 +29,9 @@ import {
 import plus from './images/plus.png'
 import edit from './images/edit.png'
 import remove from './images/delete.png'
+import instance from '../utils/api'
+import { ADD_EDUCATION } from '../utils/endpoints';
+import { jwtDecode } from "jwt-decode";
 
 const EducationComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,11 +74,13 @@ const EducationComponent = () => {
     }));
   };
 
-  const handleAddEducation = () => {
+  const handleAddEducation = async() => {
+    console.log('heyedu')
     if (!newEducation.college) {
       setErrorMessage('College name is required');
       return; // Prevent form submission
     }
+    
     if (editedEducationIndex !== null) {
       educationData[educationData.length] = newEducation;
     } else {
@@ -83,18 +88,39 @@ const EducationComponent = () => {
     }
     
 
-    setNewEducation({
-      college: '',
-      degree: '',
-      fieldOfStudy: '',
-      startMonth: '',
-      startYear: '',
-      endMonth: '',
-      endYear: '',
-    });
-    setErrorMessage('');
-    setEditedEducationIndex(null)
-    handleCloseModal();
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      console.log(accessToken)
+      const decodedToken = jwtDecode(accessToken);
+      console.log(decodedToken)
+      const userId = decodedToken.user._id
+      const response = await instance.post(ADD_EDUCATION,{newEducation,userId}, {'Content-Type': 'application/json'})
+      const data = response;
+      const { success, message } = data;
+      if (response.ok) {
+        // Handle success
+        console.log('Data successfully posted to the backend');
+  
+        // Clear form data and reset state after successful post
+        setNewEducation({
+          college: '',
+          degree: '',
+          fieldOfStudy: '',
+          startMonth: '',
+          startYear: '',
+          endMonth: '',
+          endYear: '',
+        });
+        setErrorMessage('');
+        setEditedEducationIndex(null);
+        handleCloseModal();
+      } else {
+        // Handle error
+        console.error('Failed to post data to the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while posting data:', error);
+    }
   };
 
   const isEndDateValid = () => {
