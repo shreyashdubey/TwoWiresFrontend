@@ -205,15 +205,15 @@ const EducationComponent = () => {
       // Make a DELETE request to the backend
       const response = await instance.delete(`${DELETE_EDUCATION}/${educationIdToDelete}`);
   
-      const { success, message } = response.data;
+      const { success, message } = response;
       if (success) {
         console.log(message);
-  
+        setInitialFetch(false)
         // If the delete request is successful, update the state to reflect the deletion
         const updatedEducationData = [...educationData];
         updatedEducationData.splice(index, 1);
         setEducationData(updatedEducationData);
-        setInitialFetch(false)
+        
       } else {
         console.error('Failed to delete education entry on the backend');
       }
