@@ -40,7 +40,7 @@ const EducationComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [educationData, setEducationData] = useState([]);
   const [newEducation, setNewEducation] = useState({
-    college: '',
+    school: '',
     degree: '',
     fieldOfStudy: '',
     startMonth: '',
@@ -65,7 +65,6 @@ const EducationComponent = () => {
           `${GET_EDUCATION_ENTRIES}?user=${userId}&page=1&pageSize=10`
         );
         const { educationEntries } = response;
-        console.log(educationEntries)
         setEducationData(educationEntries);
       } catch (error) {
         console.error('Error occurred while fetching education entries:', error);
@@ -85,7 +84,7 @@ const EducationComponent = () => {
 
   const handleCloseModal = () => {
     setNewEducation({
-      college: '',
+      school: '',
       degree: '',
       fieldOfStudy: '',
       startMonth: '',
@@ -106,23 +105,15 @@ const EducationComponent = () => {
   };
 
   const handleAddEducation = async() => {
-    if (!newEducation.college) {
+    if (!newEducation.school) {
       setErrorMessage('College name is required');
       return; // Prevent form submission
     }
-    
-    if (editedEducationIndex !== null) {
-      educationData[educationData.length] = newEducation;
-    } else {
-      setEducationData([...educationData, newEducation]);
-    }
-    
-
     try {
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
-      const school = newEducation.college
+      const school = newEducation.school
       const degree= newEducation.degree
       const fieldOfStudy= newEducation.fieldOfStudy
       const location=  'Lucknow'
@@ -138,7 +129,7 @@ const EducationComponent = () => {
   
         // Clear form data and reset state after successful post
         setNewEducation({
-          college: '',
+          school: '',
           degree: '',
           fieldOfStudy: '',
           startMonth: '',
@@ -168,10 +159,6 @@ const EducationComponent = () => {
 
     const startDate = new Date(`${startYear}-${startMonth}`);
     const endDate = new Date(`${endYear}-${endMonth}`);
-    console.log(startDate)
-    console.log(endDate)
-    const what = startDate <= endDate;
-    console.log(what)
     return startDate <= endDate;
   };
 
@@ -183,18 +170,12 @@ const EducationComponent = () => {
   }
 
   const handleEditEducation = (index) => {
-    console.log(index)
     const editedEducation = educationData[index];
     setNewEducation(editedEducation);
     setIsOpen(true);
   
     // Set the index of the education entry being edited
     setEditedEducationIndex(index);
-  
-    // Remove the existing education data from the array
-    // const updatedEducationData = [...educationData];
-    // updatedEducationData.splice(index, 1);
-    // setEducationData(updatedEducationData);
     
   };
 
@@ -207,12 +188,8 @@ const EducationComponent = () => {
   
       const { success, message } = response;
       if (success) {
-        console.log(message);
         setInitialFetch(false)
         // If the delete request is successful, update the state to reflect the deletion
-        const updatedEducationData = [...educationData];
-        updatedEducationData.splice(index, 1);
-        setEducationData(updatedEducationData);
         
       } else {
         console.error('Failed to delete education entry on the backend');
@@ -225,7 +202,7 @@ const EducationComponent = () => {
 
 
   const handleUpdateEducation = async () => {
-    if (!newEducation.college) {
+    if (!newEducation.school) {
       setErrorMessage('College name is required');
       return; // Prevent form submission
     }
@@ -235,7 +212,7 @@ const EducationComponent = () => {
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
       const educationId = educationData[editedEducationIndex]._id;
-      const school=newEducation.college
+      const school=newEducation.school
       const degree = newEducation.degree
       const fieldOfStudy= newEducation.fieldOfStudy
       const location = 'Lucknow'
@@ -243,7 +220,6 @@ const EducationComponent = () => {
       const startYear= newEducation.startYear
       const endMonth= newEducation.endMonth
       const endYear= newEducation.endYear
-      console.log('hey')  
       const response = await instance.put(
         `${EDIT_EDUCATION}/${educationId}`,
         {
@@ -263,12 +239,8 @@ const EducationComponent = () => {
       const { success, message, education } = response.data;
       if (success) {
         // Handle success
-        console.log('Data successfully updated on the backend');
-
-        // Update the educationData array with the updated education entry
-        // const updatedEducationData = [...educationData];
-        // updatedEducationData.push(education);
-        // setEducationData(updatedEducationData);
+        
+      
       } else {
         // Handle error
         console.error('Failed to update education entry on the backend');
@@ -307,11 +279,11 @@ const EducationComponent = () => {
             <VStack spacing={4}>
             <Flex  direction="column" align="flex-start" w='100%'>
               <Input
-                placeholder="College"
+                placeholder="school"
                 color='custom.white'
-                value={newEducation.college}
+                value={newEducation.school}
                 isRequired={true}
-                onChange={(e) => handleInputChange('college', e.target.value)}
+                onChange={(e) => handleInputChange('school', e.target.value)}
                 _placeholder={{ color: 'custom.white' }} 
               />
               {!newEducation.college && (
@@ -456,7 +428,7 @@ const EducationComponent = () => {
               </Button>
               </HStack> 
 
-          <Text>{education.college}</Text>
+          <Text>{education.school}</Text>
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
               <Text>
                 {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
