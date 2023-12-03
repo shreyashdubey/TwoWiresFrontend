@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import {
   Box,
   Button,
@@ -32,6 +32,9 @@ import remove from './images/delete.png'
 import instance from '../utils/api'
 import { ADD_EDUCATION } from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
+import { GET_EDUCATION_ENTRIES } from '../utils/endpoints';
+import { EDIT_EDUCATION } from '../utils/endpoints';
+import { DELETE_EDUCATION } from '../utils/endpoints';
 
 const EducationComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +52,33 @@ const EducationComponent = () => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
   const [editedEducationIndex, setEditedEducationIndex] = useState(null);
+  const [initialFetch, setInitialFetch] = useState(false);
+  
+  useEffect(() => {
+    // Fetch education entries when the component mounts
+    const fetchEducationEntries = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        const userId = decodedToken.user._id;
+        const response = await instance.get(
+          `${GET_EDUCATION_ENTRIES}?user=${userId}&page=1&pageSize=10`
+        );
+        const { educationEntries } = response;
+        console.log(educationEntries)
+        setEducationData(educationEntries);
+      } catch (error) {
+        console.error('Error occurred while fetching education entries:', error);
+      }
+    };
+
+    if (!initialFetch) {
+      // Fetch education entries only when initialFetch is false
+      fetchEducationEntries();
+      setInitialFetch(true); // Set initialFetch to true after the initial fetch
+    }
+  }, [initialFetch]);
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -62,6 +92,7 @@ const EducationComponent = () => {
       startYear: '',
       endMonth: '',
       endYear: '',
+
     })
     setErrorMessage('')
     setIsOpen(false);
@@ -75,7 +106,6 @@ const EducationComponent = () => {
   };
 
   const handleAddEducation = async() => {
-    console.log('heyedu')
     if (!newEducation.college) {
       setErrorMessage('College name is required');
       return; // Prevent form submission
@@ -90,14 +120,19 @@ const EducationComponent = () => {
 
     try {
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
-      console.log(accessToken)
       const decodedToken = jwtDecode(accessToken);
-      console.log(decodedToken)
       const userId = decodedToken.user._id
-      const response = await instance.post(ADD_EDUCATION,{newEducation,userId}, {'Content-Type': 'application/json'})
+      const school = newEducation.college
+      const degree= newEducation.degree
+      const fieldOfStudy= newEducation.fieldOfStudy
+      const location=  'Lucknow'
+      const startMonth = newEducation.startMonth
+      const startYear =  newEducation.startYear
+
+      const response = await instance.post(ADD_EDUCATION,{school , degree ,fieldOfStudy , location , startMonth , startYear, userId}, {'Content-Type': 'application/json'})
       const data = response;
       const { success, message } = data;
-      if (response.ok) {
+      if (success) {
         // Handle success
         console.log('Data successfully posted to the backend');
   
@@ -111,9 +146,7 @@ const EducationComponent = () => {
           endMonth: '',
           endYear: '',
         });
-        setErrorMessage('');
-        setEditedEducationIndex(null);
-        handleCloseModal();
+    
       } else {
         // Handle error
         console.error('Failed to post data to the backend');
@@ -121,6 +154,10 @@ const EducationComponent = () => {
     } catch (error) {
       console.error('Error occurred while posting data:', error);
     }
+    setInitialFetch(false)
+    setErrorMessage('');
+    setEditedEducationIndex(null);
+    handleCloseModal();
   };
 
   const isEndDateValid = () => {
@@ -146,6 +183,7 @@ const EducationComponent = () => {
   }
 
   const handleEditEducation = (index) => {
+    console.log(index)
     const editedEducation = educationData[index];
     setNewEducation(editedEducation);
     setIsOpen(true);
@@ -154,16 +192,95 @@ const EducationComponent = () => {
     setEditedEducationIndex(index);
   
     // Remove the existing education data from the array
-    const updatedEducationData = [...educationData];
-    updatedEducationData.splice(index, 1);
-    setEducationData(updatedEducationData);
+    // const updatedEducationData = [...educationData];
+    // updatedEducationData.splice(index, 1);
+    // setEducationData(updatedEducationData);
     
   };
 
-  const handleDeleteEducation = (index) => {
-    const updatedEducationData = [...educationData];
-    updatedEducationData.splice(index, 1);
-    setEducationData(updatedEducationData);
+  const handleDeleteEducation = async (index) => {
+    try {
+      const educationIdToDelete = educationData[index]._id;
+  
+      // Make a DELETE request to the backend
+      const response = await instance.delete(`${DELETE_EDUCATION}/${educationIdToDelete}`);
+  
+      const { success, message } = response.data;
+      if (success) {
+        console.log(message);
+  
+        // If the delete request is successful, update the state to reflect the deletion
+        const updatedEducationData = [...educationData];
+        updatedEducationData.splice(index, 1);
+        setEducationData(updatedEducationData);
+        setInitialFetch(false)
+      } else {
+        console.error('Failed to delete education entry on the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting education entry:', error);
+    }
+  };
+  
+
+
+  const handleUpdateEducation = async () => {
+    if (!newEducation.college) {
+      setErrorMessage('College name is required');
+      return; // Prevent form submission
+    }
+
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id;
+      const educationId = educationData[editedEducationIndex]._id;
+      const school=newEducation.college
+      const degree = newEducation.degree
+      const fieldOfStudy= newEducation.fieldOfStudy
+      const location = 'Lucknow'
+      const startMonth = newEducation.startMonth
+      const startYear= newEducation.startYear
+      const endMonth= newEducation.endMonth
+      const endYear= newEducation.endYear
+      console.log('hey')  
+      const response = await instance.put(
+        `${EDIT_EDUCATION}/${educationId}`,
+        {
+          userId,
+          school,
+          degree,
+          fieldOfStudy,
+          location,
+          startMonth,
+          startYear,
+          endMonth,
+          endYear,
+        },
+        { 'Content-Type': 'application/json' }
+      );
+
+      const { success, message, education } = response.data;
+      if (success) {
+        // Handle success
+        console.log('Data successfully updated on the backend');
+
+        // Update the educationData array with the updated education entry
+        // const updatedEducationData = [...educationData];
+        // updatedEducationData.push(education);
+        // setEducationData(updatedEducationData);
+      } else {
+        // Handle error
+        console.error('Failed to update education entry on the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while updating education entry:', error);
+    }
+
+    setErrorMessage('');
+    setEditedEducationIndex(null);
+    handleCloseModal();
+    setInitialFetch(false)
   };
 
 
@@ -288,9 +405,19 @@ const EducationComponent = () => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button bgColor='custom.mbutton' onClick={handleAddEducation}>
-                <Text color='custom.white'>Save</Text>
-            </Button>
+          <Button
+            bgColor='custom.mbutton'
+            onClick={() =>
+              editedEducationIndex === null
+                ? handleAddEducation()
+                : handleUpdateEducation()
+            }
+          >
+            <Text color='custom.white'>
+              {editedEducationIndex === null ? 'Save' : 'Update'}
+            </Text>
+          </Button>
+
             <Button bgColor='custom.mbutton' onClick={handleCloseModal}><Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
@@ -327,7 +454,7 @@ const EducationComponent = () => {
                 alt='remove'
                 />
               </Button>
-              </HStack>  
+              </HStack>  hkk
 
           <Text>{education.college}</Text>
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
@@ -341,5 +468,4 @@ const EducationComponent = () => {
     </Box>
   );
 };
-
 export default EducationComponent;
