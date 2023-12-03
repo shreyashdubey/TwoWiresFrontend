@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import {
   Box,
   Button,
@@ -31,6 +31,11 @@ import { FaItalic } from 'react-icons/fa';
 import plus from './images/plus.png'
 import edit from './images/edit.png'
 import remove from './images/delete.png'
+import { ADD_EXPERIENCE, DELETE_EXPERIENCE } from '../utils/endpoints';
+import { jwtDecode } from "jwt-decode";
+import instance from '../utils/api'
+import { GET_EXPERIENCE_ENTRIES } from '../utils/endpoints';
+import { EDIT_EXPERIENCE } from '../utils/endpoints';
 
 const Experience = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,8 +55,37 @@ const Experience = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
-
+  const [initialFetch, setInitialFetch] = useState(false);
   const [editedEducationIndex, setEditedEducationIndex] = useState(null);
+
+
+
+  useEffect(() => {
+    // Fetch education entries when the component mounts
+    const fetchEducationEntries = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        const userId = decodedToken.user._id;
+        const response = await instance.get(
+          `${GET_EXPERIENCE_ENTRIES}?user=${userId}&page=1&pageSize=10`
+        );
+        const { experienceEntries } = response;
+        console.log(experienceEntries)
+        setEducationData(experienceEntries );
+      } catch (error) {
+        console.error('Error occurred while fetching education entries:', error);
+      }
+    };
+
+    if (!initialFetch) {
+      // Fetch education entries only when initialFetch is false
+      fetchEducationEntries();
+      setInitialFetch(true); // Set initialFetch to true after the initial fetch
+    }
+  }, [initialFetch]);
+
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -80,30 +114,59 @@ const Experience = () => {
     }));
   };
 
-  const handleAddEducation = () => {
-    if (!newEducation.Title && !newEducation.CompanyName) {
-      setErrorMessage(' is required');
+  const handleAddEducation = async() => {
+    if (!newEducation.Title) {
+      console.log('hey')
+      setErrorMessage('College name is required');
       return; // Prevent form submission
     }
-    if (editedEducationIndex !== null) {
-      educationData[educationData.length] = newEducation;
-    } else {
-      setEducationData([...educationData, newEducation]);
+    console.log('hey2')
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id
+      const industry = newEducation.industry
+      const employmentType = newEducation.EmploymentType
+      const locationType = newEducation.LocationType
+      const location=  'Lucknow'
+      const startMonth = newEducation.startMonth
+      const startYear =  newEducation.startYear
+      const title = newEducation.Title
+      const endMonth = newEducation.endMonth
+      const endYear = newEducation.endYear
+
+
+      const response = await instance.post( ADD_EXPERIENCE,{title, industry, employmentType, locationType, location, startMonth, startYear, endMonth, endYear, userId}, {'Content-Type': 'application/json'})
+      const data = response;
+      const { success, message } = data;
+      if (success) {
+        // Handle success
+        console.log('Data successfully posted to the backend');
+  
+        // Clear form data and reset state after successful post
+        setNewEducation({
+          Title: '',
+          EmploymentType: '',
+          CompanyName: '',
+          Location : '' ,
+          LocationType: '' ,
+          startMonth: '',
+          startYear: '',
+          endMonth: '',
+          endYear: '',
+          Product : '' ,
+        });
+    
+      } else {
+        // Handle error
+        console.error('Failed to post data to the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while posting data:', error);
     }
-    setNewEducation({
-        Title: '',
-        EmploymentType: '',
-        CompanyName: '',
-        Location : '' ,
-        LocationType: '' ,
-        startMonth: '',
-        startYear: '',
-        endMonth: '',
-        endYear: '',
-        Product : ''
-    });
-    setEditedEducationIndex(null)
+    setInitialFetch(false)
     setErrorMessage('');
+    setEditedEducationIndex(null);
     handleCloseModal();
   };
 
@@ -137,18 +200,90 @@ const Experience = () => {
     // Set the index of the education entry being edited
     setEditedEducationIndex(index);
   
-    // Remove the existing education data from the array
-    const updatedEducationData = [...educationData];
-    updatedEducationData.splice(index, 1);
-    setEducationData(updatedEducationData);
+    // Remove the existing education data from the arra
     
   };
 
-  const handleDeleteEducation = (index) => {
-    const updatedEducationData = [...educationData];
-    updatedEducationData.splice(index, 1);
-    setEducationData(updatedEducationData);
+  const handleDeleteEducation = async(index) => {
+    try {
+      const experienceId = educationData[index]._id;
+      console.log('heydelete')
+      // Make a DELETE request to the backend
+      const response = await instance.delete(`${DELETE_EXPERIENCE}/${experienceId}`);
+  
+      const { success, message } = response;
+      if (success) {
+        console.log(message);
+        setInitialFetch(false)
+        // If the delete request is successful, update the state to reflect the deletion
+        // const updatedEducationData = [...educationData];
+        // updatedEducationData.splice(index, 1);
+        // setEducationData(updatedEducationData);
+        
+      } else {
+        console.error('Failed to delete education entry on the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting education entry:', error);
+    }
   };
+
+
+  const handleUpdateEducation = async () => {
+    if (!newEducation.Title) {
+      setErrorMessage('College name is required');
+      return; // Prevent form submission
+    }
+
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id;
+      const educationId = educationData[editedEducationIndex]._id;
+      const industry = newEducation.industry
+      const employmentType = newEducation.EmploymentType
+      const locationType = newEducation.LocationType
+      const location=  'Lucknow'
+      const startMonth = newEducation.startMonth
+      const startYear =  newEducation.startYear
+      const title = newEducation.Title
+      const endMonth = newEducation.endMonth
+      const endYear = newEducation.endYear
+      console.log('hey')  
+      const response = await instance.put(
+        `${EDIT_EXPERIENCE}/${educationId}`,
+        {
+          userId,title, industry, employmentType, locationType, location, startMonth, startYear, endMonth, endYear
+        },
+        { 'Content-Type': 'application/json' }
+      );
+
+      const { success, message, education } = response.data;
+      if (success) {
+        // Handle success
+        console.log('Data successfully updated on the backend');
+
+        // Update the educationData array with the updated education entry
+        // const updatedEducationData = [...educationData];
+        // updatedEducationData.push(education);
+        // setEducationData(updatedEducationData);
+      } else {
+        // Handle error
+        console.error('Failed to update education entry on the backend');
+      }
+    } catch (error) {
+      console.error('Error occurred while updating education entry:', error);
+    }
+
+    setErrorMessage('');
+    setEditedEducationIndex(null);
+    handleCloseModal();
+    setInitialFetch(false)
+  };
+
+
+  
+
 
 
 
@@ -314,9 +449,19 @@ const Experience = () => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button bgColor='custom.mbutton' onClick={handleAddEducation}>
-               <Text color='custom.white'>Save</Text>
-            </Button>
+          <Button
+            bgColor='custom.mbutton'
+            onClick={() =>
+              editedEducationIndex === null
+                ? handleAddEducation()
+                : handleUpdateEducation()
+            }
+          >
+            <Text color='custom.white'>
+              {editedEducationIndex === null ? 'Save' : 'Update'}
+            </Text>
+          </Button>
+
             <Button  bgColor='custom.mbutton' onClick={handleCloseModal}> <Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>

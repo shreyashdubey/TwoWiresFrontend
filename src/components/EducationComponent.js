@@ -454,7 +454,7 @@ const EducationComponent = () => {
                 alt='remove'
                 />
               </Button>
-              </HStack>  hkk
+              </HStack> 
 
           <Text>{education.college}</Text>
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
