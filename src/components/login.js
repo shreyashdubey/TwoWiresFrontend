@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormControl, FormLabel, Input, Text, Flex, Box } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
-import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery ,useColorMode} from '@chakra-ui/react'
+import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery ,useColorMode ,ColorModeScript} from '@chakra-ui/react'
 import startup from '../images/startup.jpg'
 import Forgot from './Forgot'
 import instance from '../utils/api';
 import { LOGIN, SIGNUP } from '../utils/endpoints';
+import theme from '../utils/color';
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -122,7 +124,7 @@ const Login = () => {
                     Privacy Policy
                   </ChakraLink>
               </Text>
-              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px" onClick={handleLoginClick}>
+              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px" >
               Log in
                </Button>
     
