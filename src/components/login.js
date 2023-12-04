@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormControl, FormLabel, Input, Text, Flex, Box } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
-import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery } from '@chakra-ui/react'
+import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery ,useColorMode} from '@chakra-ui/react'
 import startup from '../images/startup.jpg'
 import Forgot from './Forgot'
 import instance from '../utils/api';
@@ -18,6 +18,7 @@ const Login = () => {
     const [isabove1000px] = useMediaQuery("(max-Hight: 900px)");
     const navigate = useNavigate();
     const [user, setUser] = useState();
+    const { toggleColorMode } = useColorMode();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +27,13 @@ const Login = () => {
             [name]: value,
         }));
     };
+ 
+    const handleLoginClick = () => {
+      // Perform login logic here if needed
+      // Then toggle the color mode
+      toggleColorMode();
+    };
+  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,7 +96,6 @@ const Login = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  bg = '#F7FAFC'
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -100,7 +107,6 @@ const Login = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  bg = '#F7FAFC'
                   value={formData.password}
                   onChange={handleChange}
                   required
@@ -116,9 +122,9 @@ const Login = () => {
                     Privacy Policy
                   </ChakraLink>
               </Text>
-              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px">
-                   Log in
-              </Button>
+              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px" onClick={handleLoginClick}>
+              Log in
+               </Button>
     
             </form>
             <Text fontSize="ms" mb="2" textAlign="center">

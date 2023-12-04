@@ -25,6 +25,8 @@ import {
   Flex ,
   Image, 
   Spacer,
+  IconButton,
+  useColorMode,
 } from '@chakra-ui/react';
 import plus from './images/plus.png'
 import edit from './images/edit.png'
@@ -35,10 +37,14 @@ import { jwtDecode } from "jwt-decode";
 import { GET_EDUCATION_ENTRIES } from '../utils/endpoints';
 import { EDIT_EDUCATION } from '../utils/endpoints';
 import { DELETE_EDUCATION } from '../utils/endpoints';
+import { FaMoon, FaSun } from "react-icons/fa";
+import { MdArrowDropDown } from "react-icons/md";
+
 
 const EducationComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [educationData, setEducationData] = useState([]);
+  const { toggleColorMode, colorMode } = useColorMode();
   const [newEducation, setNewEducation] = useState({
     school: '',
     degree: '',
@@ -272,7 +278,7 @@ const EducationComponent = () => {
 
       <Modal isOpen={isOpen} onClose={handleCloseModal} >
         <ModalOverlay />
-        <ModalContent bgColor='custom.mccolor'>
+        <ModalContent bgColor='custom.darkSlateBlue'>
           <ModalHeader color='custom.white'>Add Education</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -319,7 +325,6 @@ const EducationComponent = () => {
                       placeholder="Start Month"
                       value={newEducation.startMonth}
                       _placeholder={{ color: 'custom.white' }} 
-                       color = 'custom.white'
                       onChange={(e) => handleInputChange('startMonth', e.target.value)}
                     >
                       {months.map((month) => (
@@ -330,13 +335,13 @@ const EducationComponent = () => {
                     </Select>
                     <Select
                       placeholder="Start Year"
-                      _placeholder={{ color: 'custom.white' }} 
                       color = 'custom.white'
+                      colorScheme='gray'
                       value={newEducation.startYear}
                       onChange={(e) => handleInputChange('startYear', e.target.value)}
                     >
                       {years.map((year) => (
-                        <option key={year} value={year}>
+                        <option key={year} value={year}   >
                           {year}
                         </option>
                       ))}
@@ -378,29 +383,30 @@ const EducationComponent = () => {
           </ModalBody>
           <ModalFooter>
           <Button
-            bgColor='custom.mbutton'
+            bgColor='custom.charcoal'
             onClick={() =>
               editedEducationIndex === null
                 ? handleAddEducation()
                 : handleUpdateEducation()
             }
+            right='10px'
           >
             <Text color='custom.white'>
               {editedEducationIndex === null ? 'Save' : 'Update'}
             </Text>
           </Button>
 
-            <Button bgColor='custom.mbutton' onClick={handleCloseModal}><Text color='custom.white'>Cancel</Text></Button>
+            <Button bgColor='custom.charcoal' onClick={handleCloseModal}><Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       {educationData.map((education, index) => (
-        <Card key={index} p={4} mt={4} boxShadow="md">
+        <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue'>
              <HStack>
              
              {education.degree && education.fieldOfStudy && (
-              <Text fontSize="xl" fontWeight="bold">
+              <Text fontSize="xl" fontWeight="bold" color='custom.white' > 
                 {education.degree} in {education.fieldOfStudy}
               </Text>
                 )}
@@ -428,9 +434,9 @@ const EducationComponent = () => {
               </Button>
               </HStack> 
 
-          <Text>{education.school}</Text>
+          <Text color='custom.white'>{education.school}</Text>
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
-              <Text>
+              <Text color='custom.white' >
                 {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
               </Text>
                 )}

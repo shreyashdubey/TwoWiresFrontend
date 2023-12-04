@@ -70,7 +70,7 @@ const Experience = () => {
         const response = await instance.get(
           `${GET_EXPERIENCE_ENTRIES}?user=${userId}&page=1&pageSize=10`
         );
-        const { experienceEntries } = response;
+        const { experienceEntries  } = response;
         console.log(experienceEntries)
         setEducationData(experienceEntries );
       } catch (error) {
@@ -128,7 +128,7 @@ const Experience = () => {
       const industry = newEducation.industry
       const employmentType = newEducation.EmploymentType
       const locationType = newEducation.LocationType
-      const location=  'Lucknow'
+      const location=  newEducation.Location
       const startMonth = newEducation.startMonth
       const startYear =  newEducation.startYear
       const title = newEducation.Title
@@ -303,7 +303,7 @@ const Experience = () => {
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
-        <ModalContent bgColor='custom.mccolor'>
+        <ModalContent bgColor='custom.darkSlateBlue'>
           <ModalHeader color='custom.white'>Add Experience</ModalHeader>
           <ModalCloseButton />
           <ModalBody >
@@ -326,7 +326,7 @@ const Experience = () => {
               <Select
                 placeholder="EmploymentType"
                 _placeholder={{ color: 'custom.white' }} 
-                color = 'custom.button'
+                color = 'custom.white'
                 value={newEducation.EmploymentType}
                 onChange={(e) => handleInputChange('EmploymentType', e.target.value)}
                >
@@ -370,7 +370,7 @@ const Experience = () => {
               <Select
                 placeholder="LocationType"
                 _placeholder={{ color: 'custom.white' }} 
-                color = 'custom.button'
+                color = 'custom.white'
                 value={newEducation.LocationType}
                 onChange={(e) => handleInputChange('LocationType', e.target.value)}
                >
@@ -450,28 +450,29 @@ const Experience = () => {
           </ModalBody>
           <ModalFooter>
           <Button
-            bgColor='custom.mbutton'
+            bgColor='custom.charcoal'
             onClick={() =>
               editedEducationIndex === null
                 ? handleAddEducation()
                 : handleUpdateEducation()
             }
+            right='10px'
           >
             <Text color='custom.white'>
               {editedEducationIndex === null ? 'Save' : 'Update'}
             </Text>
           </Button>
 
-            <Button  bgColor='custom.mbutton' onClick={handleCloseModal}> <Text color='custom.white'>Cancel</Text></Button>
+            <Button  bgColor='custom.charcoal' onClick={handleCloseModal}> <Text color='custom.white'>Cancel</Text></Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       {educationData.map((education, index) => (
-        <Card key={index} p={4} mt={4} boxShadow="md">
+        <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue' >
           <HStack>
           <Text fontSize="xl" fontWeight="bold">
-            {education.Title} in {education.CompanyName}
+            {education.title} in {education.CompanyName}
           </Text>
           <Spacer/>
           <Button  onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
@@ -500,8 +501,8 @@ const Experience = () => {
           <Text>I have built {education.Product}</Text>
           )}
 
-          {education.Location &&
-          (<Text>{education.Location}</Text>)}
+          {education.location &&
+          (<Text>{education.location}</Text>)}
             
           {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
               <Text>
