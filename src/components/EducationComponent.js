@@ -168,6 +168,15 @@ const EducationComponent = () => {
     return startDate <= endDate;
   };
 
+  const formatDateRange = (startDate, endDate) => {
+    const startYear = new Date(startDate).getFullYear();
+    const endYear = endDate ? new Date(endDate).getFullYear() : 'present';
+  
+    return endDate
+      ? `${startYear}-${endYear}`
+      : `${startYear}-${endYear}`;
+  };
+
   const getValidationMessage = () => {
     if (!isEndDateValid()) {
       return 'End date can’t be earlier than start date';
@@ -402,47 +411,46 @@ const EducationComponent = () => {
       </Modal>
 
       {educationData.map((education, index) => (
-        <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue'>
-             <HStack>
-             
-             {education.degree && education.fieldOfStudy && (
-              <Text fontSize="xl" fontWeight="bold" color='custom.white' > 
-                {education.degree} in {education.fieldOfStudy}
-              </Text>
-                )}
-             <Spacer/>
-             <Button  onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
-                <Image
-                boxSize='25px'
-                objectFit='cover'
-                src={edit}
-                alt='plus'
-                />
-              </Button>
-              <Button
-                onClick={() => handleDeleteEducation(index)}
-                bgColor="custom.button"
-                variant="solid"
-                w="10%"
-              >
-                 <Image
-                boxSize='25px'
-                objectFit='cover'
-                src={remove}
-                alt='remove'
-                />
-              </Button>
-              </HStack> 
+  <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue'>
+    <HStack>
+      {education.degree && education.fieldOfStudy && (
+        <Text fontSize="xl" fontWeight="bold" color='custom.white' >
+          {education.degree} in {education.fieldOfStudy}
+        </Text>
+      )}
+      <Spacer/>
+      <Button onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
+        <Image
+          boxSize='25px'
+          objectFit='cover'
+          src={edit}
+          alt='plus'
+        />
+      </Button>
+      <Button
+        onClick={() => handleDeleteEducation(index)}
+        bgColor="custom.button"
+        variant="solid"
+        w="10%"
+      >
+        <Image
+          boxSize='25px'
+          objectFit='cover'
+          src={remove}
+          alt='remove'
+        />
+      </Button>
+    </HStack>
 
-          <Text color='custom.white'>{education.school}</Text>
-          {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
-              <Text color='custom.white' >
-                {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
-              </Text>
-                )}
+    <Text color='custom.white'>{education.school}</Text>
+    {education.startDate && (
+      <Text color='custom.white'>
+        {formatDateRange(education.startDate, education.endDate)}
+      </Text>
+    )}
+  </Card>
+))}
 
-        </Card>
-      ))}
     </Box>
   );
 };

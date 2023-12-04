@@ -43,7 +43,7 @@ const Experience = () => {
   const [newEducation, setNewEducation] = useState({
     Title: '',
     EmploymentType: '',
-    CompanyName: '',
+    companyName: '',
     Location : '' ,
     LocationType: '' ,
     startMonth: '',
@@ -94,7 +94,7 @@ const Experience = () => {
     setNewEducation({
       Title: '',
       EmploymentType: '',
-      CompanyName: '',
+      companyName: '',
       Location : '' ,
       LocationType: '' ,
       startMonth: '',
@@ -134,9 +134,10 @@ const Experience = () => {
       const title = newEducation.Title
       const endMonth = newEducation.endMonth
       const endYear = newEducation.endYear
+      const companyName = newEducation.companyName
 
 
-      const response = await instance.post( ADD_EXPERIENCE,{title, industry, employmentType, locationType, location, startMonth, startYear, endMonth, endYear, userId}, {'Content-Type': 'application/json'})
+      const response = await instance.post( ADD_EXPERIENCE,{title, industry,companyName, employmentType, locationType, location, startMonth, startYear, endMonth, endYear, userId}, {'Content-Type': 'application/json'})
       const data = response;
       const { success, message } = data;
       if (success) {
@@ -147,7 +148,7 @@ const Experience = () => {
         setNewEducation({
           Title: '',
           EmploymentType: '',
-          CompanyName: '',
+          companyName: '',
           Location : '' ,
           LocationType: '' ,
           startMonth: '',
@@ -228,6 +229,15 @@ const Experience = () => {
     }
   };
 
+  const formatDateRange = (startDate, endDate) => {
+    const startYear = new Date(startDate).getFullYear();
+    const endYear = endDate ? new Date(endDate).getFullYear() : 'present';
+  
+    return endDate
+      ? `${startYear}-${endYear}`
+      : `${startYear}-${endYear}`;
+  };
+
 
   const handleUpdateEducation = async () => {
     if (!newEducation.Title) {
@@ -249,11 +259,12 @@ const Experience = () => {
       const title = newEducation.Title
       const endMonth = newEducation.endMonth
       const endYear = newEducation.endYear
+      const companyName = newEducation.companyName
       console.log('hey')  
       const response = await instance.put(
         `${EDIT_EXPERIENCE}/${educationId}`,
         {
-          userId,title, industry, employmentType, locationType, location, startMonth, startYear, endMonth, endYear
+          userId,title, industry, employmentType, locationType, location, startMonth, startYear, endMonth, endYear , companyName
         },
         { 'Content-Type': 'application/json' }
       );
@@ -342,11 +353,11 @@ const Experience = () => {
                 placeholder="CompanyName"
                 _placeholder={{ color: 'custom.white' }} 
                 color = 'custom.white'
-                value={newEducation.CompanyName}
+                value={newEducation.companyName}
                 isRequired={true}
-                onChange={(e) => handleInputChange('CompanyName', e.target.value)}
+                onChange={(e) => handleInputChange('companyName', e.target.value)}
               />
-              {!newEducation.CompanyName && (
+              {!newEducation.companyName && (
                 <Text color="red.500" fontSize="xs" mt={1}>
                   {errorMessage}
                 </Text>
@@ -472,7 +483,7 @@ const Experience = () => {
         <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue' >
           <HStack>
           <Text fontSize="xl" fontWeight="bold">
-            {education.title} in {education.CompanyName}
+            {education.title} in {education.companyName}
           </Text>
           <Spacer/>
           <Button  onClick={() => handleEditEducation(index)} bgColor='custom.button' variant='solid' w='10%' >
@@ -501,14 +512,14 @@ const Experience = () => {
           <Text>I have built {education.Product}</Text>
           )}
 
-          {education.location &&
-          (<Text>{education.location}</Text>)}
+          {education.location && education.locationType &&
+          (<Text>{education.location}.{education.locationType}</Text>)}
             
-          {education.startMonth && education.startYear && education.endMonth && education.endYear &&  (
-              <Text>
-                {education.startMonth}/{education.startYear} - {education.endMonth}/{education.endYear}
-              </Text>
-                )}
+            {education.startDate && (
+            <Text color='custom.white'>
+              {formatDateRange(education.startDate, education.endDate)}
+            </Text>
+             )}
         </Card>
       ))}
       
