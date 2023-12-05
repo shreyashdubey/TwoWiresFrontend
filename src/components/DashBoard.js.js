@@ -18,6 +18,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
 import trophy from './images/trophy.png'
 import theme from '../utils/color';
+import user from './images/home.png'
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -92,7 +93,14 @@ const DashBoard = () => {
           />
           </Tab>
           <Tab  onClick={handleUserTabClick}>
-              <FaUser size={20} />
+          <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={user}
+            alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
+          />
           </Tab>
         </TabList>
         <TabPanels>
