@@ -21,6 +21,9 @@ const Login = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState();
     const { toggleColorMode } = useColorMode();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,7 +31,17 @@ const Login = () => {
             ...prevFormData,
             [name]: value,
         }));
+       
+        setErrorMessage('');
+        if (name === 'email') {
+          setEmailError(false);
+        } else if (name === 'password') {
+          setPasswordError(false);
+        }
+        
     };
+
+    
  
     const handleLoginClick = () => {
       // Perform login logic here if needed
@@ -45,14 +58,27 @@ const Login = () => {
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("USER_ID", userId)
-                alert('Login successful');
                 navigate('/contest');
             } else{
                 alert('Login failed. Please try again.');
             }
         } catch (error) {
           console.log(error);
-          alert("An error occurred during signup. Please try again later.");
+      
+          const { errors } = error.response.data;
+          if (errors) {
+            // Handle specific error messages from the backend
+            const errorMessage = errors[0].msg;
+            setErrorMessage(errorMessage);
+    
+            // Set error styling for email or password
+            if (errorMessage === 'Invalid credentials') {
+              setPasswordError(true);
+            }
+          } else {
+            alert('An error occurred during login. Please try again later.');
+          }
+        
         }
     };
 
@@ -111,8 +137,14 @@ const Login = () => {
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
+                  isInvalid={passwordError}
                   required
                 />
+                 {passwordError && (
+                  <Text color="red.500" fontSize="xs" mt={1}>
+                    {errorMessage}
+                  </Text>
+                )}
               </FormControl>
               <Text fontSize="13.5px" mt="2" textAlign="center">
                   By signing up you agree to our{' '}
