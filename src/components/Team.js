@@ -12,6 +12,7 @@ import About from './About';
 const TeamTab = () => {
   const [teamData, setTeamData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -28,6 +29,7 @@ const TeamTab = () => {
          const response = await instance.get(`${GET_ALL_TEAM}?page=${currentPage}&pageSize=${pageSize}&owner=${owner}`);
         // const response = await instance.get(GET_ALL_TEAM, {params});
          setTeamData(response.teams);
+         setTotalPages(response.totalPages);
       } catch (error) {
         console.log('Error fetching team data:', error);
       }
@@ -37,11 +39,16 @@ const TeamTab = () => {
   }, [currentPage]);
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
+
   const handlePrevPage = () => {
-    setCurrentPage(currentPage -1);
-  };
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };;
 
   return (
     <About>
@@ -107,13 +114,13 @@ const TeamTab = () => {
         </Card>
         <Center>
           <HStack>
-            <Button  bgColor='custom.button' onClick={handlePrevPage} mt={4}>
-            <Text color='custom.white'>Previous</Text>
-            </Button>
-            <Text color='custom.white' mt="17px">{`Page ${currentPage}`}</Text>
-            <Button  bgColor='custom.button' onClick={handleNextPage} mt={4}>
-            <Text color='custom.white'>Next</Text> 
-            </Button>
+          <Button bgColor='custom.button' onClick={handlePrevPage} mt={4} display={currentPage === 1 ? 'none' : 'inline-block'}>
+          <Text color='custom.white'>Previous</Text>
+        </Button>
+        <Text color='custom.white' mt="17px">{`Page ${currentPage}`}</Text>
+        <Button bgColor='custom.button' onClick={handleNextPage} mt={4} display={currentPage === totalPages ? 'none' : 'inline-block'}>
+          <Text color='custom.white'>Next</Text> 
+        </Button>
           </HStack>
         </Center>
       </Flex>
