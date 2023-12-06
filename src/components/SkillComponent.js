@@ -115,11 +115,11 @@ const SkillComponent = () => {
       <Heading fontSize={20} color='custom.white'>
         Skills
       </Heading>
-      <Box mt={4} w='30%'>
+      <Box mt={4} w='65%'>
         <Box align='center'>
-          <HStack align='flex-start' spacing={2} ml={2} flexWrap='wrap'>
+          <HStack align='flex-start' spacing={2} ml={2} flexWrap='wrap' >
             {submittedSkills.map((skill, index) => (
-              <Tag key={index} colorScheme='teal' mb={2}>
+              <Tag key={index} bgColor='custom.darkSlateBlue' mb={2}>
                 <TagLabel>{skill.skillName}</TagLabel>
                 <TagCloseButton onClick={() => handleRemoveSkill(index)} />
               </Tag>
