@@ -114,6 +114,19 @@ const Experience = () => {
     }));
   };
 
+  function getLocationTypeLabel(locationType) {
+    switch (locationType) {
+      case 'ON_SITE':
+        return 'On-site';
+      case 'REMOTE':
+        return 'Remote';
+      case 'HYBRID':
+        return 'Hybrid';
+      default:
+        return locationType;
+    }
+  }
+
   const handleAddEducation = async() => {
     if (!newEducation.Title) {
       console.log('hey')
@@ -385,9 +398,9 @@ const Experience = () => {
                 value={newEducation.LocationType}
                 onChange={(e) => handleInputChange('LocationType', e.target.value)}
                >
-                <option  value='ON_SITE'>ON-SITE</option>
-                <option value='REMOTE'>REMOTE</option>
-                <option value='HYBRID'>HYBRID</option>
+                <option  value='ON_SITE'>On-site</option>
+                <option value='REMOTE'>Remote</option>
+                <option value='HYBRID'>Hybrid</option>
                 
                </Select>
               <Box  w='100%'>
@@ -512,8 +525,12 @@ const Experience = () => {
           <Text>I have built {education.Product}</Text>
           )}
 
-          {education.location && education.locationType &&
-          (<Text>{education.location}.{education.locationType}</Text>)}
+        {education.location && education.locationType && (
+          <Text>
+            {education.location} · {getLocationTypeLabel(education.locationType)}
+          </Text>
+        )}
+
             
             {education.startDate && (
             <Text color='custom.white'>
