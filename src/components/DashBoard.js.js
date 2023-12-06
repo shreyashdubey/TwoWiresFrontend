@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState  } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Flex,
@@ -12,7 +12,8 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Image
+  Image ,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
@@ -64,7 +65,9 @@ const DashBoard = () => {
       backdropFilter="saturate(180%) blur(5px)"
     >
       <Heading ml={8} fontSize={30} fontWeight={10} color='custom.white'>
-        SourcedStartup
+      <ChakraLink href="/contest"   _hover={{ textDecoration: 'none' }} >
+          SourcedStartup
+       </ChakraLink>
       </Heading>
       <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue" left="400px">
         <InputLeftElement
