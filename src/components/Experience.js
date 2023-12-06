@@ -385,9 +385,9 @@ const Experience = () => {
                 value={newEducation.LocationType}
                 onChange={(e) => handleInputChange('LocationType', e.target.value)}
                >
-                <option  value='ON_SITE'>Full-Time</option>
-                <option value='REMOTE'>Part-Time</option>
-                <option value='HYBRID'>Self-Employed</option>
+                <option  value='ON_SITE'>ON-SITE</option>
+                <option value='REMOTE'>REMOTE</option>
+                <option value='HYBRID'>HYBRID</option>
                 
                </Select>
               <Box  w='100%'>
