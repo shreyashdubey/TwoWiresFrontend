@@ -40,7 +40,7 @@ const App = () => {
     } else {
       navigate("/login");
     }
-  },[auth])
+  },[])
 
   return (
     <>

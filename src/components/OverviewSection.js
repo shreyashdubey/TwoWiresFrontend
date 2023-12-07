@@ -6,7 +6,9 @@ import { EditIcon } from '@chakra-ui/icons';
 import { useOverview } from './OverviewContext';
 
 const OverviewSection = () => {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isOverviewEditing, setIsOverviewEditing] = useState(false);
+  const [isDiscriptionEditing, setIsDiscriptionEditing] = useState(false);
+  const [isEvaluationTextEditing, setIsEvaluationTextEditing] = useState(false);
   const [overviewText, setOverviewText] = useState(
     '<p>This is the default overview text.</p>'
   ); // Provide initial HTML content
@@ -20,14 +22,32 @@ const OverviewSection = () => {
     '<p>This is the default evaluation text.</p>'
   );
 
-  const handleEditClick = () => {
-    setIsEditing(true);
+  const handleOverviewEditClick = () => {
+    setIsOverviewEditing(true);
+  };
+  const handleDiscriptionEditClick = () => {
+    setIsDiscriptionEditing(true);
+  };
+  const handleEvaluationTextEditClick = () => {
+    setIsEvaluationTextEditing(true);
   };
 
 
 
-  const handleSaveClick = () => {
-    setIsEditing(false);
+  const handleOverviewSaveClick = () => {
+    setIsOverviewEditing(false);
+    setOverviewSaved(true);
+    // Implement logic to save the overviewText to the backend or any storage mechanism
+  };
+
+  const handleDiscriptionSaveClick = () => {
+    setIsDiscriptionEditing(false);
+    setOverviewSaved(true);
+    // Implement logic to save the overviewText to the backend or any storage mechanism
+  };
+
+  const handleEvaluationTextSaveClick = () => {
+    setIsEvaluationTextEditing(false);
     setOverviewSaved(true);
     // Implement logic to save the overviewText to the backend or any storage mechanism
   };
@@ -37,7 +57,7 @@ const OverviewSection = () => {
     console.log('Saving overview:', overviewText);
     // Add your database save logic here
     setOverviewSaved(true);
-    
+
   };
 
   const modules = {
@@ -70,20 +90,20 @@ const OverviewSection = () => {
   ];
 
   return (
-    <Box p={4} w='100%' borderWidth={1} borderRadius="lg" boxShadow="lg">
+    <Box p={4} w='100%' >
         <Box w='100%' >
       <Heading mb={4}>
         Overview{' '}
-        {!isEditing && (
+        {!isOverviewEditing && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
             ml={2}
-            onClick={handleEditClick}
+            onClick={handleOverviewEditClick}
           />
         )}
       </Heading>
-      {isEditing ? (
+      {isOverviewEditing ? (
         <Box>
           <ReactQuill
             theme="snow"
@@ -96,7 +116,7 @@ const OverviewSection = () => {
             icon={<EditIcon />}
             aria-label="Save Overview"
             mt={2}
-            onClick={handleSaveClick}
+            onClick={handleOverviewSaveClick}
           />
         </Box>
       ) : (
@@ -106,16 +126,16 @@ const OverviewSection = () => {
        <Box mt='20px'> 
        <Heading mb={4}>
         Description{' '}
-        {!isEditing && (
+        {!isDiscriptionEditing && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
             ml={2}
-            onClick={handleEditClick}
+            onClick={handleDiscriptionEditClick}
           />
         )}
       </Heading>
-      {isEditing ? (
+      {isDiscriptionEditing ? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"
@@ -128,7 +148,7 @@ const OverviewSection = () => {
             icon={<EditIcon />}
             aria-label="Save Description"
             mt={2}
-            onClick={handleSaveClick}
+            onClick={handleDiscriptionSaveClick}
           />
         </Box>
       ) : (
@@ -139,16 +159,16 @@ const OverviewSection = () => {
       <Box  mt='20px'> 
        <Heading mb={4}>
         Evaluation{' '}
-        {!isEditing && (
+        {!isEvaluationTextEditing && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Evaluation"
             ml={2}
-            onClick={handleEditClick}
+            onClick={handleEvaluationTextEditClick}
           />
         )}
       </Heading>
-      {isEditing ? (
+      {isEvaluationTextEditing ? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"
@@ -161,7 +181,7 @@ const OverviewSection = () => {
             icon={<EditIcon />}
             aria-label="Save Evaluation"
             mt={2}
-            onClick={handleSaveClick}
+            onClick={handleEvaluationTextSaveClick}
           />
         </Box>
       ) : (

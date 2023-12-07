@@ -14,6 +14,7 @@ import {
   Textarea,
   Flex,
   Spacer,
+  HStack,
   
 } from '@chakra-ui/react';
 import { useOverview } from './OverviewContext';
@@ -87,14 +88,18 @@ const CreateCompetitionForm = () => {
 
   return (
     <>
+    <Center dir='column'>
+      <VStack>
+        <HStack mt='20px' >
      <Button onClick={handlePlusButtonClick} colorScheme="teal" size="lg" mb={4}>
         Open Form
       </Button>
       <Button onClick={handleCloseButtonClick} colorScheme="teal" size="lg" mb={4}>
         Close Form
       </Button>
+      </HStack>
       {isFormVisible && (
-    <Box p={8} maxW="xl" borderWidth={1} borderRadius="lg" boxShadow="lg">
+    <Box p={8} maxW="xl" borderWidth={1} borderRadius="lg" boxShadow="lg" mt='20px'>
       <Heading mb={4}>Create a Competition</Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} align="stretch">
@@ -192,7 +197,10 @@ const CreateCompetitionForm = () => {
       </form>
     </Box>
     )}
+    </VStack>
+    </Center>
     </>
+
   );
 };
 
