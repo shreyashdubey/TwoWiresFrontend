@@ -21,10 +21,11 @@ import About from './components/About.js';
 import ActiveCompetitions from './components/Contest.js';
 import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
-import CreateConcept from './components/CreateContest.js';
+import CreateCompetitionForm from './components/CreateCompetitionForm.js'
 import Experience from './components/Experience.js';
 import TestCalendar from './components/TestCalendar.js';
-
+import OverviewSection from './components/OverviewSection.js';
+import { OverviewProvider } from './components/OverviewContext.js';
 
 const App = () => {
   const [auth, setAuth] = useState('');
@@ -34,14 +35,15 @@ const App = () => {
     console.log('hey')
     const token = localStorage.getItem("ACCESS_TOKEN");
     if (token) {
-      console.log('hey2')
+      console.log('hey3')
       setAuth(token);
     } else {
       navigate("/login");
     }
-  },[])
+  },[auth])
 
   return (
+    <>
     <Routes>
       {/* Define your routes here */}
       {auth && (
@@ -69,17 +71,34 @@ const App = () => {
           <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
           <Route path="/discription" element={<ContestDiscription />} />
-          <Route path="/create" element={<CreateConcept />} />
+          {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
+          
 
         </>
 
       )}:
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
+    {auth && (
+    <OverviewProvider>
+      <Routes> 
+            <Route path="/createcompetition" element={<CreateCompetitionForm />} />
+            <Route path="/overview" element={<OverviewSection />} />
+      </Routes>
+    </OverviewProvider>
+    )}:
+    <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route path="/" element={<Signup />} />
+    </Routes>
+
+    
+    </>
   );
+  
 };
 
 export default App;

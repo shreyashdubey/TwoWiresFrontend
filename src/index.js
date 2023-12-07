@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import theme from './utils/color';
+import { OverviewProvider } from './components/OverviewContext';
 
 import App from './App';
 
@@ -20,11 +21,11 @@ ReactDOM.createRoot(rootElement).render(
       src="https://otpless.com/auth.js"
       cid="OZKDMIB9EXXJIOH8XBB89OMBI4SBNMMG"
     ></script>
+      <Router>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Router>
 
-    <Router>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Router>
   </ChakraProvider>
 );
