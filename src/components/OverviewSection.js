@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { Box, Heading, IconButton, Text , Button } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useOverview } from './OverviewContext';
+import Layout from './DashBoard.js';
 
 const OverviewSection = () => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
@@ -90,6 +91,7 @@ const OverviewSection = () => {
   ];
 
   return (
+    <Layout>
     <Box p={4} w='100%' >
         <Box w='100%' >
       <Heading mb={4}>
@@ -192,6 +194,7 @@ const OverviewSection = () => {
         Save Overview
       </Button>
     </Box>
+    </Layout>
   );
 };
 

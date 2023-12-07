@@ -82,18 +82,20 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
-    {auth && (
-    <OverviewProvider>
-      <Routes> 
-            <Route path="/createcompetition" element={<CreateCompetitionForm />} />
-            <Route path="/overview" element={<OverviewSection />} />
-      </Routes>
-    </OverviewProvider>
-    )}:
-    <Routes>
+    {auth ? (
+  <OverviewProvider>
+    <Routes> 
+      <Route path="/createcompetition" element={<CreateCompetitionForm />} />
+      <Route path="/overview" element={<OverviewSection />} />
+    </Routes>
+  </OverviewProvider>
+) : (
+  <Routes>
     <Route path="/login" element={<Login />} />
     <Route path="/" element={<Signup />} />
-    </Routes>
+  </Routes>
+)}
+
 
     
     </>

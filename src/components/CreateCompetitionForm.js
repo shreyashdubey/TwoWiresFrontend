@@ -21,6 +21,7 @@ import { useOverview } from './OverviewContext';
 import { CREATE_CONTEST } from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
+import Layout from './DashBoard.js';
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ const CreateCompetitionForm = () => {
   };
 
   return (
-    <>
+    <Layout>
     <Center dir='column'>
       <VStack>
         <HStack mt='20px' >
@@ -199,7 +200,7 @@ const CreateCompetitionForm = () => {
     )}
     </VStack>
     </Center>
-    </>
+    </Layout>
 
   );
 };
