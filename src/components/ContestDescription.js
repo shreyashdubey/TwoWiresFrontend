@@ -25,6 +25,7 @@ import { Box,
   Input,} from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 import Layout from './DashBoard.js';
+import OverviewSection from './OverviewSection.js';
 
 const ContestDiscription = () => {
   // Assuming you have contest details available
@@ -141,6 +142,9 @@ const ContestDiscription = () => {
       )}
             </HStack>    
         </Box>
+        <Box w='75%' ml='165px'>
+      <OverviewSection/>  
+      </Box>
 
     </Layout>
   );

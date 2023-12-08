@@ -17,6 +17,7 @@ import {
   HStack,
   Card , 
   Link,
+  Grid ,  
 } from '@chakra-ui/react';
 import { useOverview } from './OverviewContext';
 import { CREATE_CONTEST } from '../utils/endpoints';
@@ -211,12 +212,12 @@ const CreateCompetitionForm = () => {
       ok=1
       console.log(ok)
     }
-    navigate(`/overview/${contestId}/${ok}`);
+    navigate(`/discription/${contestId}/${ok}`);
   };
 
   return (
     <Layout>
-    <Center dir='column'>
+    <VStack>
       <VStack>
         <HStack mt='20px' >
      <Button onClick={handlePlusButtonClick} colorScheme="teal" size="lg" mb={4}>
@@ -324,29 +325,28 @@ const CreateCompetitionForm = () => {
     )}
     </VStack>
   <VStack spacing={4} align="stretch">
-    {userContests.map((contest , index) => (
-       <Link
-       key={contest._id}
-      //  to={`/overview/${contest.contestCreator[0]._id}/${contest._id}`}
-      _hover={{ textDecoration: 'none' }}
-       onClick={() => handleCardClick(contest._id , index)}
-     >
-       <Card
-         p={8}
-         maxW="xl"
-         borderWidth={1}
-         borderRadius="lg"
-         boxShadow="lg"
-         mt="20px"
-       >
-         <Heading mb={4}>{contest.contestName}</Heading>
-         <Text>Organizer: {contest.contestOrganizer}</Text>
-         {/* Add other contest details as needed */}
-       </Card>
-     </Link>
-    ))}
+  <Grid
+           templateColumns="repeat(3, 1fr)"
+           gap={6}
+           maxW="4xl"
+           mt="100px"
+        >
+          {userContests.map((contest, index) => (
+            <Link
+              key={contest._id}
+              _hover={{ textDecoration: 'none' }}
+              onClick={() => handleCardClick(contest._id, index)}
+            >
+              <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"  w='300px' h='200px' >
+                <Heading mb={4}>{contest.contestName}</Heading>
+                <Text>Organizer: {contest.contestOrganizer}</Text>
+                {/* Add other contest details as needed */}
+              </Card>
+            </Link>
+          ))}
+        </Grid>
   </VStack>
-    </Center>
+    </VStack>
     </Layout>
 
   );

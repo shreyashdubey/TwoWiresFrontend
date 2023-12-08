@@ -70,7 +70,6 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
-          <Route path="/discription" element={<ContestDiscription />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
           
@@ -87,7 +86,9 @@ const App = () => {
     <Routes> 
       <Route path="/createcompetition" element={<CreateCompetitionForm />} />
       <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
+      <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
     </Routes>
+
   </OverviewProvider>
 ) : (
   <Routes>

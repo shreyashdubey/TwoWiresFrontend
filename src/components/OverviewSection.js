@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Box, Heading, IconButton, Text , Button } from '@chakra-ui/react';
+import { Box, Heading, IconButton, Text , Button , Input } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useOverview } from './OverviewContext';
 import Layout from './DashBoard.js';
@@ -196,9 +196,9 @@ const OverviewSection = () => {
   ];
 
   return (
-    <Layout>
+    <>
     <Box p={4} w='100%' >
-        <Box w='100%' >
+    <Box w='100%' >
       <Heading mt='50px' >
         Overview{' '}
         {!isOverviewEditing && (
@@ -306,7 +306,7 @@ const OverviewSection = () => {
           </Button>
         )}
     </Box>
-    </Layout>
+    </>
   );
 };
 
