@@ -160,7 +160,6 @@ const OverviewSection = () => {
       console.error('API Request Error:', error);
     }
 
-    // Reset the editing state
     setIsOverviewEditing(false);
     setIsDiscriptionEditing(false);
     setIsEvaluationTextEditing(false);
