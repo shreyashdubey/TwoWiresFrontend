@@ -86,7 +86,7 @@ const App = () => {
   <OverviewProvider>
     <Routes> 
       <Route path="/createcompetition" element={<CreateCompetitionForm />} />
-      <Route path="/overview" element={<OverviewSection />} />
+      <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
     </Routes>
   </OverviewProvider>
 ) : (

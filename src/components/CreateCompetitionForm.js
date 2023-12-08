@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState  , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -15,18 +15,25 @@ import {
   Flex,
   Spacer,
   HStack,
-  
+  Card , 
+  Link,
 } from '@chakra-ui/react';
 import { useOverview } from './OverviewContext';
 import { CREATE_CONTEST } from '../utils/endpoints';
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import Layout from './DashBoard.js';
+import UserContest from './UserContest.js';
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [form , setForm] = useState()
   const { isOverviewSaved } = useOverview();
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [editContestId, setEditContestId] = useState(null);
+  const [initialFetch, setInitialFetch] = useState(false);
+
   console.log(isOverviewSaved)
   const [formData, setFormData] = useState({
     contestName: '',
@@ -36,6 +43,31 @@ const CreateCompetitionForm = () => {
     endTime: '',
     description: '',
   });
+
+  const [userContests, setUserContests] = useState([]);
+
+  useEffect(() => {
+    const fetchUserContests = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        const userId = decodedToken.user._id;
+  
+        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=10`);
+        const contests = contestsResponse.contests;
+        setUserContests(contests);
+      } catch (error) {
+        console.error('Error fetching user contests:', error);
+        // Handle error cases if needed
+      }
+    };
+
+    if (!initialFetch) {
+      // Fetch education entries only when initialFetch is false
+      fetchUserContests();
+      setInitialFetch(true); // Set initialFetch to true after the initial fetch
+    }
+  }, [initialFetch]);
 
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({
@@ -69,7 +101,9 @@ const CreateCompetitionForm = () => {
       if (response.success) {
         // Optionally, you can set isOverviewSaved in the context or component state
         // to update the Save button logic if needed
-        navigate('/overview');
+        setIsFormVisible(false);
+        setInitialFetch(false)
+        //navigate('/overview');
       } else {
         // Handle error cases if needed
       }
@@ -79,12 +113,105 @@ const CreateCompetitionForm = () => {
     }
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Prepare the data for the API request
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id
+
+        const contestName =  formData.contestName
+        const contestOrganizer= formData.contestOrganizer
+        const contestCreator = [userId] // Assuming contestCreator is a single value, adjust as needed
+        const startTime = formData.startTime
+        const endTime = formData.endTime
+
+      // Make the API request
+       const response = await instance.put(`/api/contest/edit-contest/${editContestId}`,{contestName , contestOrganizer , contestCreator ,startTime , endTime }, {'Content-Type': 'application/json'})
+
+      // Handle the response from the API
+        console.log('API Response:', response.data);
+
+      // Assuming the API response is successful, you can redirect to the overview page
+      if (response.success) {
+        // Optionally, you can set isOverviewSaved in the context or component state
+        // to update the Save button logic if needed
+        setIsFormVisible(false);
+        setEditContestId(null)
+        setInitialFetch(false)
+        //navigate('/overview');
+      } else {
+        // Handle error cases if needed
+      }
+    } catch (error) {
+      console.error('API Request Error:', error);
+      // Handle error cases if needed
+    }
+  };
+
+  const handleEditButtonClick = (contestId, contestName) => {
+    // Find the contest with the given ID from userContests
+    const contestToEdit = userContests.find((contest) => contest._id === contestId);
+  
+    // Set the form data with the contest details
+    setFormData({
+      contestName: contestToEdit.contestName,
+      contestOrganizer: contestToEdit.contestOrganizer,
+      startTime: '', // Add other fields as needed
+      endTime: '',
+      description: '',
+    });
+  
+    // Set the contest ID to track which contest is being edited
+    setEditContestId(contestId);
+  
+    // Open the form
+    setIsFormVisible(true);
+  };
+
+  const handleDeleteButtonClick = async (contestId, contestCreatorId) => {
+    try {
+      // Make the API request to delete the contest
+      const response = await instance.delete(`/api/contest/delete-contest/${contestId}/${contestCreatorId}`);
+  
+      // Handle the response from the API
+      console.log('API Response:', response.data);
+  
+      // Assuming the API response is successful
+      if (response.success) {
+        // Trigger a re-fetch of user contests or update the UI as needed
+        setIsFormSubmitted(!isFormSubmitted);
+        setInitialFetch(false)
+      } else {
+        // Handle error cases if needed
+      }
+    } catch (error) {
+      console.error('API Request Error:', error);
+      // Handle error cases if needed
+    }
+  };
+  
+  
+
   const handlePlusButtonClick = () => {
     setIsFormVisible(true);
   };
 
   const handleCloseButtonClick = () => {
     setIsFormVisible(false);
+  };
+
+  const handleCardClick = (contestId,index) => {
+    // Navigate to the overview page with user ID and contest ID
+    const constestIndex = userContests[index]
+    let ok =0;
+    if(constestIndex.contestDescription){
+      ok=1
+      console.log(ok)
+    }
+    navigate(`/overview/${contestId}/${ok}`);
   };
 
   return (
@@ -181,24 +308,44 @@ const CreateCompetitionForm = () => {
           </FormControl>
 
           <Center>
+          {editContestId ? (
+            <Button type="submit" colorScheme="teal" size="lg" onClick={handleUpdate}>
+              Update Competition
+            </Button>
+          ) : (
             <Button type="submit" colorScheme="teal" size="lg">
               Create Competition
             </Button>
-            {isOverviewSaved ? (
-                <Button onClick={() => navigate('/complete-overview')} colorScheme="teal" size="lg" mr={4}>
-                  Save
-                </Button>
-              ) : (
-                <Button onClick={() => navigate('/overview')} colorScheme="teal" size="lg" mr={4}>
-                  Create
-                </Button>
-              )}
+          )}
           </Center>
         </VStack>
       </form>
     </Box>
     )}
     </VStack>
+  <VStack spacing={4} align="stretch">
+    {userContests.map((contest , index) => (
+       <Link
+       key={contest._id}
+      //  to={`/overview/${contest.contestCreator[0]._id}/${contest._id}`}
+      _hover={{ textDecoration: 'none' }}
+       onClick={() => handleCardClick(contest._id , index)}
+     >
+       <Card
+         p={8}
+         maxW="xl"
+         borderWidth={1}
+         borderRadius="lg"
+         boxShadow="lg"
+         mt="20px"
+       >
+         <Heading mb={4}>{contest.contestName}</Heading>
+         <Text>Organizer: {contest.contestOrganizer}</Text>
+         {/* Add other contest details as needed */}
+       </Card>
+     </Link>
+    ))}
+  </VStack>
     </Center>
     </Layout>
 
