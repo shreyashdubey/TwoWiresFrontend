@@ -19,6 +19,15 @@ const theme = extendTheme({
     initialColorMode: 'dark',
     useSystemColorMode: false,
   },
+  breakpoints : {
+    base: "0px", // 0px
+    sm: "375px", // ~480px. em is a relative unit and is dependant on the font-size.
+    md: "425px", // ~768px
+    lg: "768px", // ~992px
+    xl: "1024px", // ~1280px
+    "2xl": "1440px", // ~1536px
+  },
+
 });
 
 export default theme;

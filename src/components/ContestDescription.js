@@ -76,7 +76,7 @@ const ContestDiscription = () => {
         backgroundImage={`url(${contestDetails.imageSrc})`}
         backgroundSize="cover"
         backgroundPosition="center"
-        ml='175px'
+        ml={['95px' , '90px' , '100px','110px','130px','190px']}
         backgroundRepeat="no-repeat"
         mt='100px'
         w="75%"
@@ -95,7 +95,7 @@ const ContestDiscription = () => {
             </VStack>
         </Center>
         </Box>
-        <Box p={4} bg="gray.100" w = '75%'  ml='175px' bgColor='darkSlateBlue'>
+        <Box p={4} bg="gray.100" w = '75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']} bgColor='darkSlateBlue'>
             <HStack>
                 <Tabs w = '20%'>
                     <TabList>
@@ -142,7 +142,7 @@ const ContestDiscription = () => {
       )}
             </HStack>    
         </Box>
-        <Box w='75%' ml='165px'>
+        <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
       <OverviewSection/>  
       </Box>
 

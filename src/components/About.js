@@ -58,7 +58,7 @@ const User = () => {
       };
 
     return(
-        <Box   w='50%' ml='400px'> 
+        <Box   w='50%' ml={['400px' ,'10px','30px','210px','300px', '400px']}  alignItems="center"  > 
             <Flex mt='15px' w='100%'> 
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
@@ -99,7 +99,7 @@ const User = () => {
 const About = ({ children }) => {
   return (
     <UserProfile>
-    <Flex direction="column" >
+    <Flex direction="column"  >
       <User />
       {children}
     </Flex>

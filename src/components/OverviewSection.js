@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Box, Heading, IconButton, Text , Button , Input } from '@chakra-ui/react';
+import { Box, Heading, IconButton, Text , Button , Input, Center } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useOverview } from './OverviewContext';
 import Layout from './DashBoard.js';

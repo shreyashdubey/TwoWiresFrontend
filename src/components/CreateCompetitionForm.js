@@ -18,6 +18,7 @@ import {
   Card , 
   Link,
   Grid ,  
+  SimpleGrid
 } from '@chakra-ui/react';
 import { useOverview } from './OverviewContext';
 import { CREATE_CONTEST } from '../utils/endpoints';
@@ -228,7 +229,7 @@ const CreateCompetitionForm = () => {
       </Button>
       </HStack>
       {isFormVisible && (
-    <Box p={8} maxW="xl" borderWidth={1} borderRadius="lg" boxShadow="lg" mt='20px'>
+    <Box p={8}  w={['250px' , '300px' , '300px' , '500px' , '500px' , '500px']} borderWidth={1} borderRadius="lg" boxShadow="lg" mt='20px'>
       <Heading mb={4}>Create a Competition</Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} align="stretch">
@@ -269,7 +270,7 @@ const CreateCompetitionForm = () => {
             />
           </FormControl> */}
 
-          <Flex>
+          <Flex direction='column'>
             <FormControl flex="1">
               <FormLabel>Start Time</FormLabel>
               <Input
@@ -281,8 +282,6 @@ const CreateCompetitionForm = () => {
                 required
               />
             </FormControl>
-
-            <Spacer />
 
             <FormControl flex="1">
               <FormLabel>End Time</FormLabel>
@@ -325,26 +324,23 @@ const CreateCompetitionForm = () => {
     )}
     </VStack>
   <VStack spacing={4} align="stretch">
-  <Grid
-           templateColumns="repeat(3, 1fr)"
-           gap={6}
-           maxW="4xl"
-           mt="100px"
-        >
+  <Flex  centerContent mt={10} w={['100%' , '100%' , '100%' , '100%', '100%']}  direction='column' alignItems="center">
+      <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
           {userContests.map((contest, index) => (
             <Link
               key={contest._id}
               _hover={{ textDecoration: 'none' }}
               onClick={() => handleCardClick(contest._id, index)}
             >
-              <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"  w='300px' h='200px' >
+              <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"   w={['250px' , '300px' , '320px' , '300px' , '200px' , '300px']} h='200px' >
                 <Heading mb={4}>{contest.contestName}</Heading>
                 <Text>Organizer: {contest.contestOrganizer}</Text>
                 {/* Add other contest details as needed */}
               </Card>
             </Link>
           ))}
-        </Grid>
+        </SimpleGrid>
+        </Flex>
   </VStack>
     </VStack>
     </Layout>

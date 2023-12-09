@@ -273,7 +273,7 @@ const EducationComponent = () => {
 
   return (
     <Box  mt={5}>
-      <Text fontSize="xl" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' w='14%'>
+      <Text fontSize="lg" fontWeight="bold" mb={4} bgColor='custom.darkSlateBlue' color='custom.white' >
         Education
       </Text>
       <Button onClick={handleOpenModal} bgColor='custom.button' variant='solid'>
@@ -285,9 +285,9 @@ const EducationComponent = () => {
         />
       </Button>
 
-      <Modal isOpen={isOpen} onClose={handleCloseModal} >
+      <Modal isOpen={isOpen} onClose={handleCloseModal}  >
         <ModalOverlay />
-        <ModalContent bgColor='custom.darkSlateBlue'>
+        <ModalContent bgColor='custom.darkSlateBlue' w={['300px' , '300px' , '380px' , '600px', '700px']}>
           <ModalHeader color='custom.white'>Add Education</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -411,7 +411,7 @@ const EducationComponent = () => {
       </Modal>
 
       {educationData.map((education, index) => (
-  <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue'>
+  <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue' w={['250px' , '300px' , '320px' , '300px' , '500px' , '700px']} >
     <HStack>
       {education.degree && education.fieldOfStudy && (
         <Text fontSize="xl" fontWeight="bold" color='custom.white' >

@@ -115,7 +115,7 @@ const SkillComponent = () => {
       <Heading fontSize={20} color='custom.white'>
         Skills
       </Heading>
-      <Box mt={4} w='65%'>
+      <Box mt={4}  w={['250px' , '300px' , '320px' , '300px' , '500px' , '700px']} >
         <Box align='center'>
           <HStack align='flex-start' spacing={2} ml={2} flexWrap='wrap' >
             {submittedSkills.map((skill, index) => (

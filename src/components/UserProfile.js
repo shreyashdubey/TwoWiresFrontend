@@ -24,7 +24,7 @@ const User = () => {
       };
    
   return (
-    <Flex   ml = '400px' mt='100px'  >
+    <Flex  ml={['400px' ,'10px','30px','210px','300px', '400px']} mt='100px'  >
         {/* <Box ml={200} bgColor={'red.100'}></Box> */}
        <Stack direction = 'column' w = {800}>
            <Flex > 
