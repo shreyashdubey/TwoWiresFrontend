@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import theme from './utils/color';
