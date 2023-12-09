@@ -1,4 +1,4 @@
-// ContestDetailsPage.js
+
 import React , {useState , useEffect } from 'react';
 import Scrollspy from 'react-scrollspy';
 import { Box,

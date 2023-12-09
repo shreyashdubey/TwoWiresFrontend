@@ -121,7 +121,7 @@ const Login = () => {
               <FormControl mb="3" mt = "20">
                 <Input
                   type="email"
-                  id="email"
+                  id="email-id"
                   name="email"
                   placeholder="Email"
                   value={formData.email}
@@ -132,7 +132,7 @@ const Login = () => {
               <FormControl mb="3">
                 <Input
                   type="password"
-                  id="password"
+                  id="password-id"
                   name="password"
                   placeholder="Password"
                   value={formData.password}
