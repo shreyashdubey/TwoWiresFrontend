@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-    baseURL: "https://fastidious-pegasus-4cad61.netlify.app",
+    baseURL: "https://troubled-elk-glasses.cyclic.app",
 
 })
 instance.interceptors.response.use(function(response){return response?.data}, function(error) {
