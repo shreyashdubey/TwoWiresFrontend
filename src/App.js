@@ -81,17 +81,17 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
-    {auth && (
-  // <OverviewProvider>
-  //   <Routes> 
-  //     <Route path="/createcompetition" element={<CreateCompetitionForm />} />
-  //     <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
-  //     <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
-  //   </Routes>
+    {/* {auth && (
+  <OverviewProvider>
+    <Routes> 
+      <Route path="/createcompetition" element={<CreateCompetitionForm />} />
+      <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
+      <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
+    </Routes>
 
-  // </OverviewProvider>
+  </OverviewProvider>
 ) 
-}
+} */}
 
 
     
