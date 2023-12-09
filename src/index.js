@@ -21,7 +21,7 @@ ReactDOM.createRoot(rootElement).render(
       src="https://otpless.com/auth.js"
       cid="OZKDMIB9EXXJIOH8XBB89OMBI4SBNMMG"
     ></script>
-      <Router>
+      <Router basename='/'>
         <React.StrictMode>
           <App />
         </React.StrictMode>
