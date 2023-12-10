@@ -65,7 +65,7 @@ const Login = () => {
         } catch (error) {
           console.log(error);
       
-          const { errors } = error.response.data;
+          const { errors } = error.response;
           if (errors) {
             // Handle specific error messages from the backend
             const errorMessage = errors[0].msg;
