@@ -22,10 +22,21 @@ import { Box,
   HStack,
   Spacer,
   Button,
-  Input,} from '@chakra-ui/react';
+  Input,
+  Stack , Flex, FormControl, FormHelperText, FormLabel
+} from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 import Layout from './DashBoard.js';
 import OverviewSection from './OverviewSection.js';
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
+import {
+  AutoComplete,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
+import { jwtDecode } from "jwt-decode";
+import instance from '../utils/api'
 
 const ContestDiscription = () => {
   // Assuming you have contest details available
@@ -35,10 +46,29 @@ const ContestDiscription = () => {
   const [hideJoinButton, setHideJoinButton] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
   const [file, setFile] = useState(null);
- 
+  const [joinAsTeam, setJoinAsTeam] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [teamName, setTeamName] = useState('');
+  const [soccerWinner, setSoccerWinner] = useState('');
+  const [teamSuggestions, setTeamSuggestions] = useState([]);
+  const accessToken = localStorage.getItem('ACCESS_TOKEN');
+  const decodedToken = jwtDecode(accessToken);
 
 
+  const countries = [
+    "nigeria",
+    "japan",
+    "india",
+    "united states",
+    "south korea",
+  ];
 
+  // useEffect(() => {
+  //   // Make the backend call when soccerWinner is updated
+  //   if (soccerWinner) {
+  //     submitSoccerWinner();
+  //   }
+  // }, [soccerWinner]);
 
 
   const handleJoinClick = () => {
@@ -50,7 +80,31 @@ const ContestDiscription = () => {
     setShowSubmissionTab(true);
     setHideJoinButton(true);
   };
+ 
+  const submitSoccerWinner = async () => {
+    setIsDisabled(false)
+    // try {
+    //   // Make an HTTP request to your backend with soccerWinner
+    //   const response = await fetch('your-backend-endpoint', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ soccerWinner }),
+    //   });
 
+    //   // Check if the request was successful (status code 2xx)
+    //   if (response.ok) {
+    //     // Handle success, e.g., redirect or show a success message
+    //     console.log('Soccer winner submitted successfully');
+    //   } else {
+    //     // Handle error, e.g., show an error message
+    //     console.error('Soccer winner submission failed');
+    //   }
+    // } catch (error) {
+    //   console.error('Error submitting soccer winner:', error);
+    // }
+  };
 
   const contestDetails = {
     name: 'Contest Name',
@@ -67,8 +121,37 @@ const ContestDiscription = () => {
   const handleFileSubmit = () => {
     // You can now use the 'file' state to upload the file to your backend server
     // Implement your file upload logic here
-    console.log('File submitted:', file);
+    setIsDisabled(false)
+    console.log('File submitted:');
   };
+   
+  const fetchTeamNames = async () => {
+    console.log('worked')
+    // try {
+    //   // Replace 'your_backend_api_url' with the actual endpoint for fetching team names
+    //   const response = await fetch('your_backend_api_url', {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       // Add any required headers, such as authorization headers
+    //     },
+    //   });
+
+    //   if (response.ok) {
+    //     const teamNames = await response.json();
+    //     console.log('Team names fetched successfully:', teamNames);
+    //     // Update the teamSuggestions state with the fetched team names
+    //     setTeamSuggestions(teamNames);
+    //   } else {
+    //     console.error('Failed to fetch team names');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during fetchTeamNames:', error);
+    // }
+  };
+
+  
+
 
   return (
     <Layout>
@@ -109,19 +192,54 @@ const ContestDiscription = () => {
           <Text  color='custom.white' >Join Competition</Text>
         </Button>
       )}
-
+        
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Competition Rules</ModalHeader>
+          <ModalHeader>Participant Option</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Add competition rules content here */}
-            <p><Text color='custom.white'></Text>Rules go here.</p>
+          <Stack spacing={2} direction='column'>
+            <Checkbox >join as individual</Checkbox>
+            <Checkbox onChange={(e) => {
+               setJoinAsTeam(e.target.checked);
+               if (e.target.checked) {
+                 // Only call fetchTeamNames() when "Join as team" is checked
+                 fetchTeamNames();
+               }
+            }}>
+              Join as team
+            </Checkbox>
+          </Stack>
+            {joinAsTeam && (
+              <Flex pt="48" justify="center" align="center" w="full">
+                <FormControl w="60">
+                  <AutoComplete openOnFocus onChange={handleFileSubmit} >
+                    <AutoCompleteInput
+                      variant="filled"
+
+                    />
+                    <AutoCompleteList>
+                      {countries.map((soccerWinner, cid) => (
+                        <AutoCompleteItem
+                          key={`option-${cid}`}
+                          value={soccerWinner}
+                          textTransform="capitalize"
+                        >
+                          {soccerWinner}
+                        </AutoCompleteItem>
+                      ))}
+                    </AutoCompleteList>
+                  </AutoComplete>
+                  <FormHelperText>Who do you support.</FormHelperText>
+                </FormControl>
+              </Flex>
+            )}
+
           </ModalBody>
           <ModalFooter>
-            <Button bgColor='custom.button' mr={3} onClick={handleAcceptClick}>
-            <Text color='custom.white'></Text>I Understand and Accept
+            <Button bgColor='custom.button' mr={3} onClick={handleAcceptClick} isDisabled={isDisabled}>
+            <Text color='custom.white'>Register</Text>
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -142,6 +260,7 @@ const ContestDiscription = () => {
       )}
             </HStack>    
         </Box>
+        
         <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
       <OverviewSection/>  
       </Box>

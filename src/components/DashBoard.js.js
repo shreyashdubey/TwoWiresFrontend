@@ -22,6 +22,7 @@ import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
 import trophy from './images/trophy.png'
 import theme from '../utils/color';
 import user from './images/home.png'
+import logout from './images/logout.png'
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -39,6 +40,14 @@ const DashBoard = () => {
   const handleUserContestTabClick = () => {
     navigate('/createcompetition');
   };
+
+  const handleUserLogoutTabClick = () => {
+    localStorage.removeItem('ACCESS_TOKEN');
+
+    // Redirect to the login page or any other desired page
+    navigate('/login');
+  };
+
 
 
   useEffect(() => {
@@ -142,6 +151,16 @@ const DashBoard = () => {
             boxSize='25px'
             objectFit='cover'
             src={user}
+            alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
+          />
+          </Tab>
+          <Tab  onClick={handleUserLogoutTabClick}>
+          <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={logout}
             alt='Dan Abramov'
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'

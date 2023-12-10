@@ -13,7 +13,6 @@ import PasswordReset from './components/PasswordReset'
 import Team from './components/Team'
 import CreateNewTeam from './components/CreateTeam';
 import InviteUsers from './components/InviteUser';
-import ModalTesting from './components/ModalTesting';
 import SkillComponent from './components/SkillComponent';
 import EducationComponent from './components/EducationComponent';
 import UserProfile from './components/UserProfile.js';
@@ -26,6 +25,7 @@ import Experience from './components/Experience.js';
 import TestCalendar from './components/TestCalendar.js';
 import OverviewSection from './components/OverviewSection.js';
 import { OverviewProvider } from './components/OverviewContext.js';
+
 
 const App = () => {
   const [auth, setAuth] = useState('');
@@ -63,7 +63,6 @@ const App = () => {
           <Route path="/team" element={<Team/>} />
           <Route path="/create-new-team" element={<CreateNewTeam/>} />
           <Route path="/invite-users" element={<InviteUsers />} />
-          <Route path="/modaltesting" element={<ModalTesting />} />
           <Route path="/skill" element={<SkillComponent />} />
           <Route path="/education" element={<EducationComponent />} />
           <Route path="/dashboard" element={<DashBoard />} />
