@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Box, Heading, IconButton, Text , Button , Input, Center } from '@chakra-ui/react';
+import { Box, Heading, IconButton, Text , Button , Input, Center ,  Tag,TagLabel, } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useOverview } from './OverviewContext';
 import Layout from './DashBoard.js';
@@ -16,7 +16,9 @@ const OverviewSection = () => {
   const [isEditing , setIsEditing] = useState(false)
   const [contestDescription, setContestDescription] = useState(null);
   const [initialFetch, setInitialFetch] = useState(false);
+  const [publish, setPublish] = useState(false);
   const {contestId ,ok} = useParams();
+  const [isSaved, setIsSaved] = useState(false);
   const [overviewText, setOverviewText] = useState(
     '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>'
   ); // Provide initial HTML content
@@ -41,6 +43,7 @@ const OverviewSection = () => {
          setOverviewText(response.contestDescription.overview)
          setDescriptionText(response.contestDescription.description)
          setEvaluationText(response.contestDescription.evaluation)
+        // setPublish(response.isPublish)
          
         } else {
           console.error('Failed to fetch contest description:', response.message);
@@ -120,6 +123,7 @@ const OverviewSection = () => {
         setOverviewSaved(true);
         setInitialFetch(false)
         setIsEditing(false)
+        setIsSaved(true)
       } else {
         console.error('Failed to save contest description:');
       }
@@ -197,6 +201,20 @@ const OverviewSection = () => {
   return (
     <>
     <Box p={4} w='100%' >
+    {isSaved && publish && (
+          <Tag>
+            <TagLabel>
+              Published
+            </TagLabel>
+          </Tag>
+        )}
+        {isSaved && !publish && (
+          <Tag>
+            <TagLabel>
+              Waiting for review
+            </TagLabel>
+          </Tag>
+        )}
     <Box w='100%' >
       <Heading mt='50px' >
         Overview{' '}
@@ -294,16 +312,17 @@ const OverviewSection = () => {
         <Text dangerouslySetInnerHTML={{ __html: evaluationText }} />
       )}
       </Box>
-      {isEditing && check &&(
+      {(isSaved || check) && isEditing && (
           <Button type="submit" colorScheme="teal" size="lg" onClick={handleUpdate}>
             Update
           </Button>
         )}
-        {isEditing && !check &&  (
+        {!isSaved && isEditing && !check &&  (
           <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}>
             Save Overview
           </Button>
         )}
+       
     </Box>
     </>
   );

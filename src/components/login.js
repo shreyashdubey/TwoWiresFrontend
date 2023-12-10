@@ -54,20 +54,18 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await instance.post(LOGIN,formData, {'Content-Type': 'application/json'})
-            const { accessToken, userId} = response;
+            const { accessToken , refreshToken} = response;
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
-              localStorage.setItem("USER_ID", userId)
+              localStorage.setItem("REFRESH_TOKEN", refreshToken)
                 navigate('/contest');
             } else{
                 alert('Login failed. Please try again.');
             }
         } catch (error) {
-          console.log(error);
-      
-          const { errors } = error.response;
-          if (errors) {
+          if (error.response) {
             // Handle specific error messages from the backend
+            const { errors } = error.response.data;
             const errorMessage = errors[0].msg;
             setErrorMessage(errorMessage);
     
