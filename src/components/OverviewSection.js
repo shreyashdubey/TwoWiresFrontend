@@ -201,14 +201,14 @@ const OverviewSection = () => {
   return (
     <>
     <Box p={4} w='100%' >
-    {isSaved && publish && (
+    {(isSaved || check )&& publish && (
           <Tag>
             <TagLabel>
               Published
             </TagLabel>
           </Tag>
         )}
-        {isSaved && !publish && (
+        {(isSaved || check) && !publish && (
           <Tag>
             <TagLabel>
               Waiting for review
