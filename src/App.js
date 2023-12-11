@@ -80,7 +80,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
-    {/* {auth && (
+    {auth && (
   <OverviewProvider>
     <Routes> 
       <Route path="/createcompetition" element={<CreateCompetitionForm />} />
@@ -90,7 +90,7 @@ const App = () => {
 
   </OverviewProvider>
 ) 
-} */}
+}
 
 
     

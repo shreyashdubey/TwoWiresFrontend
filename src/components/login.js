@@ -172,7 +172,7 @@ const Login = () => {
               </Text>
               <Text mt="8" textAlign="center">
                 Don't Have an account?{' '}
-                <ChakraLink href = "Signup" color="blue.500">
+                <ChakraLink href = "/" color="blue.500">
                   Sign up
                 </ChakraLink>
               </Text>
