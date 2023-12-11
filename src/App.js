@@ -46,8 +46,8 @@ const App = () => {
     <>
     <Routes>
       {/* Define your routes here */}
-      {auth && (
-        <>
+      {/* {auth && ( */}
+        {/* <> */}
           <Route path="/home" element={<Home />} />
           <Route path="/user/:userId" component={UserProfile} />
           <Route path="/friend-requests" element={<FriendRequest />} />
@@ -73,14 +73,14 @@ const App = () => {
           <Route path="/calendar" element={<TestCalendar />} />
           
 
-        </>
+        {/* </> */}
 
-      )}:
+      {/* )}: */}
       <Route path="/" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
-    {auth && (
+    {/* {auth && (
   <OverviewProvider>
     <Routes> 
       <Route path="/createcompetition" element={<CreateCompetitionForm />} />
@@ -90,7 +90,7 @@ const App = () => {
 
   </OverviewProvider>
 ) 
-}
+} */}
 
 
     
