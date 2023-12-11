@@ -1,7 +1,7 @@
 // UserContest.js
 import React from 'react';
 import About from './About';
-import { Box, Container, Card, Text, Image , Link , Badge , HStack , Spacer , SimpleGrid ,useColorModeValue , Heading} from '@chakra-ui/react';
+import { Box, Container, Card, Text, Image , Link , Badge , HStack , Spacer , SimpleGrid ,useColorModeValue , Heading , Flex, Center} from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 
 const UserContest = () => {
@@ -112,13 +112,12 @@ const UserContest = () => {
 
   return (
     <About>
-      
-      <Container maxW="container.xl" centerContent  width={1440} mt={10} >
-        <Heading mr={780}  mb={7} fontSize={20} fontWeight={30} color='custom.white' >My Competition</Heading>
-        <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
+      <Flex  centerContent mt={10} w={['100%' , '100%' , '100%' , '100%', '75%']}   direction='column' alignItems="center" ml={['0px' ,'0px','0px','0px','180px', '230px']}  >
+      <Heading mb={7} fontSize={20} fontWeight={50} color='custom.white' mt='10px' >My Competition</Heading>
+        <SimpleGrid columns={[1,1,1,2,3,3]} spacing={4}>
         {contestData.map((contest, index) => (
           <Link key={index} to={`/contest/${index}`}>
-            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w="300px" h="300px" borderRadius="15px" overflow="hidden" bgColor='custom.darkSlateBlue'>
+            <Card boxShadow="lg" transition="transform 0.3s" _hover={{ transform: 'scale(1.05)' }} w={['250px' , '300px' , '320px' , '300px' , '200px' , '300px']} h="300px" borderRadius="15px" overflow="hidden" bgColor='custom.darkSlateBlue'>
               <Box borderRadius="50px 50px 0 0" h='25%'>
                 <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
               </Box>
@@ -149,12 +148,12 @@ const UserContest = () => {
           </Link>
         ))}
       </SimpleGrid>
-      </Container>
-      <Box bgColor={chakraUIColorLastbox} width={1280} height={250}mt={50} ml={120}>
+      </Flex>
+      {/* <Box bgColor={chakraUIColorLastbox} width={1280} height={250}mt={50} ml={120}>
               <Text>Damn you mother fucker</Text>
       </Box>
       <Box  width={1440} height={5}mt={50} ml={50}>
-      </Box>
+      </Box> */}
     </About>
   );
 };

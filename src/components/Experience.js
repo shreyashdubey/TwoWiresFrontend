@@ -327,7 +327,7 @@ const Experience = () => {
 
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalOverlay />
-        <ModalContent bgColor='custom.darkSlateBlue'>
+        <ModalContent bgColor='custom.darkSlateBlue' w={['300px' , '300px' , '380px' , '600px', '700px']} >
           <ModalHeader color='custom.white'>Add Experience</ModalHeader>
           <ModalCloseButton />
           <ModalBody >
@@ -493,7 +493,7 @@ const Experience = () => {
       </Modal>
 
       {educationData.map((education, index) => (
-        <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue' >
+        <Card key={index} p={4} mt={4} boxShadow="md" bgColor='custom.darkSlateBlue' w={['250px' , '300px' , '320px' , '300px' , '500px' , '700px']} >
           <HStack>
           <Text fontSize="xl" fontWeight="bold">
             {education.title} in {education.companyName}

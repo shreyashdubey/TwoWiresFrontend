@@ -52,7 +52,7 @@ const TeamTab = () => {
 
   return (
     <About>
-      <Flex direction="column" w="50%" ml="385px" mt="20px">
+      <Flex direction="column"  w={['100%' , '100%' , '100%' , '100%', '75%']}  mt="20px"  ml={['0px' ,'0px','0px','0px','180px', '230px']} alignItems="center" >
         <Center>
           <ChakraLink to="/create-new-team">
             <Button  bgColor='custom.button'   mt='8px'>
@@ -60,9 +60,9 @@ const TeamTab = () => {
             </Button>
           </ChakraLink>
         </Center>
-        <Card ml="13px" mt="20px"  bgColor='custom.darkSlateBlue'>
-          <TableContainer ml="55px">
-            <Table variant="unstyled" mt={4} >
+        <Card  mt="20px"  bgColor='custom.darkSlateBlue'  w={['300px' , '300px' , '500px' , '768px' , '800px' , '1000px']}>
+          <TableContainer >
+          <Table variant="unstyled" mt={4} >
               <Thead>
                 <Tr >
                   <Th w="5%"><Text color='custom.white'>#</Text></Th>
