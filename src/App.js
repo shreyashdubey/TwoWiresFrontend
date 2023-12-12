@@ -25,6 +25,8 @@ import Experience from './components/Experience.js';
 import TestCalendar from './components/TestCalendar.js';
 import OverviewSection from './components/OverviewSection.js';
 import { OverviewProvider } from './components/OverviewContext.js';
+import PublishContest from './components/PublishContest.js';
+import ReviewDiscription from './components/ReviewDiscription.js';
 
 
 const App = () => {
@@ -37,9 +39,7 @@ const App = () => {
     if (token) {
       console.log('hey3')
       setAuth(token);
-    } else {
-      navigate("/login");
-    }
+    } 
   },[auth])
 
   return (
@@ -80,17 +80,19 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
-    {auth && (
+    {/* {auth && ( */}
   <OverviewProvider>
     <Routes> 
       <Route path="/createcompetition" element={<CreateCompetitionForm />} />
       <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
       <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
+      <Route path="/review" element={<PublishContest />} />
+      <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
     </Routes>
 
   </OverviewProvider>
-) 
-}
+{/* )  */}
+{/* } */}
 
 
     

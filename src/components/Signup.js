@@ -175,7 +175,7 @@ const Signup = () => {
           </form>
           <Text mt="4" textAlign="center">
             Have an account?{" "}
-            <ChakraLink href="Login" color="blue.500">
+            <ChakraLink href="login" color="blue.500">
               Sign in
             </ChakraLink>
           </Text>

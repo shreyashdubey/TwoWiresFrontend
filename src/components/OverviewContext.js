@@ -4,14 +4,32 @@ const OverviewContext = createContext();
 
 export const OverviewProvider = ({ children }) => {
   const [isOverviewSaved, setIsOverviewSaved] = useState(false);
+  const [isContestDetail, setIsContestDetail] = useState({
+    contestName: '',
+    contestOrganizer: '',
+    contestCreator: [{}],
+    startTime: '',
+    endTime: '',
+    isSubmitted: false ,
+    isPublished : false ,
+
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const setOverviewSaved = (value) => {
     setIsOverviewSaved(value);
     console.log(isOverviewSaved)
   };
+  const setContesttDetail = (value) => {
+    setIsContestDetail(value)
+    console.log(isContestDetail)
+  };
+  const setSubmitted = (value) => {
+    setIsSubmitted(value)
+  };
 
   return (
-    <OverviewContext.Provider value={{ isOverviewSaved, setOverviewSaved }}>
+    <OverviewContext.Provider value={{ isOverviewSaved, setOverviewSaved  ,isContestDetail ,setContesttDetail , isSubmitted , setSubmitted }}>
       {children}
     </OverviewContext.Provider>
   );

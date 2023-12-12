@@ -9,7 +9,7 @@ import instance from '../utils/api.js';
 import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
 
-const OverviewSection = () => {
+const ReviewDiscription = () => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
   const [isDiscriptionEditing, setIsDiscriptionEditing] = useState(false);
   const [isEvaluationTextEditing, setIsEvaluationTextEditing] = useState(false);
@@ -23,8 +23,6 @@ const OverviewSection = () => {
     '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>'
   ); // Provide initial HTML content
   const { setOverviewSaved } = useOverview();
-  const {isContestDetail } = useOverview();
-  const {setSubmitted} = useOverview();
 
   const [descriptionText, setDescriptionText] = useState(
     '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'
@@ -183,14 +181,13 @@ const OverviewSection = () => {
 
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isSubmitted:true}, {'Content-Type': 'application/json'})
+       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isPublished:true}, {'Content-Type': 'application/json'})
 
       // Handle the response from the API
         console.log('API Response:', response.data);
 
       // Assuming the API response is successful, you can redirect to the overview page
-      if (response) {
-        setSubmitted(true)
+      if (response.success) {
         // Optionally, you can set isOverviewSaved in the context or component state
         // to update the Save button logic if needed
         //navigate('/overview');
@@ -202,6 +199,7 @@ const OverviewSection = () => {
       // Handle error cases if needed
     }
   };
+
 
 
   const modules = {
@@ -236,10 +234,19 @@ const OverviewSection = () => {
   return (
     <>
     <Box p={4} w='100%' >
-    {(isSaved || check) &&  (
-          <Button type="submit" colorScheme="teal" size="lg" onClick={handleContestUpdate}>
-             Submit Contest for review
-      </Button>
+    {(isSaved || check )&& publish && (
+          <Tag>
+            <TagLabel>
+              Published
+            </TagLabel>
+          </Tag>
+        )}
+        {(isSaved || check) && !publish && (
+          <Tag>
+            <TagLabel>
+              Waiting for review
+            </TagLabel>
+          </Tag>
         )}
     <Box w='100%' >
       <Heading mt='50px' >
@@ -348,10 +355,13 @@ const OverviewSection = () => {
             Save Overview
           </Button>
         )}
+        <Button onClick={handleContestUpdate} colorScheme="teal" mt={4}>
+          Publish  
+        </Button>
        
     </Box>
     </>
   );
 };
 
-export default OverviewSection;
+export default ReviewDiscription;
