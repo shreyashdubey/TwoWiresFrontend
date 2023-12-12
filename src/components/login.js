@@ -113,7 +113,7 @@ const Login = () => {
               boxShadow="md"
             >
               <Text fontSize="2xl" fontWeight="i" mb="4" textAlign="center">
-                Sparrow
+                Sourced Startup
               </Text>
                <form  onSubmit={handleSubmit}>
               <FormControl mb="3" mt = "20">
