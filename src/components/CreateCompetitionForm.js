@@ -18,7 +18,7 @@ import {
   Card , 
   Link,
   Grid ,  
-  SimpleGrid
+  SimpleGrid , Tag , TagLabel
 } from '@chakra-ui/react';
 import { useOverview } from './OverviewContext';
 import { CREATE_CONTEST } from '../utils/endpoints';
@@ -35,6 +35,7 @@ const CreateCompetitionForm = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [editContestId, setEditContestId] = useState(null);
   const [initialFetch, setInitialFetch] = useState(false);
+  const {isSubmitted} = useOverview()
 
   console.log(isOverviewSaved)
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ const CreateCompetitionForm = () => {
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
   
-        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=10`);
+        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=30`);
         const contests = contestsResponse.contests;
         setUserContests(contests);
       } catch (error) {
@@ -129,9 +130,10 @@ const CreateCompetitionForm = () => {
         const contestCreator = [userId] // Assuming contestCreator is a single value, adjust as needed
         const startTime = formData.startTime
         const endTime = formData.endTime
+        const isPublished = false
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${editContestId}`,{contestName , contestOrganizer , contestCreator ,startTime , endTime }, {'Content-Type': 'application/json'})
+       const response = await instance.put(`/api/contest/edit-contest/${editContestId}`,{contestName , contestOrganizer , contestCreator ,startTime , endTime , isPublished}, {'Content-Type': 'application/json'})
 
       // Handle the response from the API
         console.log('API Response:', response.data);
@@ -335,6 +337,20 @@ const CreateCompetitionForm = () => {
               <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"   w={['250px' , '300px' , '320px' , '300px' , '200px' , '300px']} h='200px' >
                 <Heading mb={4}>{contest.contestName}</Heading>
                 <Text>Organizer: {contest.contestOrganizer}</Text>
+                {!contest.isPublished && contest.isSubmitted && (
+                   <Tag>
+                   <TagLabel>
+                     Waiting for review
+                   </TagLabel>
+                 </Tag>
+                )}
+                {contest.isPublished && (
+                   <Tag>
+                   <TagLabel>
+                     Published
+                   </TagLabel>
+                 </Tag>
+                )}
                 {/* Add other contest details as needed */}
               </Card>
             </Link>

@@ -37,6 +37,7 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
+import { useParams } from 'react-router-dom';
 
 const ContestDiscription = () => {
   // Assuming you have contest details available
@@ -51,8 +52,14 @@ const ContestDiscription = () => {
   const [teamName, setTeamName] = useState('');
   const [soccerWinner, setSoccerWinner] = useState('');
   const [teamSuggestions, setTeamSuggestions] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState({
+    id:'',
+    teamName : '' ,
+  });
   const accessToken = localStorage.getItem('ACCESS_TOKEN');
   const decodedToken = jwtDecode(accessToken);
+  const {contestId ,ok} = useParams();
+  const me='faiez'
 
 
   const countries = [
@@ -81,31 +88,7 @@ const ContestDiscription = () => {
     setHideJoinButton(true);
   };
  
-  const submitSoccerWinner = async () => {
-    setIsDisabled(false)
-    // try {
-    //   // Make an HTTP request to your backend with soccerWinner
-    //   const response = await fetch('your-backend-endpoint', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ soccerWinner }),
-    //   });
-
-    //   // Check if the request was successful (status code 2xx)
-    //   if (response.ok) {
-    //     // Handle success, e.g., redirect or show a success message
-    //     console.log('Soccer winner submitted successfully');
-    //   } else {
-    //     // Handle error, e.g., show an error message
-    //     console.error('Soccer winner submission failed');
-    //   }
-    // } catch (error) {
-    //   console.error('Error submitting soccer winner:', error);
-    // }
-  };
-
+  
   const contestDetails = {
     name: 'Contest Name',
     description: 'Short description of the problem goes here.',
@@ -118,36 +101,44 @@ const ContestDiscription = () => {
     setFile(event.target.files[0]);
   };
 
-  const handleFileSubmit = () => {
-    // You can now use the 'file' state to upload the file to your backend server
-    // Implement your file upload logic here
+  const handleFileSubmit = async() => {
     setIsDisabled(false)
-    console.log('File submitted:');
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id;
+      // Replace 'your_backend_api_url' with the actual endpoint for fetching team names
+      const response = await instance.post(`api/contest-description/add-participant/${contestId}`,{userId}, {'Content-Type': 'application/json'})
+
+      if (response) {
+        console.log('resposne')
+      } else {
+        console.error('Failed to fetch team names');
+      }
+    } catch (error) {
+      console.error('Error during fetchTeamNames:', error);
+    }
   };
    
   const fetchTeamNames = async () => {
     console.log('worked')
-    // try {
-    //   // Replace 'your_backend_api_url' with the actual endpoint for fetching team names
-    //   const response = await fetch('your_backend_api_url', {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       // Add any required headers, such as authorization headers
-    //     },
-    //   });
+    try {
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id;
+      // Replace 'your_backend_api_url' with the actual endpoint for fetching team names
+      const response = await instance.get(`/api/users/get-all-teams?userId=${userId}&page=1&pageSize=10`);
 
-    //   if (response.ok) {
-    //     const teamNames = await response.json();
-    //     console.log('Team names fetched successfully:', teamNames);
-    //     // Update the teamSuggestions state with the fetched team names
-    //     setTeamSuggestions(teamNames);
-    //   } else {
-    //     console.error('Failed to fetch team names');
-    //   }
-    // } catch (error) {
-    //   console.error('Error during fetchTeamNames:', error);
-    // }
+      if (response) {
+        console.log('hey69')
+        setTeamSuggestions(response.teamEntries);
+        console.log(teamSuggestions)
+      } else {
+        console.error('Failed to fetch team names');
+      }
+    } catch (error) {
+      console.error('Error during fetchTeamNames:', error);
+    }
   };
 
   
@@ -214,23 +205,26 @@ const ContestDiscription = () => {
             {joinAsTeam && (
               <Flex pt="48" justify="center" align="center" w="full">
                 <FormControl w="60">
-                  <AutoComplete openOnFocus onChange={handleFileSubmit} >
+                <AutoComplete openOnFocus 
+               onChange={(value) => {
+                handleFileSubmit();
+              }}>
                     <AutoCompleteInput
                       variant="filled"
-
                     />
                     <AutoCompleteList>
-                      {countries.map((soccerWinner, cid) => (
+                      {teamSuggestions.map((soccerWinner, cid) => (
                         <AutoCompleteItem
                           key={`option-${cid}`}
-                          value={soccerWinner}
+                          value={soccerWinner.teamName}
                           textTransform="capitalize"
                         >
-                          {soccerWinner}
+                          {soccerWinner.teamName}
                         </AutoCompleteItem>
                       ))}
                     </AutoCompleteList>
                   </AutoComplete>
+
                   <FormHelperText>Who do you support.</FormHelperText>
                 </FormControl>
               </Flex>
