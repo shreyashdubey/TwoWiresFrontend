@@ -32,6 +32,7 @@ const AboutStartup = () => {
             <Text w='75%' mr='60px'>To enhance the learning experience, our platform will feature a dynamic feed with posts from fellow creators. Stay updated on industry trends, gain insights from experienced entrepreneurs, and showcase your progress to build a following. This content and community platform will serve as a hub for knowledge exchange and networking within the startup community.</Text>
             </VStack>
         </HStack>
+        <Text mr='200px' mb='100px' >At SourcedStartup, we are committed to empowering entrepreneurs with innovative solutions and a supportive community, paving the way for successful and sustainable startups. Join us on this exciting journey of collaboration, learning, and growth.</Text>
         </VStack>
       
 
