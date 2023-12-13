@@ -27,6 +27,7 @@ import OverviewSection from './components/OverviewSection.js';
 import { OverviewProvider } from './components/OverviewContext.js';
 import PublishContest from './components/PublishContest.js';
 import ReviewDiscription from './components/ReviewDiscription.js';
+import AboutStartup from './components/AboutStartup.js';
 
 
 const App = () => {
@@ -71,12 +72,14 @@ const App = () => {
           <Route path="/competition" element={<UserContest />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
+          <Route path="/aboutstartup" element={<AboutStartup />} />
           
 
         </>
 
       )}:
       <Route path="/" element={<Signup />} />
+      <Route path="/aboutstartup" element={<AboutStartup />} />
       <Route path="/login" element={<Login />} />
       {/* Add other routes for different pages */}
     </Routes>
