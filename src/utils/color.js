@@ -26,6 +26,7 @@ const theme = extendTheme({
     lg: "768px", // ~992px
     xl: "1024px", // ~1280px
     "2xl": "1440px", // ~1536px
+    "3xl" : "1650"
   },
 
 });

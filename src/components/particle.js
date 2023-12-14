@@ -117,10 +117,10 @@ const Particle = () => {
 
 const ParticleBg = ({ children }) => {
     return (
-      <Flex direction="column" minHeight='100vh' bgcolor='custom. midnightBlue' >
+     <>
         < Particle/>
         {children}
-      </Flex>
+      </>
     );
   };
   
