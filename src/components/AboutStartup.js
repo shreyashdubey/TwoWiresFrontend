@@ -6,22 +6,27 @@ import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
 import { useRef , useEffect } from 'react';
-import {useScroll , useTransform , motion , useInView , useAnimation} from "framer-motion"
+import {useScroll , useTransform , motion , useInView , useAnimation , useMotionValue} from "framer-motion"
+import ParticleBg from './particle.js';
 
 const AboutStartup = () => {
   
  const ref = useRef(null)
  const isInView = useInView(ref , {once:true})
-
+ const mainControl = useAnimation()
+ const x = useMotionValue(0)
+const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0])
 
  useEffect(()=>{
+  console.log(isInView)
   if(isInView){
-
+   
+     mainControl.start("visible")
   }
- })
+ } ,[isInView])
   
   return (
-       
+       <ParticleBg>
     <Box minHeight='100vh' bgColor={'blackAlpha.900'} >
        <Text  as='I' fontSize='9xl' ml='300px' fontWeight='medium'  h='30%' textShadow='4px 4px #1D4044' >Sourced Startup</Text>
         {/* Sourced Startup Text */}
@@ -33,7 +38,7 @@ const AboutStartup = () => {
             visible : {opacity : 1 , y : 0} ,
            }}
            initial="hidden"
-           animate="visible"
+           whileInView="visible"
            transition = {{duration:.5 , delay : .25}}
          
         >
@@ -42,33 +47,12 @@ const AboutStartup = () => {
             <Heading>Vision</Heading>
             <Text  w='55%'>At SourcedStartup, our vision is rooted in alleviating the common challenges encountered by entrepreneurs throughout the startup journey. We aim to streamline the startup-building process by addressing key pain points and providing comprehensive solutions.</Text>
         </HStack>
-        </motion.div>
-        </Box>  
-        <motion.div
-           variants = {{
-            hidden : {opacity : 0 , y : 75} ,
-            visible : {opacity : 1 , y : 0} ,
-           }}
-           initial="hidden"
-           animate="visible"
-           transition = {{duration:.5 , delay : .25}}
-         
-        >
+
         <HStack  height='100px' mt='30px' ml='100px' spacing='95px'  as='I'>
             <Heading  > Key Services</Heading>
             <Text   w='55%'>Empower your startup journey with SourcedStartup's innovative solutions, offering co-founder matchmaking for like-minded entrepreneurs and contest-based compatibility testing to ensure your team's success from the early stages of your venture</Text>
         </HStack>
-        </motion.div>
-        <motion.div
-           variants = {{
-            hidden : {opacity : 0 , y : 75} ,
-            visible : {opacity : 1 , y : 0} ,
-           }}
-           initial="hidden"
-           animate="visible"
-           transition = {{duration:.5 , delay : .25}}
-         
-        >
+        
         <HStack  height='600px' mt='30px' ml='100px' spacing='0px' as='I'>
             <Heading mb='350px'>Future Goal</Heading>
             <VStack spacing='30px'  mb='100px' ml='30px' w='70%' as='I' >
@@ -78,9 +62,18 @@ const AboutStartup = () => {
             <Text w='75%' mr='60px'>To enhance the learning experience, our platform will feature a dynamic feed with posts from fellow creators. Stay updated on industry trends, gain insights from experienced entrepreneurs, and showcase your progress to build a following. This content and community platform will serve as a hub for knowledge exchange and networking within the startup community.</Text>
             </VStack>
         </HStack>
-        </motion.div>
+
+       
+
         <Text mr='200px' mb='100px' >At SourcedStartup, we are committed to empowering entrepreneurs with innovative solutions and a supportive community, paving the way for successful and sustainable startups. Join us on this exciting journey of collaboration, learning, and growth.</Text>
+       
+        </motion.div>
+        </Box>
+
+       
+
         </VStack>
+        
       
 
        {/* <Container py={12}>
@@ -137,7 +130,7 @@ const AboutStartup = () => {
       </Container>  */}
       </Box>
 
-
+      </ParticleBg>
    
   ); 
 };

@@ -191,7 +191,12 @@ const ContestDiscription = () => {
           <ModalCloseButton />
           <ModalBody>
           <Stack spacing={2} direction='column'>
-            <Checkbox >join as individual</Checkbox>
+            <Checkbox  onChange={(e) => {
+               if (e.target.checked) {
+                 // Only call fetchTeamNames() when "Join as team" is checked
+                 handleFileSubmit();
+               }
+            }}>join as individual</Checkbox>
             <Checkbox onChange={(e) => {
                setJoinAsTeam(e.target.checked);
                if (e.target.checked) {

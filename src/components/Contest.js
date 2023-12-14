@@ -1,256 +1,38 @@
 // ActiveCompetitions.js
-import React from 'react';
+import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
 import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex,} from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
+import { jwtDecode } from "jwt-decode";
+import instance from '../utils/api'
 
 const ActiveCompetitions = () => {
   const chakraUIColor = useColorModeValue('rgba(0, 87, 255, 1)', 'rgba(0, 87, 255, 1)');
   const chakraUIColorLastbox = useColorModeValue('#FFBA93', '#FFBA93');
-  const contestData = [
-    {
-      imageSrc: contest1,
-      heading: 'Contest 1',
-      description: 'Solve interesting problems and win exciting prizes.',
-      prize: 1000,
-      monthsLeft: 2,
-    },
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
+ 
+const [contestData , setContestData]  = useState([''])
+  useEffect(() => {
+    const fetchUserContests = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        const userId = decodedToken.user._id;
+  
+        const contestsResponse = await instance.get(`/api/contest/get-all-contests?page=1&pageSize=30`);
+        const contests = contestsResponse.contests;
+        setContestData(contests);
+      } catch (error) {
+        console.error('Error fetching user contests:', error);
+        // Handle error cases if needed
+      }
+    };
+    fetchUserContests()
 
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-
-    {
-      imageSrc: contest2,
-      heading: 'Contest 2',
-      description: 'Test your skills in this challenging competition.',
-      prize: 500,
-      monthsLeft: 1,
-    },
-    // Add more contests as needed
-  ];
-
+  }, []);
+ 
+   
   // const cardWidth = useBreakpointValue({
   //   base: '250px', // on smaller screens, take up the full width
   //   sm: '300px', // on small screens and up, take up the full width
@@ -259,6 +41,7 @@ const ActiveCompetitions = () => {
   //   xl: '300px',
   //   '2xl': '300px'
   // });
+  const ok=1
   
   return (
     <Layout>
@@ -267,7 +50,7 @@ const ActiveCompetitions = () => {
       <Heading mb={7} fontSize={20} fontWeight={50} color='custom.white' mt='10px' >Active Competition</Heading>
       <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
         {contestData.map((contest, index) => (
-          <Link key={index} to={`/contest/${index}`}>
+          <Link key={index} to={`/overview/${contest._id}/${ok}`}>
             <Box
               as={Card}
               boxShadow="lg"
@@ -290,11 +73,11 @@ const ActiveCompetitions = () => {
                 </Box>
 
                 <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-                  <Text color='custom.white'>{contest.heading}</Text>
+                  <Text color='custom.white'>contestname : {contest.contestName}</Text>
                 </Box>
 
                 <Text mt={2} color='custom.white'>
-                  {contest.description}
+                  organizer : {contest.contestOrganizer}
                 </Text>
 
                 <Box mt='30px' borderTop="1px solid #e1e1e1" pt={2}>

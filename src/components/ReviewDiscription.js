@@ -8,6 +8,7 @@ import Layout from './DashBoard.js';
 import instance from '../utils/api.js';
 import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
+import ContestDiscription from './ContestDescription.js';
 
 const ReviewDiscription = () => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
@@ -20,16 +21,16 @@ const ReviewDiscription = () => {
   const {contestId ,ok} = useParams();
   const [isSaved, setIsSaved] = useState(false);
   const [overviewText, setOverviewText] = useState(
-    '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>'
+    null
   ); // Provide initial HTML content
   const { setOverviewSaved } = useOverview();
 
   const [descriptionText, setDescriptionText] = useState(
-    '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'
+   null
   );
 
   const [evaluationText, setEvaluationText] = useState(
-    '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>'
+   null
   );
   const check = parseInt(ok, 10)
   useEffect(() => {
@@ -63,302 +64,33 @@ const ReviewDiscription = () => {
 
   }, [initialFetch]);
 
-  const handleOverviewEditClick = () => {
-    setIsOverviewEditing(true);
-  };
-  const handleDiscriptionEditClick = () => {
-    setIsDiscriptionEditing(true);
+ 
 
-  };
-  const handleEvaluationTextEditClick = () => {
-    setIsEvaluationTextEditing(true);
-  };
-
-
-
-  const handleOverviewSaveClick = () => {
-    setIsOverviewEditing(false);
-    setOverviewSaved(true);
-    setIsEditing(true)
-    // Implement logic to save the overviewText to the backend or any storage mechanism
-  };
-
-  const handleDiscriptionSaveClick = () => {
-    setIsDiscriptionEditing(false);
-    setOverviewSaved(true);
-    setIsEditing(true)
-    // Implement logic to save the overviewText to the backend or any storage mechanism
-  };
-
-  const handleEvaluationTextSaveClick = () => {
-    setIsEvaluationTextEditing(false);
-    setOverviewSaved(true);
-    setIsEditing(true)
-    // Implement logic to save the overviewText to the backend or any storage mechanism
-  };
-
-  const handleSaveOverview = async () => {
-    // Prepare data for the API request
-    const subtitle = 'Example Contest' 
-    const evaluation = evaluationText
-    const timeline = ['4/10' , '4/15']  
-    const overview = overviewText 
-    const description = descriptionText 
-    const tags = ['tag1' , 'tag2'] 
   
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');
-    const decodedToken = jwtDecode(accessToken);
-    const admin = decodedToken.user._id;
-
-    try {
-      // Make the API request to save contest description
-      const response = await instance.post('/api/contest-description/create-contest-description',{admin , contestId , subtitle , evaluation , timeline , overview , description , tags}, {
-        'Content-Type': 'application/json' ,
-      });
-
-
-      // Check if the API request was successful
-      if (response.success ) {
-        console.log('Contest description saved successfully:');
-        setOverviewSaved(true);
-        setInitialFetch(false)
-        setIsEditing(false)
-        setIsSaved(true)
-      } else {
-        console.error('Failed to save contest description:');
-      }
-    } catch (error) {
-      console.error('API Request Error:', error);
-    }
-
-    // Reset the editing state
-    setIsOverviewEditing(false);
-    setIsDiscriptionEditing(false);
-    setIsEvaluationTextEditing(false);
-  };
-
-  const handleUpdate = async () => {
-    // Prepare data for the API request
-    const subtitle = 'Example Contest' 
-    const evaluation = evaluationText
-    const timeline = ['4/10' , '4/15']  
-    const overview = overviewText 
-    const description = descriptionText 
-    const tags = ['tag1' , 'tag2'] 
-
-    try {
-      // Make the API request to save contest description
-      const response = await instance.put(`/api/contest-description/edit-contest-description/${contestId}`,{subtitle , evaluation , timeline , overview , description , tags}, {
-        'Content-Type': 'application/json' ,
-      });
-      // Check if the API request was successful
-      if (response.success ) {
-        console.log('Contest description saved successfully:', response.contestDescription);
-        setOverviewSaved(true);
-        setInitialFetch(false)
-        setIsEditing(false)
-      } else {
-        console.error('Failed to save contest description:', response.message);
-      }
-    } catch (error) {
-      console.error('API Request Error:', error);
-    }
-
-    setIsOverviewEditing(false);
-    setIsDiscriptionEditing(false);
-    setIsEvaluationTextEditing(false);
-  };
-
-  const handleContestUpdate = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Prepare the data for the API request
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
-      const decodedToken = jwtDecode(accessToken);
-      const userId = decodedToken.user._id
-
-
-
-      // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isPublished:true}, {'Content-Type': 'application/json'})
-
-      // Handle the response from the API
-        console.log('API Response:', response.data);
-
-      // Assuming the API response is successful, you can redirect to the overview page
-      if (response.success) {
-        // Optionally, you can set isOverviewSaved in the context or component state
-        // to update the Save button logic if needed
-        //navigate('/overview');
-      } else {
-        // Handle error cases if needed
-      }
-    } catch (error) {
-      console.error('API Request Error:', error);
-      // Handle error cases if needed
-    }
-  };
-
-
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-      ],
-      ['link', 'image'],
-      ['clean'],
-    ],
-  };
-
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-  ];
-
   return (
     <>
+    <ContestDiscription/>
     <Box p={4} w='100%' >
-    {(isSaved || check )&& publish && (
-          <Tag>
-            <TagLabel>
-              Published
-            </TagLabel>
-          </Tag>
-        )}
-        {(isSaved || check) && !publish && (
-          <Tag>
-            <TagLabel>
-              Waiting for review
-            </TagLabel>
-          </Tag>
-        )}
+
     <Box w='100%' >
       <Heading mt='50px' >
         Overview{' '}
-        {!isOverviewEditing && (
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Edit Overview"
-            ml={2}
-            onClick={handleOverviewEditClick}
-          />
-        )}
       </Heading>
-      {isOverviewEditing ? (
-        <Box>
-          <ReactQuill
-            theme="snow"
-            value={overviewText}
-            onChange={(value) => setOverviewText(value)}
-            modules={modules}
-            formats={formats}
-          />
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Save Overview"
-            mt={2}
-            onClick={handleOverviewSaveClick}
-          />
-        </Box>
-      ) : (
-        <Text dangerouslySetInnerHTML={{ __html: overviewText }} />
-      )}
-       </Box>
+      <Text dangerouslySetInnerHTML={{ __html: overviewText }} />
+    </Box>
        <Box mt='20px'> 
        <Heading mb={4}>
         Description{' '}
-        {!isDiscriptionEditing && (
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Edit Overview"
-            ml={2}
-            onClick={handleDiscriptionEditClick}
-          />
-        )}
       </Heading>
-      {isDiscriptionEditing ? (
-        <Box w='100%' mt='30px'>
-          <ReactQuill
-            theme="snow"
-            value={descriptionText}
-            onChange={(value) => setDescriptionText(value)}
-            modules={modules}
-            formats={formats}
-          />
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Save Description"
-            mt={2}
-            onClick={handleDiscriptionSaveClick}
-          />
-        </Box>
-      ) : (
-        <Text dangerouslySetInnerHTML={{ __html: descriptionText }} />
-      )}
+      <Text dangerouslySetInnerHTML={{ __html: descriptionText }} />
       </Box>
      
       <Box  mt='20px'> 
        <Heading mb={4}>
         Evaluation{' '}
-        {!isEvaluationTextEditing && (
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Edit Evaluation"
-            ml={2}
-            onClick={handleEvaluationTextEditClick}
-          />
-        )}
       </Heading>
-      {isEvaluationTextEditing ? (
-        <Box w='100%' mt='30px'>
-          <ReactQuill
-            theme="snow"
-            value={evaluationText}
-            onChange={(value) => setEvaluationText(value)}
-            modules={modules}
-            formats={formats}
-          />
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="Save Evaluation"
-            mt={2}
-            onClick={handleEvaluationTextSaveClick}
-          />
-        </Box>
-      ) : (
         <Text dangerouslySetInnerHTML={{ __html: evaluationText }} />
-      )}
       </Box>
-      {(isSaved || check) && isEditing && (
-          <Button type="submit" colorScheme="teal" size="lg" onClick={handleUpdate}>
-            Update
-          </Button>
-        )}
-        {!isSaved && isEditing && !check &&  (
-          <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}>
-            Save Overview
-          </Button>
-        )}
-        <Button onClick={handleContestUpdate} colorScheme="teal" mt={4}>
-          Publish  
-        </Button>
-       
     </Box>
     </>
   );
