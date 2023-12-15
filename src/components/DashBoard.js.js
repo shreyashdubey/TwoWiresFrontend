@@ -23,25 +23,52 @@ import trophy from './images/trophy.png'
 import theme from '../utils/color';
 import user from './images/home.png'
 import logout from './images/logout.png'
+import team from './images/team.png'
+
+
+import trophydark from './images/trophydark.png'
+import userdark from './images/homedark.png'
+import logoutdark from './images/logoutdark.png'
+import teamdark from './images/teamdark.png'
 
 const DashBoard = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState();
+  const [activeTab, setActiveTab] = useState(0);
+  const [contestImage, setContestImage] = useState(false);
+  const [homeImage, sethomeImage] = useState(false);
+  const [teamImage , setTeamImage] = useState(false);
+  const [logoutImage , setLogoutImage] = useState(false)
 
   const handleUserTabClick = () => {
+    setContestImage(false)
+    sethomeImage(true)
+    setTeamImage(false)
+    setLogoutImage(false)
     navigate('/about');
   };
 
   const handleContestTabClick = () => {
+    setContestImage(true)
+    sethomeImage(false)
+    setTeamImage(false)
+    setLogoutImage(false)
     navigate('/contest');
   };
 
   const handleUserContestTabClick = () => {
+    setContestImage(false)
+    sethomeImage(false)
+    setTeamImage(true)
+    setLogoutImage(false)
     navigate('/createcompetition');
   };
 
   const handleUserLogoutTabClick = () => {
+    setContestImage(false)
+    sethomeImage(false)
+    setTeamImage(false)
+    setLogoutImage(true)
     localStorage.removeItem('ACCESS_TOKEN');
 
     // Redirect to the login page or any other desired page
@@ -91,6 +118,9 @@ const DashBoard = () => {
 
   const handleTabChange = (index) => {
     setActiveTab(index);
+    if(index===1) {
+      sethomeImage(true)
+    }
   };
 
   return (
@@ -127,44 +157,88 @@ const DashBoard = () => {
       >
         <TabList>
         <Tab  onClick={handleContestTabClick} Color='custom.darkStateBlue'>
-          <Image
+          {contestImage ? (
+             <Image
+             boxSize='25px'
+             objectFit='cover'
+             src={trophy}
+             alt='Dan Abramov'
+             border='5px' // Adjust the border width as needed
+             borderColor='custom.white'
+           />
+          ):(
+            <Image
             boxSize='25px'
             objectFit='cover'
-            src={trophy}
+            src={trophydark}
             alt='Dan Abramov'
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'
           />
+          )}
           </Tab>
           <Tab  onClick={handleUserTabClick}>
-          <Image
+          {homeImage ? (
+             <Image
+             boxSize='25px'
+             objectFit='cover'
+             src={user}
+             alt='Dan Abramov'
+             border='5px' // Adjust the border width as needed
+             borderColor='custom.white'
+           />
+          ):(
+            <Image
             boxSize='25px'
             objectFit='cover'
-            src={user}
+            src={userdark}
             alt='Dan Abramov'
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'
           />
+          )}
           </Tab>
           <Tab  onClick={handleUserContestTabClick}>
-          <Image
+          {teamImage ? (
+             <Image
+             boxSize='25px'
+             objectFit='cover'
+             src={team}
+             alt='Dan Abramov'
+             border='5px' // Adjust the border width as needed
+             borderColor='custom.white'
+           />
+          ):(
+            <Image
             boxSize='25px'
             objectFit='cover'
-            src={user}
+            src={teamdark}
             alt='Dan Abramov'
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'
           />
+          )}
           </Tab>
           <Tab  onClick={handleUserLogoutTabClick}>
-          <Image
+          {logoutImage ? (
+             <Image
+             boxSize='25px'
+             objectFit='cover'
+             src={logout}
+             alt='Dan Abramov'
+             border='5px' // Adjust the border width as needed
+             borderColor='custom.white'
+           />
+          ):(
+            <Image
             boxSize='25px'
             objectFit='cover'
-            src={logout}
+            src={logoutdark}
             alt='Dan Abramov'
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'
           />
+          )}
           </Tab>
         </TabList>
         <TabPanels>
