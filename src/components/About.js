@@ -75,10 +75,7 @@ const User = () => {
                             >
                               <Text color='custom.white'>Team</Text>
                             </Tab>
-                            <Spacer/>
-                            <Tab>
-                            <Text color='custom.white'>Statistics</Text>
-                            </Tab>
+
                         </TabList>
                         <TabPanels>
                             <TabPanel>

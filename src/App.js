@@ -28,7 +28,8 @@ import { OverviewProvider } from './components/OverviewContext.js';
 import PublishContest from './components/PublishContest.js';
 import ReviewDiscription from './components/ReviewDiscription.js';
 import AboutStartup from './components/AboutStartup.js';
-
+import MyUploader from './components/MyUploader.js';
+import Starfeild from './components/StartFeild.js'
 
 const App = () => {
   const [auth, setAuth] = useState('');
@@ -68,7 +69,7 @@ const App = () => {
           <Route path="/education" element={<EducationComponent />} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contest" element={<ActiveCompetitions />} />
+         <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
@@ -91,6 +92,8 @@ const App = () => {
       <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
       <Route path="/review" element={<PublishContest />} />
       <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
+      <Route path="/myuploader" element={<MyUploader />} />
+      <Route path="/startfeild" element={<Starfeild />} />
     </Routes>
 
   </OverviewProvider>

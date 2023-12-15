@@ -37,6 +37,7 @@ const OverviewSection = () => {
     '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>'
   );
   let check = parseInt(ok, 10)
+  const [store , setStore] = useState(check)
   useEffect(() => {
     const fetchContestDescription = async () => {
       try {
@@ -65,42 +66,40 @@ const OverviewSection = () => {
         console.error('API Request Error:', error);
       }
     };
-
-    const fetchContest = async () => {
+    if (!store) {
+      // Fetch education entries only when initialFetch is false
       try {
         // Make the API request to fetch contest description
-        const response = await instance.get(`/api/contest/get-contest-by-id?contestId=${contestId}`);
-
-        // Check if the API request was successful
-        if (response.success) {
-          
-             let check = 1
-             console.log('check2' , check)
-        
-        } else {
-          console.error('Failed to fetch contest description:', response.message);
-        }
+        instance.get(`/api/contest/get-contest-by-id?contestId=${contestId}`)
+          .then((response) => {
+            // Check if the API request was successful
+            console.log(response)
+            if (response.contest.contestDescription) {
+              setStore(1)
+              console.log('check2', store);
+            }
+            else{
+              console.log('check3' , store)
+            }
+          })
+          .catch((error) => {
+            console.error('API Request Error:', error);
+          });
       } catch (error) {
-        console.error('API Request Error:', error);
+        console.error('Try-catch block error:', error);
       }
-    };
-    if (!check) {
-      console.log('check1' , check)
-      // Fetch education entries only when initialFetch is false
-      fetchContest()
+      
        // Set initialFetch to true after the initial fetch
     }
     console.log('initialFetch' , initialFetch)
-    console.log('check', check)
-    if (!initialFetch  && check) {
-      console.log('now' , check)
+    if (!initialFetch  && store) {
       // Fetch education entries only when initialFetch is false
       fetchContestDescription();
       setInitialFetch(true);
        // Set initialFetch to true after the initial fetch
     }
-
-  }, [initialFetch]);
+    //657bcae7d369104622d9bac2
+  }, [initialFetch , store]);
 
   const handleOverviewEditClick = () => {
     setIsOverviewEditing(true);

@@ -9,6 +9,7 @@ import Forgot from './Forgot'
 import instance from '../utils/api';
 import { LOGIN, SIGNUP } from '../utils/endpoints';
 import theme from '../utils/color';
+import StartFieldBg from './StartFeild';
 
 
 const Login = () => {
@@ -92,15 +93,18 @@ const Login = () => {
 	
 
     return (
+      <StartFieldBg>
         <Flex
           direction="column"
           align="center"
           justify="center"
           height="100vh"
+          position="relative" 
         >
-          <Flex direction="row" align="center" justify="center">
+          <Flex direction="row" align="center" justify="center"   position="relative" 
+              zIndex="1000"  >
             <Hide below='500px'>
-              <Image src={startup} alt="Your Image" width = "300px" height="550px" objectFit="cover" borderRadius="8px" mr = '10px' /> {/* Replace with your actual image component */}
+              <Image src={startup} alt="Your Image" width = "300px" height="550px" objectFit="cover" borderRadius="8px" mr = '10px'  /> {/* Replace with your actual image component */}
             </Hide>
             <Box
               ml = "10px"
@@ -111,11 +115,12 @@ const Login = () => {
               borderColor="gray.200"
               borderRadius="8px"
               boxShadow="md"
+              
             >
               <Text fontSize="2xl" fontWeight="i" mb="4" textAlign="center">
                 Sourced Startup
               </Text>
-               <form  onSubmit={handleSubmit}>
+               <form  onSubmit={handleSubmit}  >
               <FormControl mb="3" mt = "20">
                 <Input
                   type="email"
@@ -179,6 +184,7 @@ const Login = () => {
             </Box>
           </Flex>
         </Flex>
+        </StartFieldBg>
       );
     };
 

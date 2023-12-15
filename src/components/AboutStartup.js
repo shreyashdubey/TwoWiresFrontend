@@ -8,6 +8,7 @@ import Layout from './DashBoard.js';
 import { useRef , useEffect } from 'react';
 import {useScroll , useTransform , motion , useInView , useAnimation , useMotionValue} from "framer-motion"
 import ParticleBg from './particle.js';
+import StartFieldBg from './StartFeild.js';
 
 const AboutStartup = () => {
   
@@ -29,13 +30,13 @@ const AboutStartup = () => {
  } ,[isInView])
   
   return (
-       <ParticleBg>
+        <StartFieldBg>
     <Box minHeight='100vh' bgColor={'blackAlpha.900'}  w='full'>
       <Center>
        <Text  as='I' fontSize={['4xl' , '5xl' , '5xl' , '7xl', '8xl' , '9xl']}  fontWeight='medium'  h='30%' textShadow='4px 4px #1D4044'  >Sourced Startup</Text>
         {/* Sourced Startup Text */}
         </Center>
-        <VStack  ml= {['400px' , '20px' , '30px' , '-40px', '30px' , '150px' , '500px']}  mr= {['400px' , '0px' , '0px' , '0px', '30px' , '150px']}>
+        <VStack  ml= {['400px' , '20px' , '30px' , '-40px', '30px' , '220px' , '500px']}  mr= {['400px' , '0px' , '0px' , '0px', '0px' , '150px']}>
          <Box ref={ref}>
         <motion.div
            variants = {{
@@ -161,8 +162,7 @@ const AboutStartup = () => {
         </VStack>
       </Container>  */}
       </Box>
-
-      </ParticleBg>
+      </StartFieldBg>
    
   ); 
 };
