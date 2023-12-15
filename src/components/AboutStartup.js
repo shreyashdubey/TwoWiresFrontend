@@ -61,7 +61,7 @@ const AboutStartup = () => {
           </VStack>
        )}
       {isabove425px ?(
-               <HStack  height={['400px' , '300px' , '400px' , '200px', '200px' , '100px']}  mt= {['400px' , '300px' , '200px' , '30px', '30px' , '30px']}ml= {['100px' , '100px' , '100px' , '100px', '100px' , '100px' , "0px"]} spacing={['200px' , '200px' , '20px' , '95px', '95px' , '95px',"150px"]}  as='I'  >
+               <HStack  height={['400px' , '300px' , '400px' , '200px', '200px' , '100px']}  mt= {['400px' , '300px' , '200px' , '30px', '30px' , '30px']}ml= {['100px' , '100px' , '100px' , '100px', '100px' , '100px' , "0px"]} spacing={['200px' , '200px' , '20px' , '95px', '95px' , '95px',"130px"]}  as='I'  >
                <Heading  > Key Services</Heading>
                <Text   w='55%'>Empower your startup journey with SourcedStartup's innovative solutions, offering co-founder matchmaking for like-minded entrepreneurs and contest-based compatibility testing to ensure your team's success from the early stages of your venture</Text>
            </HStack>
@@ -74,7 +74,7 @@ const AboutStartup = () => {
           </VStack>
        )}
         {isabove425px ?(
-                <HStack   height={['800px' , '800px' , '800px' , '1000px', '800px' ,'600px']}  mt= {['400px' , '300px' , '200px' , '100px', '100px' , '30px']} ml= {['100px' , '100px' , '100px' , '100px', '100px' , '100px' , "0px"]}  spacing={['200px' , '200px' , '20px' , '80px', '30px' , '10px' , "50px"]} as='I' >
+                <HStack   height={['800px' , '800px' , '800px' , '1000px', '800px' ,'600px']}  mt= {['400px' , '300px' , '200px' , '100px', '100px' , '30px']} ml= {['100px' , '100px' , '100px' , '100px', '100px' , '100px' , "0px"]}  spacing={['200px' , '200px' , '20px' , '80px', '30px' , '10px' , "44px"]} as='I' >
                 <Heading mb='350px'>Future Goal</Heading>
                 <VStack spacing='30px'  mb='100px' ml='30px' w='70%' as='I' >
                 <Text w='75%' mr='60px'>We are developing an advanced Judge AI that will evaluate proposed solutions from co-founders. This AI will provide objective ratings and create a systematic flow to transform these solutions into actionable plans for building successful startups.</Text>
