@@ -56,7 +56,7 @@ const CreateCompetitionForm = () => {
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
   
-        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=30`);
+        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=40`);
         const contests = contestsResponse.contests;
         setUserContests(contests);
       } catch (error) {

@@ -30,6 +30,8 @@ import ReviewDiscription from './components/ReviewDiscription.js';
 import AboutStartup from './components/AboutStartup.js';
 import MyUploader from './components/MyUploader.js';
 import Starfeild from './components/StartFeild.js'
+import ActiveContestDiscription from './components/ActiveContestDiscription.js';
+
 
 const App = () => {
   const [auth, setAuth] = useState('');
@@ -94,6 +96,7 @@ const App = () => {
       <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
       <Route path="/myuploader" element={<MyUploader />} />
       <Route path="/startfeild" element={<Starfeild />} />
+      <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
     </Routes>
 
   </OverviewProvider>

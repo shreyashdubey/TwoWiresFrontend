@@ -9,9 +9,8 @@ import instance from '../utils/api.js';
 import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
 import ContestDiscription from './ContestDescription.js';
-import ContestDashboard from './ContestDashboard.js';
 
-const ReviewDiscription = () => {
+const ActiveCompetitionsDiscription = () => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
   const [isDiscriptionEditing, setIsDiscriptionEditing] = useState(false);
   const [isEvaluationTextEditing, setIsEvaluationTextEditing] = useState(false);
@@ -70,9 +69,8 @@ const ReviewDiscription = () => {
   
   return (
     <>
-    <ContestDashboard/>
-    <Center>
-    <Box  w='75%' mb='20px' >
+    <ContestDiscription/>
+    <Box p={4} w='100%' >
 
     <Box w='100%' >
       <Heading mt='50px' >
@@ -94,9 +92,8 @@ const ReviewDiscription = () => {
         <Text dangerouslySetInnerHTML={{ __html: evaluationText }} />
       </Box>
     </Box>
-    </Center>
     </>
   );
 };
 
-export default ReviewDiscription;
+export default ActiveCompetitionsDiscription;

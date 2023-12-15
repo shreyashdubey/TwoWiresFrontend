@@ -50,7 +50,7 @@ const [contestData , setContestData]  = useState([''])
       <Heading mb={7} fontSize={20} fontWeight={50} color='custom.white' mt='10px' >Active Competition</Heading>
       <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
         {contestData.map((contest, index) => (
-          <Link key={index} to={`/overview/${contest._id}/${ok}`}>
+          <Link key={index} to={`/activediscription/${contest._id}`}>
             <Box
               as={Card}
               boxShadow="lg"
