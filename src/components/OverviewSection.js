@@ -21,6 +21,8 @@ const OverviewSection = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [isSuccess, setIsSuccess] = useState(null);
+  const [review , setReview] = useState()
+  const [submitButton , setSubmitButton] = useState(false)
   const [overviewText, setOverviewText] = useState(
     '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>'
   ); // Provide initial HTML content
@@ -38,6 +40,7 @@ const OverviewSection = () => {
   );
   let check = parseInt(ok, 10)
   const [store , setStore] = useState(check)
+  console.log('ini',initialFetch)
   useEffect(() => {
     const fetchContestDescription = async () => {
       try {
@@ -74,6 +77,7 @@ const OverviewSection = () => {
           .then((response) => {
             // Check if the API request was successful
             console.log(response)
+             setSubmitButton(response.contest.isSubmitted)
             if (response.contest.contestDescription) {
               setStore(1)
               console.log('check2', store);
@@ -160,6 +164,7 @@ const OverviewSection = () => {
         console.log('Contest description saved successfully:');
         setOverviewSaved(true);
         setInitialFetch(false)
+        setStore(1)
         setIsEditing(false)
       } else {
         console.error('Failed to save contest description:');
@@ -221,11 +226,13 @@ const OverviewSection = () => {
        const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isSubmitted:true}, {'Content-Type': 'application/json'})
 
       // Handle the response from the API
-        console.log('API Response:', response.data);
+        console.log('API Response:', response);
 
       // Assuming the API response is successful, you can redirect to the overview page
       if (response) {
         setSubmitted(true)
+        setInitialFetch(false)
+        setStore(0)
         // Optionally, you can set isOverviewSaved in the context or component state
         // to update the Save button logic if needed
         //navigate('/overview');
@@ -271,15 +278,15 @@ const OverviewSection = () => {
   return (
     <>
     <Box p={4} w='100%' >
-    {(isSaved || check) &&  (
+    {(isSaved || store ) && !submitButton &&  (
           <Button type="submit" colorScheme="teal" size="lg" onClick={handleContestUpdate}>
              Submit Contest for review
-      </Button>
-        )}
+          </Button>
+    )}
     <Box w='100%' >
       <Heading mt='50px' >
         Overview{' '}
-        {!isOverviewEditing && (
+        {!isOverviewEditing && !submitButton && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
@@ -288,7 +295,7 @@ const OverviewSection = () => {
           />
         )}
       </Heading>
-      {isOverviewEditing ? (
+      {isOverviewEditing && !submitButton ? (
         <Box>
           <ReactQuill
             theme="snow"
@@ -311,7 +318,7 @@ const OverviewSection = () => {
        <Box mt='20px'> 
        <Heading mb={4}>
         Description{' '}
-        {!isDiscriptionEditing && (
+        {!isDiscriptionEditing && !submitButton && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
@@ -320,7 +327,7 @@ const OverviewSection = () => {
           />
         )}
       </Heading>
-      {isDiscriptionEditing ? (
+      {isDiscriptionEditing && !submitButton ? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"
@@ -344,7 +351,7 @@ const OverviewSection = () => {
       <Box  mt='20px'> 
        <Heading mb={4}>
         Evaluation{' '}
-        {!isEvaluationTextEditing && (
+        {!isEvaluationTextEditing && !submitButton && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Evaluation"
@@ -353,7 +360,7 @@ const OverviewSection = () => {
           />
         )}
       </Heading>
-      {isEvaluationTextEditing ? (
+      {isEvaluationTextEditing && !submitButton ? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"

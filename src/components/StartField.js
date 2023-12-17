@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
 const Starfield = ({
-  speedFactor = 0.05,
+  speedFactor = 0.1,
   backgroundColor = 'black',
   starColor = [255, 255, 255],
-  starCount = 5000,
+  starCount = 2500,
 }) => {
   const canvasRef = useRef(null);
 

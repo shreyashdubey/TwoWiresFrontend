@@ -27,6 +27,7 @@ import instance from '../utils/api'
 import { ADD_SKILL } from '../utils/endpoints';
 import { GET_ALL_SKILL } from '../utils/endpoints';
 import { DELETE_SKILL } from '../utils/endpoints';
+import { useToast } from '@chakra-ui/react'
 
 const SkillComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,6 +35,7 @@ const SkillComponent = () => {
   const [submittedSkills, setSubmittedSkills] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [initialFetch, setInitialFetch] = useState(false);
+  const toast = useToast()
   const handleSkillChange = () => {
     onOpen();
   };
@@ -51,7 +53,15 @@ const SkillComponent = () => {
         setSubmittedSkills(response.skillEntries);
       }
     } catch (error) {
-      console.error('Error fetching skills:', error);
+      console.log('Error fetching skills:' , error.response);
+      toast({
+        title: 'Error',
+        position : 'top-middle' ,
+        description: "it's not you , it's us",
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
     }
   };
 

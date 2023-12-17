@@ -31,14 +31,14 @@ const InviteUsers = () => {
   const [invitedUsers, setInvitedUsers] = useState([]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const teamId = searchParams.get('t'); // Get the team paramete
+  const team = searchParams.get('t'); // Get the team paramete
   const teamName=searchParams.get('v')
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     // Simulate updating the status when the component mounts or when invitedUsers changes
    // updateStatusForAcceptedUsers();
-    console.log(teamId)
+    console.log(team)
      fetchTeamMember();
   }, []);
 
@@ -60,8 +60,8 @@ const InviteUsers = () => {
       const decodedToken = jwtDecode(accessToken);
       const sender = decodedToken.user._id;
       const response_username = await instance.get(`${GET_USERID}${username}`);
-      const reciever = response_username.id
-      const response_team = await instance.post(INVITE_USER ,{reciever,sender ,teamId}, {'Content-Type': 'application/json'})
+      const reciever = response_username.userId
+      const response_team = await instance.post(INVITE_USER ,{reciever,sender ,team}, {'Content-Type': 'application/json'})
       if (response_team) {
         const status = response_team.inviteStatus; 
         const User = {
@@ -118,7 +118,7 @@ const fetchTeamMember = async () => {
     const decodedToken = jwtDecode(accessToken);
     const owner = decodedToken.user._id
    // const response = await instance.get(GET_TEAM_MEMBER/`${team}` ,{team ,owner}, {'Content-Type': 'application/json'})
-    const response = await instance.get(`${GET_TEAM_MEMBER}${teamId}`);
+    const response = await instance.get(`${GET_TEAM_MEMBER}${team}`);
     if(response){
       const teammember = response.members;
       setInvitedUsers(teammember)

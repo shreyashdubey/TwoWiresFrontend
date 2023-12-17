@@ -15,16 +15,14 @@ ReactDOM.createRoot(rootElement).render(
     {/* Use ColorModeScript to set the initial color mode */}
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
-    <div id="otpless-login-page"></div>
+    {/* <div id="otpless-login-page"></div>
     <script
       type="text/javascript"
       src="https://otpless.com/auth.js"
       cid="OZKDMIB9EXXJIOH8XBB89OMBI4SBNMMG"
-    ></script>
+    ></script> */}
       <Router>
-        <React.StrictMode>
           <App />
-        </React.StrictMode>
       </Router>
 
   </ChakraProvider>

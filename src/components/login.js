@@ -12,7 +12,7 @@ import theme from '../utils/color';
 import StartFieldBg from './StartFeild';
 
 
-const Login = () => {
+const Login = ( ) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',

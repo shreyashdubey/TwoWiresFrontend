@@ -52,7 +52,7 @@ const Signup = () => {
         
         if (success) {
           alert(message);
-          navigate("/home");
+          navigate("/contest");
         } else {
           // Signup failed
           alert(data.message || 'Signup failed. Please try again.');
