@@ -19,7 +19,7 @@ const [contestData , setContestData]  = useState([''])
         const accessToken = localStorage.getItem('ACCESS_TOKEN');
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
-  
+        instance.defaults.headers.common['Authorization'] = 'key '+localStorage.getItem('ACCESS_TOKEN');
         const contestsResponse = await instance.get(`/api/contest/get-all-contests?page=1&pageSize=30`);
         const contests = contestsResponse.contests;
         setContestData(contests);
