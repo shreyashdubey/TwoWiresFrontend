@@ -1,5 +1,5 @@
 import axios from "axios";
-const isDev = true
+const isDev = false
 const instance = axios.create({
     baseURL: (isDev ? "http://localhost:3001/" : "https://troubled-elk-glasses.cyclic.app") ,
 
