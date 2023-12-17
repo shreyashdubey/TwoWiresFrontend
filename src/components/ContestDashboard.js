@@ -38,6 +38,7 @@ import {
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import { useParams } from 'react-router-dom';
+import { MdOutlineDoNotDisturbOnTotalSilence } from 'react-icons/md';
 
 const ContestDashboard = () => {
   // Assuming you have contest details available
@@ -59,9 +60,13 @@ const ContestDashboard = () => {
   const accessToken = localStorage.getItem('ACCESS_TOKEN');
   const decodedToken = jwtDecode(accessToken);
   const {contestId ,ok} = useParams();
+  const [title, setTitle] = useState('');
   const me='faiez'
-
-
+ 
+  const [forData, setForData] = useState({
+    title: "",
+    file: null
+  });
   const countries = [
     "nigeria",
     "japan",
@@ -98,7 +103,19 @@ const ContestDashboard = () => {
   };
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    setForData(prevState => ({
+        ...prevState,
+        file: event.target.files[0]
+      }));
+      console.log('File state:', forData);
+  };
+
+  const handleTitleChange = (event) => {
+    setForData({
+      ...forData,
+      title: event.target.value
+    });
+    console.log('Title state:', forData);
   };
 
   const handleFileSubmit = async() => {
@@ -140,6 +157,34 @@ const ContestDashboard = () => {
       console.error('Error during fetchTeamNames:', error);
     }
   };
+
+  const handleUpload = async () => {
+    try {
+     
+      console.log('co', forData)
+
+      const response = await instance.post('/api/upload-submission/upload-files' ,{forData}, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+          },})
+      // Handle success, e.g., show a success message or redirects
+      console.log('File uploaded successfully');
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error('Error uploading file:', error);
+    }
+    console.log('co', forData)
+    setForData({
+        title : "" , 
+        file : null
+      })
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleUpload();
+  };
+
 
   
 
@@ -251,10 +296,24 @@ const ContestDashboard = () => {
               <Tab><Text color='custom.white'>Submission</Text></Tab>
             </TabList>
           </Tabs>
-          <Input type="file" onChange={handleFileChange} mt={2} w='10%' />
-          <Button colorScheme="teal" mt={2} onClick={handleFileSubmit}>
-            <Text color='custom.white'>Submit</Text>
-          </Button>
+          <form onSubmit={handleSubmit}>
+      <Input
+        type="file"
+        onChange={handleFileChange}
+        accept="application/pdf"
+        mt={2}
+        w="10%"
+      />
+      <Input
+        type="text"
+        placeholder="Enter title"
+        value={forData.title}
+        onChange={handleTitleChange}
+      />
+      <Button type="submit" colorScheme="teal" mt={2}>
+        <Text color="white">Submit</Text>
+      </Button>
+    </form>
         </>
       )}
             </HStack>    

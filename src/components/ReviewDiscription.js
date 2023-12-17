@@ -65,14 +65,47 @@ const ReviewDiscription = () => {
 
   }, [initialFetch]);
 
+  const handleContestUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Prepare the data for the API request
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user._id
+
+
+
+      // Make the API request
+       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isPublished:true}, {'Content-Type': 'application/json'})
+
+      // Handle the response from the API
+        console.log('API Response:', response.data);
+
+      // Assuming the API response is successful, you can redirect to the overview page
+      if (response.success) {
+        // Optionally, you can set isOverviewSaved in the context or component state
+        // to update the Save button logic if needed
+        //navigate('/overview');
+      } else {
+        // Handle error cases if needed
+      }
+    } catch (error) {
+      console.error('API Request Error:', error);
+      // Handle error cases if needed
+    }
+  };
+
  
 
   
   return (
     <>
     <ContestDashboard/>
-    <Center>
-    <Box  w='75%' mb='20px' >
+    <Button onClick={handleContestUpdate} colorScheme="teal" mt={4}>
+          Publish  
+    </Button>
+    <Box p={4} w='100%' >
 
     <Box w='100%' >
       <Heading mt='50px' >
@@ -94,7 +127,6 @@ const ReviewDiscription = () => {
         <Text dangerouslySetInnerHTML={{ __html: evaluationText }} />
       </Box>
     </Box>
-    </Center>
     </>
   );
 };
