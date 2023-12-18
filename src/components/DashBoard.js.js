@@ -16,6 +16,8 @@ import {
   Link as ChakraLink,
   Spacer,
   Hide ,
+  Text, 
+  Center,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
@@ -30,8 +32,9 @@ import trophydark from './images/trophydark.png'
 import userdark from './images/homedark.png'
 import logoutdark from './images/logoutdark.png'
 import teamdark from './images/teamdark.png'
+import Search from './Search';
 
-const DashBoard = () => {
+const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const navigate = useNavigate();
   const location = useLocation();
   let activeTab = 0
@@ -58,7 +61,10 @@ const DashBoard = () => {
     // Redirect to the login page or any other desired page
     navigate('/login');
   };
-
+  
+  const handleSearchSelect = () =>{
+    setIsSearchSelected(true)
+  }
 
 
   useEffect(() => {
@@ -156,7 +162,12 @@ const DashBoard = () => {
           pointerEvents="none"
           children={<Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />}
         />
-        <Input type="text" placeholder="Search..." color="custom.white" />
+        <Input
+         type="text"
+          placeholder="Search..." 
+          color="custom.white" 
+          onClick = {handleSearchSelect}
+          />
       </InputGroup>
       </Hide>
       <Spacer/>
@@ -270,10 +281,17 @@ const DashBoard = () => {
   );
 };
 
-const Layout = ({ children }) => {
+const Layout = ({children}) => {
+  const [isSearchSelected ,setIsSearchSelected] = useState(false)
   return (
     <Flex direction="column" minHeight='100vh' bgcolor='custom. midnightBlue' >
-      <DashBoard />
+      <DashBoard isSearchSelected={isSearchSelected} setIsSearchSelected={setIsSearchSelected} />
+      <Center>
+      {isSearchSelected && (
+        <Search/>
+       )
+      }
+      </Center>
       {children}
     </Flex>
   );

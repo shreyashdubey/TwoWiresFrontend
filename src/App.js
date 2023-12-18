@@ -53,6 +53,7 @@ import {
   Text ,
   Image ,
 } from '@chakra-ui/react';
+import Search from './components/Search.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -95,6 +96,7 @@ const App = () => {
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
           <Route path="/aboutstartup" element={<AboutStartup />} />
+          <Route path="/search" element={<Search />} />
           
 
         </>
