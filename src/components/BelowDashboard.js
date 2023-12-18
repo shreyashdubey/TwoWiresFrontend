@@ -19,6 +19,7 @@ import {
   Text, 
   Center,
   Box ,
+  useMediaQuery ,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
@@ -34,9 +35,8 @@ import userdark from './images/homedark.png'
 import logoutdark from './images/logoutdark.png'
 import teamdark from './images/teamdark.png'
 import Search from './Search';
-import BelowDashBoard from './BelowDashboard';
 
-const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
+const BelowDashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const navigate = useNavigate();
   const location = useLocation();
   let activeTab = 0
@@ -44,6 +44,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const [homeImage, sethomeImage] = useState(false);
   const [teamImage , setTeamImage] = useState(false);
   const [logoutImage , setLogoutImage] = useState(false)
+  const [isBelow720px] = useMediaQuery("(max-width: 720px)");
 
   const handleUserTabClick = () => {
     navigate('/about');
@@ -67,7 +68,18 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const handleSearchSelect = () =>{
     setIsSearchSelected(true)
   }
+  const [isVisible, setIsVisible] = useState(true);
+  let prevScrollY = 0
 
+  const handleScroll = () => {
+    const scrolledY = window.scrollY;
+    const isScrollingUp = scrolledY < prevScrollY;
+    console.log(scrolledY , isScrollingUp)
+
+    // You can adjust the threshold value based on your requirements
+    setIsVisible(isScrollingUp);
+    prevScrollY = scrolledY
+  };
 
   useEffect(() => {
     const { pathname, params } = location;
@@ -133,6 +145,12 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
       setTeamImage(false);
       setLogoutImage(true);
     }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
     
   }, [location]);
   
@@ -147,37 +165,16 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
       bgColor = 'custom.charcoal'
       h='55px'
       align="center"
-      style={{ position: 'sticky', top: '0', zIndex: 1000 }}
+      style={{ position: 'sticky', bottom: '0', zIndex: 1000 }}
       as="header"
       width="100%"
       backdropFilter="saturate(180%) blur(5px)"
+      justifyContent='center'
+      visibility={isVisible && isBelow720px  ? 'visible' : 'hidden'}
     >
-      <Hide below='720px'>
-      <Heading ml={8} fontSize={30} fontWeight={10} color='custom.white'>
-      <ChakraLink href="/contest"   _hover={{ textDecoration: 'none' }} >
-          SourcedStartup
-      </ChakraLink>
-      </Heading>
-      </Hide>
-      <Spacer/>
-      <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue" >
-        <InputLeftElement
-          pointerEvents="none"
-          children={<Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />}
-        />
-        <Input
-         type="text"
-          placeholder="Search..." 
-          color="custom.white" 
-          onClick = {handleSearchSelect}
-          />
-      </InputGroup>
-      <Spacer/>
-      <Hide below='720px'>
       <Tabs 
        variant="unstyled"
         mt="40px"
-        mr='100px'
         index={activeTab}
         onChange={handleTabChange}
         Color='custom.darkStateBlue'
@@ -185,7 +182,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
         <TabList
          style={{
           display: "flex",
-          gap: "16px", // Adjust the value to set the desired spacing
+          gap: "10px", // Adjust the value to set the desired spacing
         }}
         >
         <Tab  onClick={handleContestTabClick} Color='custom.darkStateBlue'>
@@ -280,27 +277,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           <TabPanel></TabPanel>
         </TabPanels>
       </Tabs>
-      </Hide>
     </Flex>
   );
 };
-
-const Layout = ({children}) => {
-  const [isSearchSelected ,setIsSearchSelected] = useState(false)
-  return (
-    <Flex direction="column" minHeight='100vh' bgcolor='custom. midnightBlue' >
-      <DashBoard isSearchSelected={isSearchSelected} setIsSearchSelected={setIsSearchSelected} />
-      <Center>
-      {isSearchSelected && (
-        <Search/>
-       )
-      }
-      </Center>
-      {children}
-      <BelowDashBoard/>
-     
-    </Flex>
-  );
-};
-
-export default Layout;
+ export default BelowDashBoard

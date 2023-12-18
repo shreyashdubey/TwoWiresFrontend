@@ -150,12 +150,12 @@ const Login = ( ) => {
                 )}
               </FormControl>
               
-              <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px" >
+              <Button type="submit" colorScheme="blue" mt="25px" w='270px' padding="4px" >
               Log in
                </Button>
     
             </form>
-            <Text fontSize="ms" mb="2" textAlign="center">
+            {/* <Text fontSize="ms" mb="2" textAlign="center">
                 or
             </Text>
             <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
@@ -165,8 +165,8 @@ const Login = ( ) => {
                 <ChakraLink href = "account/password/reset" color="grey" fontSize='13.5'>
                     forgotten your password?
                 </ChakraLink>
-              </Text>
-              <Text mt="8" textAlign="center">
+              </Text> */}
+              <Text mt="100px" textAlign="center">
                 Don't Have an account?{' '}
                 <ChakraLink href = "/" color="blue.500">
                   Sign up

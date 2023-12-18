@@ -33,7 +33,7 @@ const Signup = () => {
     confirmPassword: "",
   });
   const [isBelow500px] = useMediaQuery("(max-width: 500px)");
-  const [isabove1000px] = useMediaQuery("(max-Hight: 900px)");
+  const [isabove1000px] = useMediaQuery("(max-Hight: 600px)");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -85,7 +85,7 @@ const Signup = () => {
         <Box
           ml="10px"
           width={isBelow500px ? "100%" : "300px"}
-          hight={isabove1000px ? "550" : "100%"}
+          h='550px'
           p="4"
           border="1px"
           borderColor="gray.200"
@@ -95,16 +95,16 @@ const Signup = () => {
           <Text fontSize="2xl" fontWeight="i" mb="4" textAlign="center">
             Sourced Startup
           </Text>
-          <Text fontSize="sm" mb="4" textAlign="center">
+          <Text fontSize="sm" mb="70px" textAlign="center">
             Sign up for the entrepreneurial heaven
           </Text>
-          <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
+          {/* <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
             <GoogleLogin setUser={setUser}></GoogleLogin>
           </GoogleOAuthProvider>
           <Text fontSize="ms" mb="2" textAlign="center">
             or
-          </Text>
-          <form onSubmit={handleSubmit}>
+          </Text> */}
+          <form onSubmit={handleSubmit} >
             <FormControl mb="3">
               <Input
                 type="text"
@@ -153,7 +153,7 @@ const Signup = () => {
                 required
               />
             </FormControl>
-            <Text fontSize="13.5px" mt="2" textAlign="center">
+            {/* <Text fontSize="13.5px" mt="2" textAlign="center">
               By signing up you agree to our{" "}
               <ChakraLink href="/terms" color="blue.500">
                 Terms and Conditions
@@ -162,11 +162,11 @@ const Signup = () => {
               <ChakraLink href="/privacy" color="blue.500">
                 Privacy Policy
               </ChakraLink>
-            </Text>
+            </Text> */}
             <Button
               type="submit"
               colorScheme="blue"
-              mt="15px"
+              mt="80px"
               w="270px"
               padding="4px"
             >
