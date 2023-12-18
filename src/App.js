@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate , useLocation} from "react-router-dom";
 import Signup from './components/Signup'; // Your Signup component
 import Login from './components/login' // Your Login component
 import Home from './components/Home';
@@ -31,26 +31,50 @@ import AboutStartup from './components/AboutStartup.js';
 import MyUploader from './components/MyUploader.js';
 import Starfeild from './components/StartFeild.js'
 import ActiveContestDiscription from './components/ActiveContestDiscription.js';
-
+import Layout from './components/DashBoard.js.js';
+import {
+  Box,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Input,
+  VStack,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+  useDisclosure,
+  HStack,
+  Heading,
+  Text ,
+  Image ,
+} from '@chakra-ui/react';
+import Search from './components/Search.js';
 
 const App = () => {
-  const [auth, setAuth] = useState('');
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('ACCESS_TOKEN');  
+    const location = useLocation()
+    const {pathname} = location
+    console.log(pathname)
 
-  useEffect(() => {
-    console.log('hey')
-    const token = localStorage.getItem("ACCESS_TOKEN");
-    if (token) {
-      console.log('hey3')
-      setAuth(token);
-    } 
-  },[auth])
+
+    useEffect(() => {
+      if (!accessToken && pathname!='/aboutstartup') {
+        // Redirect to login if accessToken is null
+        navigate('/login');
+      }
+    }, [accessToken , navigate]);
 
   return (
     <>
     <Routes>
       {/* Define your routes here */}
-      {auth && (
+      {accessToken && (
         <>
           <Route path="/home" element={<Home />} />
           <Route path="/user/:userId" component={UserProfile} />
@@ -69,13 +93,13 @@ const App = () => {
           <Route path="/invite-users" element={<InviteUsers />} />
           <Route path="/skill" element={<SkillComponent />} />
           <Route path="/education" element={<EducationComponent />} />
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/dashboard"  element={<DashBoard />} />
           <Route path="/about" element={<About />} />
          <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
-          <Route path="/aboutstartup" element={<AboutStartup />} />
+          <Route path="/search" element={<Search />} />
           
 
         </>

@@ -93,10 +93,10 @@ const Signup = () => {
           boxShadow="md"
         >
           <Text fontSize="2xl" fontWeight="i" mb="4" textAlign="center">
-            Sparrow
+            Sourced Startup
           </Text>
           <Text fontSize="sm" mb="4" textAlign="center">
-            Sign up for the entrepreneurial haven
+            Sign up for the entrepreneurial heaven
           </Text>
           <GoogleOAuthProvider clientId="632513094925-n7la27bd3ocj32qnue8v0asa954ds9t8.apps.googleusercontent.com">
             <GoogleLogin setUser={setUser}></GoogleLogin>

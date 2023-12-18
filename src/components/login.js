@@ -149,16 +149,7 @@ const Login = ( ) => {
                   </Text>
                 )}
               </FormControl>
-              <Text fontSize="13.5px" mt="2" textAlign="center">
-                  By signing up you agree to our{' '}
-                  <ChakraLink href="/terms" color="blue.500">
-                    Terms and Conditions
-                  </ChakraLink>{' '}
-                  and{' '}
-                  <ChakraLink href="/privacy" color="blue.500">
-                    Privacy Policy
-                  </ChakraLink>
-              </Text>
+              
               <Button type="submit" colorScheme="blue" mt="15px" w='270px' padding="4px" >
               Log in
                </Button>
