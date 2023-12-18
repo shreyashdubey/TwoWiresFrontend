@@ -1,7 +1,7 @@
 import axios from "axios";
 const isDev = false
 const instance = axios.create({
-    baseURL: (isDev ? "http://localhost:3001/" : "https://troubled-elk-glasses.cyclic.app") ,
+    baseURL: process.env.PUBLIC_URLREACT_APP_BASE_URL ,
 
 })
 instance.interceptors.response.use(function(response){return response?.data}, function(error) {
