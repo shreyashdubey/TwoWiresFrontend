@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate , useLocation} from "react-router-dom";
 import Signup from './components/Signup'; // Your Signup component
 import Login from './components/login' // Your Login component
 import Home from './components/Home';
@@ -58,9 +58,13 @@ import Search from './components/Search.js';
 const App = () => {
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('ACCESS_TOKEN');  
+    const location = useLocation()
+    const {pathname} = location
+    console.log(pathname)
+
 
     useEffect(() => {
-      if (!accessToken) {
+      if (!accessToken && pathname!='/aboutstartup') {
         // Redirect to login if accessToken is null
         navigate('/login');
       }
