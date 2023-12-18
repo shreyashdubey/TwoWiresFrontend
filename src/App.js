@@ -95,7 +95,6 @@ const App = () => {
           <Route path="/competition" element={<UserContest />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
-          <Route path="/aboutstartup" element={<AboutStartup />} />
           <Route path="/search" element={<Search />} />
           
 
