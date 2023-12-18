@@ -31,26 +31,45 @@ import AboutStartup from './components/AboutStartup.js';
 import MyUploader from './components/MyUploader.js';
 import Starfeild from './components/StartFeild.js'
 import ActiveContestDiscription from './components/ActiveContestDiscription.js';
-
+import Layout from './components/DashBoard.js.js';
+import {
+  Box,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Input,
+  VStack,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+  useDisclosure,
+  HStack,
+  Heading,
+  Text ,
+  Image ,
+} from '@chakra-ui/react';
 
 const App = () => {
-  const [auth, setAuth] = useState('');
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('ACCESS_TOKEN');  
 
-  useEffect(() => {
-    console.log('hey')
-    const token = localStorage.getItem("ACCESS_TOKEN");
-    if (token) {
-      console.log('hey3')
-      setAuth(token);
-    } 
-  },[auth])
+    useEffect(() => {
+      if (!accessToken) {
+        // Redirect to login if accessToken is null
+        navigate('/login');
+      }
+    }, [accessToken , navigate]);
 
   return (
     <>
     <Routes>
       {/* Define your routes here */}
-      {auth && (
+      {accessToken && (
         <>
           <Route path="/home" element={<Home />} />
           <Route path="/user/:userId" component={UserProfile} />
@@ -69,7 +88,7 @@ const App = () => {
           <Route path="/invite-users" element={<InviteUsers />} />
           <Route path="/skill" element={<SkillComponent />} />
           <Route path="/education" element={<EducationComponent />} />
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/dashboard"  element={<DashBoard />} />
           <Route path="/about" element={<About />} />
          <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
