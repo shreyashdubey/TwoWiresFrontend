@@ -16,6 +16,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.1",
     "cors": "^2.8.5",
+    "countries-list": "^3.0.6",
+    "country-state-city": "^3.2.1",
     "framer-motion": "^10.16.16",
     "jwt-decode": "^4.0.0",
     "pdfjs-dist": "^3.4.120",
