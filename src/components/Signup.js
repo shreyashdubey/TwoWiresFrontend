@@ -47,15 +47,14 @@ const Signup = () => {
 
   try {
         const response = await instance.post(SIGNUP,formData, {'Content-Type': 'application/json'})
-        const data = response;
-        const { success, message } = data;
-        
-        if (success) {
-          alert(message);
-          navigate("/contest");
+        const { accessToken , refreshToken} = response;
+            if (accessToken) {
+              localStorage.setItem("ACCESS_TOKEN", accessToken)
+              localStorage.setItem("REFRESH_TOKEN", refreshToken)
+                navigate('/contest');
         } else {
           // Signup failed
-          alert(data.message || 'Signup failed. Please try again.');
+          alert('Signup failed. Please try again.');
         }
     } catch (error) {
       console.log(error);

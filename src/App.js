@@ -64,7 +64,7 @@ const App = () => {
 
 
     useEffect(() => {
-      if (!accessToken && pathname!='/aboutstartup') {
+      if (!accessToken && pathname!='/aboutstartup' && pathname !='/' ) {
         // Redirect to login if accessToken is null
         navigate('/login');
       }
