@@ -70,7 +70,7 @@ const ActiveCompetitionsDiscription = () => {
   return (
     <>
     <ContestDiscription/>
-    <Box p={4} w='100%' >
+    {/* <Box p={4} w='100%' >
 
     <Box w='100%' >
       <Heading mt='50px' >
@@ -91,7 +91,7 @@ const ActiveCompetitionsDiscription = () => {
       </Heading>
         <Text dangerouslySetInnerHTML={{ __html: evaluationText }} />
       </Box>
-    </Box>
+    </Box> */}
     </>
   );
 };
