@@ -20,6 +20,7 @@ import { Show, Hide} from '@chakra-ui/react'
 import { useMediaQuery } from "@chakra-ui/react";
 import Modal from 'react-modal';
 import Login from './login'
+import StartFieldBg from './StartFeild';
 Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
 
@@ -67,6 +68,7 @@ const Signup = () => {
   }
 
   return (
+    <StartFieldBg>
     <Flex direction="column" align="center" justify="center" height="100vh">
       <Flex direction="row" align="center" justify="center">
         <Hide below="500px">
@@ -181,6 +183,7 @@ const Signup = () => {
         </Box>
       </Flex>
     </Flex>
+    </StartFieldBg>
   );
 };
 
