@@ -70,7 +70,7 @@ const Signup = () => {
   return (
     <StartFieldBg>
     <Flex direction="column" align="center" justify="center" height="100vh">
-      <Flex direction="row" align="center" justify="center">
+      <Flex direction="row" align="center" justify="center" zIndex="1000" >
         <Hide below="500px">
           <Image
             src={startup}
