@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FormControl, FormLabel, Input, Text, Flex, Box } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Text, Flex, Box, Spinner } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
 import { Button, ButtonGroup , Hide , Image , Link as ChakraLink , useMediaQuery ,useColorMode ,ColorModeScript} from '@chakra-ui/react'
@@ -17,6 +17,7 @@ const Login = ( ) => {
         email: '',
         password: '',
     });
+    const [isLoading, setIsLoading] = useState(false);
     const [isBelow500px] = useMediaQuery("(max-width: 500px)");
     const [isabove1000px] = useMediaQuery("(max-Hight: 900px)");
     const navigate = useNavigate();
@@ -54,6 +55,7 @@ const Login = ( ) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const response = await instance.post(LOGIN,formData, {'Content-Type': 'application/json'})
             const { accessToken , refreshToken} = response;
             if (accessToken) {
@@ -78,6 +80,8 @@ const Login = ( ) => {
             alert('An error occurred during login. Please try again later.');
           }
         
+        } finally{
+          setIsLoading(false);
         }
     };
 
@@ -151,7 +155,7 @@ const Login = ( ) => {
               </FormControl>
               
               <Button type="submit" colorScheme="blue" mt="25px" w='270px' padding="4px" >
-              Log in
+                { isLoading ? <Spinner size='sm' /> : 'Log in' }
                </Button>
     
             </form>
