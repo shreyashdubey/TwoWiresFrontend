@@ -1,6 +1,7 @@
 import "./style"
 import { motion } from "framer-motion";
 import Login from "../login";
+import Signup from "../Signup";
 import React, { useState , useEffect } from 'react';
 
 const textVariants = {
