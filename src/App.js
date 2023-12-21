@@ -68,13 +68,15 @@ const App = () => {
 
 
     useEffect(() => {
-      OneSignal.init({ appId: 'c57aeb8a-7429-44b7-bc5e-519f486a355a' });
-      console.log("jvnvn")
       if (!accessToken && pathname!='/aboutstartup'  && pathname!='/') {
         // Redirect to login if accessToken is null
         navigate('/login');
       }
     }, [accessToken , navigate]);
+    useEffect(() => {
+      console.log("njcjjshjsd")
+      OneSignal.init({ appId: 'c57aeb8a-7429-44b7-bc5e-519f486a355a' });
+    }, []);
      const onhandletag = (tag)=>{
          console.log('hey')
          OneSignal.sendTag('Tech' , tag).then(()=>{
