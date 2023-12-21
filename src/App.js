@@ -36,6 +36,7 @@ import Main from './components/Animation/Main.js'
 import Tre from './components/Animation/Tree.js';
 import Cross from './components/Animation/Cross.js';
 import OneSignal from 'react-onesignal';
+import { Button } from '@chakra-ui/react';
 
 
 const App = () => {
@@ -52,17 +53,6 @@ const App = () => {
         navigate('/login');
       }
     }, [accessToken , navigate]);
-    useEffect(() => {
-      console.log("njcjjshjsd")
-      OneSignal.init({ appId: 'c57aeb8a-7429-44b7-bc5e-519f486a355a' });
-    }, []);
-     const onhandletag = (tag)=>{
-         console.log('hey')
-         OneSignal.sendTag('Tech' , tag).then(()=>{
-          console.log('tagged')
-         })
-    }
-
   
 
     useEffect(() => {
@@ -119,8 +109,6 @@ const App = () => {
 
   return (
     <>
-    <Button onClick={()=>onhandletag('angular')}>facebook</Button>
-    <Button onClick={()=>onhandletag('Facebook')}>google</Button>
     <Routes>
       {/* Define your routes here */}
       {accessToken && (
