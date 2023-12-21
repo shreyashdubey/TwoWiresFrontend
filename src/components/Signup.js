@@ -20,6 +20,7 @@ import { Show, Hide} from '@chakra-ui/react'
 import { useMediaQuery } from "@chakra-ui/react";
 import Modal from 'react-modal';
 import Login from './login'
+import StartFieldBg from './StartFeild';
 Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
 
@@ -47,15 +48,14 @@ const Signup = () => {
 
   try {
         const response = await instance.post(SIGNUP,formData, {'Content-Type': 'application/json'})
-        const data = response;
-        const { success, message } = data;
-        
-        if (success) {
-          alert(message);
-          navigate("/contest");
+        const { accessToken , refreshToken} = response;
+            if (accessToken) {
+              localStorage.setItem("ACCESS_TOKEN", accessToken)
+              localStorage.setItem("REFRESH_TOKEN", refreshToken)
+                navigate('/contest');
         } else {
           // Signup failed
-          alert(data.message || 'Signup failed. Please try again.');
+          alert('Signup failed. Please try again.');
         }
     } catch (error) {
       console.log(error);
@@ -68,8 +68,9 @@ const Signup = () => {
   }
 
   return (
+    <StartFieldBg>
     <Flex direction="column" align="center" justify="center" height="100vh">
-      <Flex direction="row" align="center" justify="center">
+      <Flex direction="row" align="center" justify="center" zIndex="1000" >
         <Hide below="500px">
           <Image
             src={startup}
@@ -182,6 +183,7 @@ const Signup = () => {
         </Box>
       </Flex>
     </Flex>
+    </StartFieldBg>
   );
 };
 

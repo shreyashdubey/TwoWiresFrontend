@@ -62,7 +62,7 @@ const [contestData , setContestData]  = useState([''])
               overflow="hidden"
             >
               <Box borderRadius="50px 50px 0 0" h='25%'>
-                <Image src={contest.imageSrc} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
+                <Image src={contest1} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
               </Box>
 
               <Box p="6">
