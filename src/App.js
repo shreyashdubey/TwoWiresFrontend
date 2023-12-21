@@ -31,29 +31,8 @@ import AboutStartup from './components/AboutStartup.js';
 import MyUploader from './components/MyUploader.js';
 import Starfeild from './components/StartFeild.js'
 import ActiveContestDiscription from './components/ActiveContestDiscription.js';
-import Layout from './components/DashBoard.js.js';
-import {
-  Box,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Input,
-  VStack,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-  useDisclosure,
-  HStack,
-  Heading,
-  Text ,
-  Image ,
-} from '@chakra-ui/react';
 import Search from './components/Search.js';
+
 
 const App = () => {
     const navigate = useNavigate();
@@ -69,6 +48,58 @@ const App = () => {
         navigate('/login');
       }
     }, [accessToken , navigate]);
+
+    useEffect(() => {
+      // runOneSignal();
+      OneSignal.push(()=> {
+        OneSignal.init(
+          {
+            appId: "c57aeb8a-7429-44b7-bc5e-519f486a355a", //STEP 9
+            promptOptions: {
+              slidedown: {
+                enabled: true,
+                actionMessage: "We'd like to show you notifications for the latest news and updates about the following categories.",
+                acceptButtonText: "OMG YEEEEESS!",
+                cancelButtonText: "NAHHH",
+                categories: {
+                    tags: [
+                        {
+                            tag: "react",
+                            label: "ReactJS",
+                        },
+                        {
+                          tag: "angular",
+                          label: "Angular",
+                        },
+                        {
+                          tag: "vue",
+                          label: "VueJS",
+                        },
+                        {
+                          tag: "js",
+                          label: "JavaScript",
+                        }
+                    ]
+                }     
+            } 
+          },
+          welcomeNotification: {
+            "title": "One Signal",
+            "message": "Thanks for subscribing!",
+          } 
+        },
+          //Automatically subscribe to the new_app_version tag
+          OneSignal.sendTag("new_app_version", "new_app_version", tagsSent => {
+            // Callback called when tag has finished sending
+            console.log('new_app_version TAG SENT', tagsSent);
+          })
+        );
+      });
+    },[])
+
+   
+    window.OneSignal = window.OneSignal || [];
+    const OneSignal = window.OneSignal;
 
   return (
     <>
