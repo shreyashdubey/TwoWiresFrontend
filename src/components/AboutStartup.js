@@ -1,5 +1,5 @@
 // ActiveCompetitions.js
-import React from 'react';
+import React , {useState} from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
 import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex, Grid , Button , useMediaQuery} from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
@@ -9,6 +9,41 @@ import { useRef , useEffect } from 'react';
 import {useScroll , useTransform , motion , useInView , useAnimation , useMotionValue} from "framer-motion"
 import ParticleBg from './particle.js';
 import StartFieldBg from './StartFeild.js';
+
+
+const textVariants = {
+  hidden: { opacity: 0, y: -20 },
+ // visible: { opacity: 1, y: 100},
+  visible: (i) => {
+     // const delay = 1 + i * 0.5;
+     const delay = 0
+      return {
+        opacity: 1, 
+        transition: {
+          delay,
+          type: "spring",
+          duration: 4.5,
+          bounce: .5,
+        },
+      };
+    },
+};
+
+const draw = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: (i) => {
+   // const delay = 1 + i * 0.5;
+     const delay = 0
+    return {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { delay, type: "spring", duration: 1.5, bounce: 0 },
+        opacity: { delay, duration: 0.01 },
+      },
+    };
+  },
+};
 
 const AboutStartup = () => {
   
@@ -28,11 +63,362 @@ const AboutStartup = () => {
      mainControl.start("visible")
   }
  } ,[isInView])
+
+ const [selectedComponent, setSelectedComponent] = useState(null);
+ const [selectedComponentException, setSelectedComponentException] = useState(false);
+
+ const handleComponentClick = (componentId) => {
+ setSelectedComponent(componentId);
+};
+const handleComponentClickException = (componentId) => {
+ setSelectedComponentException(true);
+};
   
   return (
         <StartFieldBg>
+
+
+
+
     <Box minHeight='100vh' bgColor={'blackAlpha.900'}  w='full'>
-      <Center>
+
+    <motion.svg
+        width="100%"
+        height="100%"
+        viewBox="-1000 0 3000 1500"
+        initial="hidden"
+        animate="visible"
+        >
+     <motion.circle
+        cx="150"
+        cy="150"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={1}
+        onClick={() => handleComponentClick(1)}
+      />    
+       <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={1} y = '160'   x = '-150' >
+           Enter The Game
+        </motion.text>
+
+      {/* <motion.circle
+        cx="150"
+        cy="150"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={1}
+        onClick={() => handleComponentClick(1)}
+      /> */}
+      
+      {selectedComponent >0  && (
+          <>
+            <motion.line
+              x1="230"
+              y1="150"
+              x2="360"
+              y2="220"
+              stroke="#00cc88"
+              variants={draw}
+              custom={2}
+            />
+            <motion.circle
+              cx="420"
+              cy="220"
+              r="80"
+              stroke="#ff0055"
+              variants={draw}
+              custom={3}
+              onClick={() => handleComponentClick(2)}
+            />
+             <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={3} y='130' x = '300'>
+               Create Your Player
+             </motion.text>
+          </>
+)}
+
+     {selectedComponent >1 &&(
+      <>
+       <motion.line
+        x1="360" 
+        y1="275"
+        x2="230"
+        y2="345"
+        stroke="#00cc88"
+        variants={draw}
+        custom={3}
+      />
+       <motion.circle
+        cx="180"
+        cy="400"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={4}
+        onClick={() => handleComponentClick(3)}
+
+      />
+       <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={5} y='450' x = '400'>
+            Start the Game
+        </motion.text>
+      </>
+     )}
+
+     {selectedComponent >2 && (
+              <>
+                 <motion.line
+                  x1="250" 
+                  y1="440"
+                  x2="800"
+                  y2="550"
+                  stroke="#00cc88"
+                  variants={draw}
+                  custom={4}
+                />
+                <motion.circle
+                  cx="850"
+                  cy="618"
+                  r="80"
+                  stroke="#ff0055"
+                  variants={draw}
+                  custom={5}
+                  onClick={() => handleComponentClick(4)}
+
+                />
+              <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={6} y='500' x = '780'>
+                Choose
+              </motion.text>
+        
+              </>
+              
+     )}
+     {selectedComponent >3  &&(
+      <>
+         <motion.line
+        x1="815" 
+        y1="695"
+        x2="690"
+        y2="770"
+        stroke="#00cc88"
+        variants={draw}
+        custom={5}
+      />
+      <motion.circle
+        cx="650"
+        cy="845"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={6}
+        onClick={() => handleComponentClick(5)}
+
+      />
+      <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={8} y='740' x = '520'>
+            Create a Contest
+        </motion.text>
+      </>
+     )}
+      
+      {selectedComponent > 3 &&(
+        <>
+            <motion.line
+        x1="875" 
+        y1="698"
+        x2="1020"
+        y2="790"
+        stroke="#00cc88"
+        variants={draw}
+        custom={5}
+      />
+      <motion.circle
+        cx="1050"
+        cy="845"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={6}
+        onClick={() => handleComponentClickException(9 )}
+
+      />
+      <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={8} y='740' x = '950'>
+            Give a Contest
+      </motion.text>
+        </>
+      )}
+      { selectedComponent >4 && (
+        <>
+           <motion.line
+        x1="600" 
+        y1="910"
+        x2="470"
+        y2="990"
+        stroke="#00cc88"
+        variants={draw}
+        custom={6}
+      />
+      <motion.circle
+        cx="450"
+        cy="1070"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={7}
+        onClick={() => handleComponentClick(6)}
+
+      />
+       <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={12} y='950' x = '250'>
+            Create Description
+        </motion.text>
+        </>
+      )}
+      
+      {selectedComponent >5 &&  (
+            <>
+                 <motion.line
+                  x1="450" 
+                  y1="1155"
+                  x2="600"
+                  y2="1250"
+                  stroke="#00cc88"
+                  variants={draw}
+                  custom={7}
+                />
+                <motion.circle
+                  cx="640"
+                  cy="1330"
+                  r="80"
+                  stroke="#ff0055"
+                  variants={draw}
+                  custom={8}
+                  onClick={() => handleComponentClick(8)}
+
+      />
+        <motion.text fontSize="25"   stroke="#00cc88" variants={textVariants} custom={14} y='1250' x = '310'>
+           Wait for Review
+        </motion.text>
+            </>
+      )}
+       {selectedComponentException  &&(
+             <>
+                      <motion.line
+        x1="1025" 
+        y1="920"
+        x2="895"
+        y2="990"
+        stroke="#00cc88"
+        variants={draw}
+        custom={8}
+      />
+       <motion.circle
+        cx="905"
+        cy="1070"
+        r="80"
+        stroke="#ff0055"
+        variants={draw}
+        custom={9}
+        onClick={() => handleComponentClick(9)}
+
+      />
+             </>
+       )}
+      
+       
+      
+      {/* <motion.line
+        x1="220"
+        y1="170"
+        x2="360"
+        y2="30"
+        stroke="#00cc88"
+        variants={draw}
+        custom={2.5}
+      /> */}
+      {/* <motion.rect
+        width="140"
+        height="140"
+        x="410"
+        y="30"
+        rx="20"
+        stroke="#0099ff"
+        variants={draw}
+        custom={3}
+      />
+      <motion.circle
+        cx="100"
+        cy="300"
+        r="80"
+        stroke="#0099ff"
+        variants={draw}
+        custom={2}
+      />
+      <motion.line
+        x1="220"
+        y1="230"
+        x2="360"
+        y2="370"
+        stroke="#ff0055"
+        custom={3}
+        variants={draw}
+      />
+      <motion.line
+        x1="220"
+        y1="370"
+        x2="360"
+        y2="230"
+        stroke="#ff0055"
+        custom={3.5}
+        variants={draw}
+      />
+      <motion.rect
+        width="140"
+        height="140"
+        x="410"
+        y="230"
+        rx="20"
+        stroke="#00cc88"
+        custom={4}
+        variants={draw}
+      />
+      <motion.circle
+        cx="100"
+        cy="500"
+        r="80"
+        stroke="#00cc88"
+        variants={draw}
+        custom={3}
+      />
+      <motion.line
+        x1="220"
+        y1="430"
+        x2="360"
+        y2="570"
+        stroke="#0099ff"
+        variants={draw}
+        custom={4}
+      />
+      <motion.line
+        x1="220"
+        y1="570"
+        x2="360"
+        y2="430"
+        stroke="#0099ff"
+        variants={draw}
+        custom={4.5}
+      />
+      <motion.rect
+        width="140"
+        height="140"
+        x="410"
+        y="430"
+        rx="20"
+        stroke="#ff0055"
+        variants={draw}
+        custom={5}
+      /> */}
+    </motion.svg>
+
+      <Center >
        <Text  as='I' fontSize={['4xl' , '5xl' , '5xl' , '7xl', '8xl' , '9xl']}  fontWeight='medium'  h='30%' textShadow='4px 4px #1D4044'  >Sourced Startup</Text>
         {/* Sourced Startup Text */}
         </Center>
@@ -162,6 +548,9 @@ const AboutStartup = () => {
         </VStack>
       </Container>  */}
       </Box>
+
+
+
       </StartFieldBg>
    
   ); 
