@@ -37,6 +37,7 @@ import Tre from './components/Animation/Tree.js';
 import Cross from './components/Animation/Cross.js';
 import OneSignal from 'react-onesignal';
 import { Button } from '@chakra-ui/react';
+import Key from './components/KeyBoard.js';
 
 
 const App = () => {
@@ -140,6 +141,7 @@ const App = () => {
           <Route path="/main" element={<Main />} />
           <Route path="/tree" element={<Tre />} />
           <Route path="/cross" element={<Cross />} />
+          <Route path="/key" element={<Key />} />
 
         </>
 
