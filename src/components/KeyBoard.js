@@ -9,6 +9,7 @@ import {
   FormHelperText,
   Center,
   Box,
+  Button,
 } from '@chakra-ui/react'
 
 // Instead of the default import, you can also use this:
@@ -83,7 +84,7 @@ function Key() {
 
 
   return (
-    <Box bgColor = 'black' >
+    <Box bgColor = 'black'  height='500px'>
       <Center >
       <FormControl  width='15%'>
     <FormLabel>Email address</FormLabel>
@@ -95,6 +96,7 @@ function Key() {
        />
       <FormHelperText>We'll never share your email.</FormHelperText>
     </FormControl>
+    <Button>send</Button>
     </Center>
       <Keyboard
         keyboardRef={r => (keyboard.current = r)}
