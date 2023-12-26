@@ -1,5 +1,6 @@
 
-import React , {useState , useEffect } from 'react';
+import React , {useState , useEffect  } from 'react';
+import { useNavigate } from "react-router-dom";
 import Scrollspy from 'react-scrollspy';
 import { Box,
   Center,
@@ -37,7 +38,7 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 const ContestDiscription = () => {
   // Assuming you have contest details available
@@ -58,8 +59,10 @@ const ContestDiscription = () => {
   });
   const accessToken = localStorage.getItem('ACCESS_TOKEN');
   const decodedToken = jwtDecode(accessToken);
+  const userId = decodedToken.user._id;
   const {contestId ,ok} = useParams();
   const me='faiez'
+  const navigate = useNavigate();
 
 
   const countries = [
@@ -138,6 +141,29 @@ const ContestDiscription = () => {
       }
     } catch (error) {
       console.error('Error during fetchTeamNames:', error);
+    }
+  };
+
+  const handleDeleteButtonClick = async () => {
+    try {
+      // Make the API request to delete the contest
+      const response = await instance.delete(`/api/contest/delete-contest/${contestId}/${userId}`);
+      navigate('/createcompetition')
+      // Handle the response from the API
+      console.log('API Response:', response);
+  
+      // Assuming the API response is successful
+      if (response.success) {
+        navigate('/createcompetition')
+        // Trigger a re-fetch of user contests or update the UI as needed
+       // setIsFormSubmitted(!isFormSubmitted);
+       // setInitialFetch(false)
+      } else {
+        // Handle error cases if needed
+      }
+    } catch (error) {
+      console.error('API Request Error:', error);
+      // Handle error cases if needed
     }
   };
 
@@ -261,6 +287,7 @@ const ContestDiscription = () => {
         </Box>
         
         <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
+        <Button onClick={handleDeleteButtonClick}>Delete</Button>
       <OverviewSection/>  
       </Box>
 

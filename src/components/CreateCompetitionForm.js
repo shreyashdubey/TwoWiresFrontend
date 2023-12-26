@@ -338,15 +338,15 @@ const CreateCompetitionForm = () => {
                 <Heading mb={4}>{contest.contestName}</Heading>
                 <Text>Organizer: {contest.contestOrganizer}</Text>
                 {!contest.isPublished && contest.isSubmitted && (
-                   <Tag>
+                   <Tag >
                    <TagLabel>
                      Waiting for review
                    </TagLabel>
                  </Tag>
                 )}
                 {contest.isPublished && (
-                   <Tag>
-                   <TagLabel>
+                   <Tag  bgColor='green' >
+                   <TagLabel color='black' > 
                      Published
                    </TagLabel>
                  </Tag>

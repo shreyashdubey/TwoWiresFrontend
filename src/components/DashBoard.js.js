@@ -35,6 +35,7 @@ import logoutdark from './images/logoutdark.png'
 import teamdark from './images/teamdark.png'
 import Search from './Search';
 import BelowDashBoard from './BelowDashboard';
+import Notifications from './images/notification.png'
 
 const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const navigate = useNavigate();
@@ -271,6 +272,33 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
             borderColor='custom.white'
           />
           )}
+          </Tab>
+          <Tab  
+          //onClick={handleUserLogoutNotificationClick}
+          >
+          <Box position='relative'>
+          <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={Notifications}
+            alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
+          />
+          <Box
+            position='absolute'
+            top='-1'
+            right='-1.5'
+            backgroundColor='red'
+            height='16px'
+            width='16px'
+            borderRadius='50%'
+          >
+          <Text fontSize='x-small' height='1px' color='black'>
+            1
+          </Text>
+    </Box>
+  </Box>
           </Tab>
         </TabList>
         <TabPanels>
