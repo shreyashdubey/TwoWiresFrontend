@@ -61,7 +61,7 @@ const App = () => {
       OneSignal.push(()=> {
         OneSignal.init(
           {
-            appId: "c57aeb8a-7429-44b7-bc5e-519f486a355a", //STEP 9
+            appId: "12fedbe1-46f0-44fb-893a-b765cbabf575", //STEP 9
             promptOptions: {
               slidedown: {
                 enabled: true,
