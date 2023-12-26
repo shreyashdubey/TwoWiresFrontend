@@ -259,29 +259,6 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           )}
           </Tab>
           </Tooltip>
-          <Tooltip label = 'Logout' >
-          <Tab  onClick={handleUserLogoutTabClick}>
-          {logoutImage ? (
-             <Image
-             boxSize='25px'
-             objectFit='cover'
-             src={logout}
-             alt='Dan Abramov'
-             border='5px' // Adjust the border width as needed
-             borderColor='custom.white'
-           />
-          ):(
-            <Image
-            boxSize='25px'
-            objectFit='cover'
-            src={logoutdark}
-            alt='Dan Abramov'
-            border='5px' // Adjust the border width as needed
-            borderColor='custom.white'
-          />
-          )}
-          </Tab>
-          </Tooltip>
           <Tooltip label='notification' >
           <Tab  
           //onClick={handleUserLogoutNotificationClick}
@@ -310,6 +287,29 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           
     </Box>
   </Box>
+          </Tab>
+          </Tooltip>
+          <Tooltip label = 'Logout' >
+          <Tab  onClick={handleUserLogoutTabClick}>
+          {logoutImage ? (
+             <Image
+             boxSize='25px'
+             objectFit='cover'
+             src={logout}
+             alt='Dan Abramov'
+             border='5px' // Adjust the border width as needed
+             borderColor='custom.white'
+           />
+          ):(
+            <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={logoutdark}
+            alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
+          />
+          )}
           </Tab>
           </Tooltip>
         </TabList>
