@@ -24,7 +24,7 @@ import { Box,
   Spacer,
   Button,
   Input,
-  Stack , Flex, FormControl, FormHelperText, FormLabel
+  Stack , Flex, FormControl, FormHelperText, FormLabel ,
 } from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 import Layout from './DashBoard.js';

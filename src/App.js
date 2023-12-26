@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate , useLocation} from "react-router-dom";
 import Signup from './components/Signup'; // Your Signup component
 import Login from './components/login' // Your Login component
 import Home from './components/Home';
-import DashBoard from './components/DashBoard.js.js';
+import DashBoard from './components/DashBoard.js';
 import FriendRequest from './components/FriendRequest';
 import Forgot from './components/Forgot';
 import Authentication from './components/Authentication'

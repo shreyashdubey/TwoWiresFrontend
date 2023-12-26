@@ -11,7 +11,7 @@ import pixels from './images/pixels.jpg'
 import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
 import UserProfile from './UserProfile';
-import Layout from './DashBoard.js.js';
+import Layout from './DashBoard.js';
 
 const Home = () => {
     return(

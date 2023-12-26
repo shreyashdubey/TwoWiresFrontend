@@ -19,6 +19,7 @@ import {
   Text, 
   Center,
   Box ,
+  Tooltip ,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
@@ -189,6 +190,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           gap: "16px", // Adjust the value to set the desired spacing
         }}
         >
+          <Tooltip label = 'Contest'>
         <Tab  onClick={handleContestTabClick} Color='custom.darkStateBlue'>
           {contestImage ? (
              <Image
@@ -210,6 +212,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label = 'User'>
           <Tab  onClick={handleUserTabClick}>
           {homeImage ? (
              <Image
@@ -231,6 +235,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label = 'user can list problem as contest which they have experienced in life so enterprenueurs can solve ' >
           <Tab  onClick={handleUserContestTabClick}>
           {teamImage ? (
              <Image
@@ -252,6 +258,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label = 'Logout' >
           <Tab  onClick={handleUserLogoutTabClick}>
           {logoutImage ? (
              <Image
@@ -273,6 +281,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label='notification' >
           <Tab  
           //onClick={handleUserLogoutNotificationClick}
           >
@@ -297,9 +307,11 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           <Text fontSize='x-small' height='1px' color='black'>
             1
           </Text>
+          
     </Box>
   </Box>
           </Tab>
+          </Tooltip>
         </TabList>
         <TabPanels>
           <TabPanel></TabPanel>

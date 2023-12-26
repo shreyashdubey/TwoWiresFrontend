@@ -12,7 +12,7 @@ import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
 import UserProfile from './UserProfile';
 import UserContest from './UserContest.js';
-import Layout from './DashBoard.js.js';
+import Layout from './DashBoard.js';
 import Experience from './Experience.js';
 
 const User = () => {
