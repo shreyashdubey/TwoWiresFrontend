@@ -17,3 +17,4 @@ export const ADD_SKILL = "/api/users/add-skill"
 export const  GET_ALL_SKILL="/api/users/get-all-skill"
 export const DELETE_SKILL="/api/users/delete-skill"
 export const CREATE_CONTEST = "/api/contest/create-contest"
+export const VERIFICATION = '/api/users/verification'

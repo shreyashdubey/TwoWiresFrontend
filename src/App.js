@@ -38,7 +38,8 @@ import Cross from './components/Animation/Cross.js';
 import OneSignal from 'react-onesignal';
 import { Button } from '@chakra-ui/react';
 import Key from './components/KeyBoard.js';
-
+import Problem from './components/Problem.js';
+import EmailVerification from './components/EmailVerification.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -142,6 +143,8 @@ const App = () => {
           <Route path="/tree" element={<Tre />} />
           <Route path="/cross" element={<Cross />} />
           <Route path="/key" element={<Key />} />
+          <Route path="/problem" element={<Problem />} />
+          <Route path="/verification" element={<EmailVerification />} />
 
         </>
 
