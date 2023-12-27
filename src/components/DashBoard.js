@@ -37,8 +37,13 @@ import teamdark from './images/teamdark.png'
 import Search from './Search';
 import BelowDashBoard from './BelowDashboard';
 import Notifications from './images/notification.png'
+import { useOverview } from './OverviewContext';
+import instance from '../utils/api'
+import { jwtDecode } from "jwt-decode";
+import { GET_ALL_NOTIFICATION } from '../utils/endpoints';
 
-const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
+
+const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
   const navigate = useNavigate();
   const location = useLocation();
   let activeTab = 0
@@ -46,6 +51,10 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const [homeImage, sethomeImage] = useState(false);
   const [teamImage , setTeamImage] = useState(false);
   const [logoutImage , setLogoutImage] = useState(false)
+  const {setNotify} = useOverview()
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [notification , setNotification] = useState([])
 
   const handleUserTabClick = () => {
     navigate('/about');
@@ -57,6 +66,11 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
 
   const handleUserContestTabClick = () => {
     navigate('/createcompetition');
+  };
+
+
+  const handleUserNotificationClick = () => {
+    navigate('/notification');
   };
 
   const handleUserLogoutTabClick = () => {
@@ -135,9 +149,33 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
       setTeamImage(false);
       setLogoutImage(true);
     }
+
+    const fetchData = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        const userId = decodedToken.user._id;
+        const response = await instance.get(
+            `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=10`
+          );
+        
+        const notifications = response.notifications
+
+        setNotify(notifications)
+        setNotification(notifications)
+        // You can also set other state variables like page, pageSize, etc. based on the response.
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
     
-  }, [location]);
-  
+    
+  }, [location, page, pageSize]);
+  const notificationsSize=notification.length
+  console.log('1234',notificationsSize)
 
   const handleTabChange = (index) => {
     activeTab = index
@@ -261,7 +299,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           </Tooltip>
           <Tooltip label='notification' >
           <Tab  
-          //onClick={handleUserLogoutNotificationClick}
+          onClick={handleUserNotificationClick}
           >
           <Box position='relative'>
           <Image
@@ -282,7 +320,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
             borderRadius='50%'
           >
           <Text fontSize='x-small' height='1px' color='black'>
-            1
+             {notificationsSize}
           </Text>
           
     </Box>
@@ -325,7 +363,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   );
 };
 
-const Layout = ({children}) => {
+const Layout = ({children , notificationsSize}) => {
   const [isSearchSelected ,setIsSearchSelected] = useState(false)
   return (
     <Flex direction="column" minHeight='100vh' bgcolor='custom. midnightBlue' >

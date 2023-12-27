@@ -23,7 +23,7 @@ function EmailVerification() {
         }
         else
         {
-            console.log('error')
+            alert(response.message)
         }
     } catch (error) {
       console.log(error);

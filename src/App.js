@@ -40,6 +40,7 @@ import { Button } from '@chakra-ui/react';
 import Key from './components/KeyBoard.js';
 import Problem from './components/Problem.js';
 import EmailVerification from './components/EmailVerification.js';
+import Notification from './components/Notification.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -111,6 +112,7 @@ const App = () => {
 
   return (
     <>
+     <OverviewProvider>
     <Routes>
       {/* Define your routes here */}
       {accessToken && (
@@ -145,6 +147,15 @@ const App = () => {
           <Route path="/key" element={<Key />} />
           <Route path="/problem" element={<Problem />} />
           <Route path="/verification" element={<EmailVerification />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/createcompetition" element={<CreateCompetitionForm />} />
+          <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
+          <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
+          <Route path="/review" element={<PublishContest />} />
+          <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
+          <Route path="/myuploader" element={<MyUploader />} />
+          <Route path="/startfeild" element={<Starfeild />} />
+          <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
 
         </>
 
@@ -156,17 +167,6 @@ const App = () => {
       {/* Add other routes for different pages */}
     </Routes>
     {/* {auth && ( */}
-  <OverviewProvider>
-    <Routes> 
-      <Route path="/createcompetition" element={<CreateCompetitionForm />} />
-      <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
-      <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
-      <Route path="/review" element={<PublishContest />} />
-      <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
-      <Route path="/myuploader" element={<MyUploader />} />
-      <Route path="/startfeild" element={<Starfeild />} />
-      <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
-    </Routes>
 
   </OverviewProvider>
 {/* )  */}

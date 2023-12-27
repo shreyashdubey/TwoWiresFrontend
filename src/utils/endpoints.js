@@ -18,3 +18,4 @@ export const  GET_ALL_SKILL="/api/users/get-all-skill"
 export const DELETE_SKILL="/api/users/delete-skill"
 export const CREATE_CONTEST = "/api/contest/create-contest"
 export const VERIFICATION = '/api/users/verification'
+export const GET_ALL_NOTIFICATION = '/api/notification/all'
