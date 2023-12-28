@@ -52,7 +52,7 @@ const Signup = () => {
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("REFRESH_TOKEN", refreshToken)
-                navigate('/verification');
+                navigate('/contest');
         } else {
           // Signup failed
           alert('Signup failed. Please try again.');
