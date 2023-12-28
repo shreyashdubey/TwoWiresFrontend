@@ -223,7 +223,7 @@ const OverviewSection = () => {
 
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isSubmitted:true}, {'Content-Type': 'application/json'})
+       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{contestOrganizer:userId , isSubmitted:true}, {'Content-Type': 'application/json'})
 
       // Handle the response from the API
         console.log('API Response:', response);

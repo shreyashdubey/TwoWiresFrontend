@@ -77,7 +77,7 @@ const ReviewDiscription = () => {
 
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{ isPublished:true}, {'Content-Type': 'application/json'})
+       const response = await instance.put(`/api/contest/publish-contest?contestId=${contestId}`)
 
       // Handle the response from the API
         console.log('API Response:', response.data);
