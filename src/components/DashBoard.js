@@ -55,6 +55,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [notification , setNotification] = useState([])
+  const [notificationClicked , setNotificationClicked] = useState(true)
 
   const handleUserTabClick = () => {
     navigate('/about');
@@ -70,6 +71,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
 
 
   const handleUserNotificationClick = () => {
+    setNotificationClicked(false)
     navigate('/notification');
   };
 
@@ -154,9 +156,10 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
       try {
         const accessToken = localStorage.getItem('ACCESS_TOKEN');
         const decodedToken = jwtDecode(accessToken);
+        console.log('decode',decodedToken)
         const userId = decodedToken.user._id;
         const response = await instance.get(
-            `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=10`
+            `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=100`
           );
         
         const notifications = response.notifications
@@ -310,20 +313,23 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
             border='5px' // Adjust the border width as needed
             borderColor='custom.white'
           />
-          <Box
-            position='absolute'
-            top='-1'
-            right='-1.5'
-            backgroundColor='red'
-            height='16px'
-            width='16px'
-            borderRadius='50%'
-          >
-          <Text fontSize='x-small' height='1px' color='black'>
-             {notificationsSize}
-          </Text>
-          
-    </Box>
+          {notificationClicked && (
+              <Box
+              position='absolute'
+              top='-1'
+              right='-1.5'
+              backgroundColor='red'
+              height='16px'
+              width='16px'
+              borderRadius='50%'
+            >
+            <Text fontSize='x-small' height='1px' color='black'>
+               {notificationsSize}
+            </Text>
+            
+        </Box>
+          )}
+         
   </Box>
           </Tab>
           </Tooltip>

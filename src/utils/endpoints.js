@@ -19,3 +19,5 @@ export const DELETE_SKILL="/api/users/delete-skill"
 export const CREATE_CONTEST = "/api/contest/create-contest"
 export const VERIFICATION = '/api/users/verification'
 export const GET_ALL_NOTIFICATION = '/api/notification/all'
+export const EDIT_INVITE = '/api/invite/accept'
+export const DELETE_INVITE = '/api/invite/delete'
