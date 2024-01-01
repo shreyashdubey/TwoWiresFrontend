@@ -46,6 +46,7 @@ const CreateCompetitionForm = () => {
     endTime: '',
     description: '',
   });
+  const contestDetail = {};
 
   const [userContests, setUserContests] = useState([]);
 
@@ -210,12 +211,15 @@ const CreateCompetitionForm = () => {
   const handleCardClick = (contestId,index) => {
     // Navigate to the overview page with user ID and contest ID
     const constestIndex = userContests[index]
+    const name = constestIndex.contestName;
+    const contestOrganizer =  constestIndex.contestOrganizer
     let ok =0;
     if(constestIndex.contestDescription){
       ok=1
       console.log(ok)
     }
-    navigate(`/discription/${contestId}/${ok}`);
+
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name}});
   };
 
   return (
