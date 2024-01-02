@@ -55,26 +55,39 @@ const handleDeleteSubmt =async(inviteId)=>{
 
 
   return (
-    <Layout >
+    <Layout>
     <div>
-      <h1>Notifications</h1>
       <Center>
-      <Card w='50%'>
-      {notifications.map(notification => (
-    <Box key={notification._id} borderColor='black' borderWidth='1px'>
-      {notification.notificationType === "TEAM_INVITE" && (
-        <HStack>
-          <Text>{notification.sourceUserName}</Text>
-          <Button onClick={() => handleAcceptSubmt(notification.sourceId)} >accept</Button>
-          <Button onClick={() => handleDeleteSubmt(notification.sourceId)}>reject</Button>
-        </HStack>
-      )}
-    </Box>
-  ))}
-      </Card>
+        <Card w="50%">
+          {notifications.map((notification) => (
+            <Box
+              key={notification._id}
+              borderColor="black"
+              borderWidth="1px"
+              p={4} // Padding added
+              mb={4} // Margin bottom added
+              borderRadius="md" // Border radius added
+              bg="white" // Background color added
+            >
+              {notification.notificationType === 'TEAM_INVITE' ? (
+                <HStack spacing={4} alignItems="center">
+                  <Text  color='black' >{notification.sourceUserName}</Text>
+                  <Button onClick={() => handleAcceptSubmt(notification.sourceId)} colorScheme="green">
+                    Accept
+                  </Button>
+                  <Button onClick={() => handleDeleteSubmt(notification.sourceId)} colorScheme="red">
+                    Reject
+                  </Button>
+                </HStack>
+              ) : (
+                <Text color='black'>{notification.notificationType}</Text>
+              )}
+            </Box>
+          ))}
+        </Card>
       </Center>
     </div>
-    </Layout>
+  </Layout>
   );
 };
 
