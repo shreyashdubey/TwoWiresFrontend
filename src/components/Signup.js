@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   Image,
+  Spinner ,
 } from "@chakra-ui/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
@@ -26,6 +27,7 @@ Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
   const [formData, setFormData] = useState({
     username: "",
@@ -44,15 +46,17 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e) => {
+   
     e.preventDefault();
 
   try {
+        setIsLoading(true);
         const response = await instance.post(SIGNUP,formData, {'Content-Type': 'application/json'})
         const { accessToken , refreshToken} = response;
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("REFRESH_TOKEN", refreshToken)
-                navigate('/verification');
+                navigate('/contest');
         } else {
           // Signup failed
           alert('Signup failed. Please try again.');
@@ -60,6 +64,9 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
       alert("An error occurred during signup. Please try again later.");
+    }
+    finally{
+      setIsLoading(false);
     }
   };
 
@@ -164,15 +171,9 @@ const Signup = () => {
                 Privacy Policy
               </ChakraLink>
             </Text> */}
-            <Button
-              type="submit"
-              colorScheme="blue"
-              mt="80px"
-              w="270px"
-              padding="4px"
-            >
-              Sign up
-            </Button>
+            <Button type="submit" colorScheme="blue" mt="25px" w='270px' padding="4px" >
+                { isLoading ? <Spinner size='sm' /> : 'SIgnup' }
+             </Button>
           </form>
           <Text mt="4" textAlign="center">
             Have an account?{" "}

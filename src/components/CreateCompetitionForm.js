@@ -46,6 +46,7 @@ const CreateCompetitionForm = () => {
     endTime: '',
     description: '',
   });
+  const contestDetail = {};
 
   const [userContests, setUserContests] = useState([]);
 
@@ -210,12 +211,17 @@ const CreateCompetitionForm = () => {
   const handleCardClick = (contestId,index) => {
     // Navigate to the overview page with user ID and contest ID
     const constestIndex = userContests[index]
+    const name = constestIndex.contestName;
+    const contestOrganizer =  constestIndex.contestOrganizer
+    const submitted = constestIndex.isSubmitted
+    const published = constestIndex.isPublished
     let ok =0;
     if(constestIndex.contestDescription){
       ok=1
       console.log(ok)
     }
-    navigate(`/discription/${contestId}/${ok}`);
+
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , submitted : submitted , published : published}});
   };
 
   return (
@@ -239,7 +245,7 @@ const CreateCompetitionForm = () => {
             <FormLabel>Contest Name</FormLabel>
             <Input
               type="text"
-              placeholder="Enter contest name"
+              placeholder="Enter contest name in at max 15 words"
               value={formData.contestName}
               onChange={(e) => handleInputChange('contestName', e.target.value)}
               required
@@ -250,7 +256,7 @@ const CreateCompetitionForm = () => {
             <FormLabel>Contest Organizer</FormLabel>
             <Input
               type="text"
-              placeholder="Enter contest organizer"
+              placeholder="Enter contest organizer in at max 12 words"
               value={formData.contestOrganizer}
               onChange={(e) =>
                 handleInputChange('contestOrganizer', e.target.value)
@@ -335,17 +341,17 @@ const CreateCompetitionForm = () => {
               onClick={() => handleCardClick(contest._id, index)}
             >
               <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"   w={['250px' , '300px' , '320px' , '300px' , '200px' , '300px']} h='200px' >
-                <Heading mb={4}>{contest.contestName}</Heading>
-                <Text>Organizer: {contest.contestOrganizer}</Text>
+                <Heading mb={4} fontSize='medium' >{contest.contestName}</Heading>
+                <Text fontSize='medium' >Organizer: {contest.contestOrganizer}</Text>
                 {!contest.isPublished && contest.isSubmitted && (
-                   <Tag >
-                   <TagLabel>
+                   <Tag   mt='30px' >
+                   <TagLabel >
                      Waiting for review
                    </TagLabel>
                  </Tag>
                 )}
                 {contest.isPublished && (
-                   <Tag  bgColor='green' >
+                   <Tag  bgColor='green'  mt='30px' >
                    <TagLabel color='black' > 
                      Published
                    </TagLabel>

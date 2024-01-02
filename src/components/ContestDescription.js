@@ -1,6 +1,6 @@
 
-import React , {useState , useEffect  } from 'react';
-import { useNavigate } from "react-router-dom";
+import React , {useState , useEffect   } from 'react';
+import { useNavigate  , useLocation} from "react-router-dom";
 import Scrollspy from 'react-scrollspy';
 import { Box,
   Center,
@@ -63,7 +63,9 @@ const ContestDiscription = () => {
   const {contestId ,ok} = useParams();
   const me='faiez'
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const variable= location.state;
+  console.log('svs ',variable)
 
   const countries = [
     "nigeria",
@@ -93,9 +95,8 @@ const ContestDiscription = () => {
  
   
   const contestDetails = {
-    name: 'Contest Name',
-    description: 'Short description of the problem goes here.',
-    prize: '$1000',
+    name: variable.name,
+    organizer : variable.organizer,
     monthsLeft: 2,
     imageSrc: contest1, // Replace with the actual image source
   };
@@ -190,7 +191,7 @@ const ContestDiscription = () => {
                 {contestDetails.name}
             </Text>
             <Text>{contestDetails.description}</Text>
-            <Text fontSize="lg">Prize: {contestDetails.prize}</Text>
+            <Text fontSize="lg">Organizer: {contestDetails.organizer}</Text>
             <Text fontSize="lg">Time Left: {contestDetails.monthsLeft} Months</Text>
             </VStack>
         </Center>
@@ -287,8 +288,10 @@ const ContestDiscription = () => {
         </Box>
         
         <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
-        <Button onClick={handleDeleteButtonClick}>Delete</Button>
-      <OverviewSection/>  
+        {!variable.published && (
+               <Button onClick={handleDeleteButtonClick}>Delete</Button>
+        )}
+      <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
       </Box>
 
     </Layout>
