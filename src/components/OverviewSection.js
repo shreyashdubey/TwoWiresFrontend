@@ -9,7 +9,7 @@ import instance from '../utils/api.js';
 import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
 
-const OverviewSection = () => {
+const OverviewSection = ({published , submitted}) => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
   const [isDiscriptionEditing, setIsDiscriptionEditing] = useState(false);
   const [isEvaluationTextEditing, setIsEvaluationTextEditing] = useState(false);
@@ -278,7 +278,7 @@ const OverviewSection = () => {
   return (
     <>
     <Box p={4} w='100%' >
-    {(isSaved || store ) && !submitButton &&  (
+    {(isSaved || store ) && !submitButton && !published && !submitted && (
           <Button type="submit" colorScheme="teal" size="lg" onClick={handleContestUpdate}>
              Submit Contest for review
           </Button>

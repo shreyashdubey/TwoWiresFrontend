@@ -288,8 +288,10 @@ const ContestDiscription = () => {
         </Box>
         
         <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
-        <Button onClick={handleDeleteButtonClick}>Delete</Button>
-      <OverviewSection/>  
+        {!variable.published && (
+               <Button onClick={handleDeleteButtonClick}>Delete</Button>
+        )}
+      <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
       </Box>
 
     </Layout>

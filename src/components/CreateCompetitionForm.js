@@ -213,13 +213,15 @@ const CreateCompetitionForm = () => {
     const constestIndex = userContests[index]
     const name = constestIndex.contestName;
     const contestOrganizer =  constestIndex.contestOrganizer
+    const submitted = constestIndex.isSubmitted
+    const published = constestIndex.isPublished
     let ok =0;
     if(constestIndex.contestDescription){
       ok=1
       console.log(ok)
     }
 
-    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name}});
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , submitted : submitted , published : published}});
   };
 
   return (
