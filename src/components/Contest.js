@@ -49,7 +49,7 @@ const [contestData , setContestData]  = useState([''])
     const constestIndex = contestData[index]
     const name = constestIndex.contestName;
     const contestOrganizer =  constestIndex.contestOrganizer
-    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true }});
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true  }});
   };
   return (
     <Layout>

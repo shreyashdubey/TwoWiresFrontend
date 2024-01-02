@@ -286,7 +286,7 @@ const OverviewSection = ({published , submitted}) => {
     <Box w='100%' >
       <Heading mt='50px' >
         Overview{' '}
-        {!isOverviewEditing && !submitButton && (
+        {!isOverviewEditing && !submitButton && !submitted && !published && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
@@ -295,7 +295,7 @@ const OverviewSection = ({published , submitted}) => {
           />
         )}
       </Heading>
-      {isOverviewEditing && !submitButton ? (
+      {isOverviewEditing && !submitButton && !submitted  && !published ? (
         <Box>
           <ReactQuill
             theme="snow"
@@ -318,7 +318,7 @@ const OverviewSection = ({published , submitted}) => {
        <Box mt='20px'> 
        <Heading mb={4}>
         Description{' '}
-        {!isDiscriptionEditing && !submitButton && (
+        {!isDiscriptionEditing && !submitButton && !submitted && !published && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Overview"
@@ -327,7 +327,7 @@ const OverviewSection = ({published , submitted}) => {
           />
         )}
       </Heading>
-      {isDiscriptionEditing && !submitButton ? (
+      {isDiscriptionEditing && !submitButton && !submitted  && !published ? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"
@@ -351,7 +351,7 @@ const OverviewSection = ({published , submitted}) => {
       <Box  mt='20px'> 
        <Heading mb={4}>
         Evaluation{' '}
-        {!isEvaluationTextEditing && !submitButton && (
+        {!isEvaluationTextEditing && !submitButton && !submitted &&  !published && (
           <IconButton
             icon={<EditIcon />}
             aria-label="Edit Evaluation"
@@ -360,7 +360,7 @@ const OverviewSection = ({published , submitted}) => {
           />
         )}
       </Heading>
-      {isEvaluationTextEditing && !submitButton ? (
+      {isEvaluationTextEditing && !submitButton && !submitted  && !published? (
         <Box w='100%' mt='30px'>
           <ReactQuill
             theme="snow"
