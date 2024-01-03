@@ -41,6 +41,7 @@ import Key from './components/KeyBoard.js';
 import Problem from './components/Problem.js';
 import EmailVerification from './components/EmailVerification.js';
 import Notification from './components/Notification.js';
+import Discuss from './components/Discuss.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -156,7 +157,7 @@ const App = () => {
           <Route path="/myuploader" element={<MyUploader />} />
           <Route path="/startfeild" element={<Starfeild />} />
           <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
-
+          <Route path="/discuss" element={<Discuss />} />
         </>
 
       )}:
