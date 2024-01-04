@@ -1,141 +1,57 @@
-
-import React , {useState , useEffect   } from 'react';
-import { useNavigate  , useLocation} from "react-router-dom";
-import Scrollspy from 'react-scrollspy';
-import { Box,
-  Center,
-  Image,
-  Text,
-  VStack,
-  Tabs,
-  TabList,
-  Tab,
-  Modal,
-  TabPanel,
-  TabPanels,
-  Heading,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  HStack,
-  Spacer,
-  Button,
-  Input,
-  Stack , Flex, FormControl, FormHelperText, FormLabel ,
-  useDisclosure , Tag , TagCloseButton , TagLabel ,
-} from '@chakra-ui/react';
-import contest1 from './images/contest3.jpg'
-import Layout from './DashBoard.js';
-import OverviewSection from './OverviewSection.js';
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
-import {
-  AutoComplete,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-} from "@choc-ui/chakra-autocomplete";
-import { jwtDecode } from "jwt-decode";
-import instance from '../utils/api'
-import { Navigate, useParams } from 'react-router-dom';
-import ContestLayout from './ContestLayout.js';
-import { useToast } from '@chakra-ui/react'
-import plus from './images/plus.png'
-
+import React, { useState } from 'react';
+import { IconButton, Button, Flex } from '@chakra-ui/react';
+import { FaPlus } from 'react-icons/fa';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import '@fontsource/inter/400.css'; // Import Inter font for Chakra UI
 
 const Discuss = () => {
-  // Assuming you have contest details available
-  const location = useLocation();
-  const variable= location.state;
-  console.log(variable)
+  const [showEditor, setShowEditor] = useState(false);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [newSkill, setNewSkill] = useState('');
-  const [submittedSkills, setSubmittedSkills] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [initialFetch, setInitialFetch] = useState(false);
-  const toast = useToast()
-  const handleSkillChange = () => {
-    onOpen();
+  const handleToggleEditor = () => {
+    setShowEditor(!showEditor);
   };
 
-
-  const fetchSkills = async () => {
-    
+  const onEditorStateChange = (newEditorState) => {
+    setEditorState(newEditorState);
   };
 
-  useEffect(() => {
-   
-  }, []);
-  
-  const handleSaveSkill = async () => {
-   
-  };
+  const handleSave = () => {
+    // Get raw content state
+    const contentState = convertToRaw(editorState.getCurrentContent());
+    console.log('Saved content:', contentState);
 
-  const handleRemoveSkill = async (index, skillId) => {
-   
+    // Optionally, you can convert it back to EditorState if needed
+    // const newEditorState = EditorState.createWithContent(convertFromRaw(contentState));
+
+    setShowEditor(false); // Hide the editor after saving
   };
-  
 
   return (
-    <>
-        <ContestLayout/> 
-        <Heading fontSize={20} color='custom.white'>
-        Skills
-      </Heading>
-      <Box mt={4}  w={['250px' , '300px' , '320px' , '300px' , '500px' , '700px']} >
-        <Box align='center'>
-          <HStack align='flex-start' spacing={2} ml={2} flexWrap='wrap' >
-            {submittedSkills.map((skill, index) => (
-              <Tag key={index} bgColor='custom.darkSlateBlue' mb={2} size={'lg'} >
-                <TagLabel>{skill.skillName}</TagLabel>
-                <TagCloseButton onClick={() => handleRemoveSkill(index)} />
-              </Tag>
-            ))}
-          </HStack>
-        </Box>
-        <Button mt={2} onClick={handleSkillChange} bgColor='custom.button'>
-          <Image boxSize='25px' objectFit='cover' src={plus} alt='plus' />
-        </Button>
-      </Box>
+    <Flex direction="column" align="center" justify="center" bgColor="gray.800" minHeight="100vh" color="white" p={4}>
+      <IconButton icon={<FaPlus />} size="lg" colorScheme="teal" aria-label="Add" onClick={handleToggleEditor} mb={4} />
 
-      <Modal isOpen={isOpen} onClose={() => {
-          setNewSkill('');
-          setErrorMessage('');
-          onClose();
-        }}>
-        <ModalOverlay />
-        <ModalContent bgColor='custom.mccolor'>
-          <ModalHeader color='custom.white'>Change Skill</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              placeholder="Enter your new skill"
-              _placeholder={{ color: 'custom.white' }} 
-              color = 'custom.white'
-              value={newSkill}
-              isRequired = 'true'
-              onChange={(e) => setNewSkill(e.target.value)}
-            />
-            {!newSkill && (
-                <Text color="red.500" fontSize="xs" mt={1}>
-                  {errorMessage}
-                </Text>
-              )}
-          </ModalBody>
+      {showEditor && (
+        <Flex direction="column" align="center" width="100%"  bgColor='yellow'>
+          <Editor
+            editorState={editorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            wrapperStyle={{ backgroundColor: 'grey'   ,  width : '1200px' , height : '300px'}} // Apply inline styles to the outer wrapper
+            editorStyle={{ border: '1px solid black' , height:'300px'}} // Apply inline styles to the editor area
+            toolbarStyle={{ backgroundColor: 'white'  , color : 'green'}} // Apply inline styles to the toolbar
+            editorClassName="editorClassName"
+            onEditorStateChange={onEditorStateChange}
+          />
 
-          <ModalFooter>
-            <Button bgColor='custom.mbutton' mr={3} onClick={handleSaveSkill}>
-                <Text color='custom.white'>Save</Text>
-            </Button>
-            <Button bgColor='custom.mbutton' onClick={onClose}><Text color='custom.white'>Cancel</Text></Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
-    </>    
+          <Button mt={4} colorScheme="teal" onClick={handleSave}>
+            Save
+          </Button>
+        </Flex>
+      )}
+    </Flex>
   );
 };
 
