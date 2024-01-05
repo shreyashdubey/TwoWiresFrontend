@@ -42,6 +42,9 @@ import Problem from './components/Problem.js';
 import EmailVerification from './components/EmailVerification.js';
 import Notification from './components/Notification.js';
 import Discuss from './components/Discuss.js';
+import ExcecutingStep from './components/ExecutingStep.js';
+import Tutorial from './components/Tutorial.js';
+import Stuck from './components/Stuck.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -158,6 +161,10 @@ const App = () => {
           <Route path="/startfeild" element={<Starfeild />} />
           <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
           <Route path="/discuss" element={<Discuss />} />
+          <Route path="/execution" element={<ExcecutingStep />} />
+          <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/stuck" element={<Stuck/>} />
+
         </>
 
       )}:
