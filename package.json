@@ -19,7 +19,7 @@
     "cors": "^2.8.5",
     "countries-list": "^3.0.6",
     "country-state-city": "^3.2.1",
-    "framer-motion": "^10.17.4",
+    "framer-motion": "^10.17.9",
     "jwt-decode": "^4.0.0",
     "pdfjs-dist": "^3.4.120",
     "quill-magic-url": "^4.2.0",

@@ -1,87 +1,81 @@
 import React, { useState } from 'react';
-import { Select, Box, Text, Input, Button, Flex } from '@chakra-ui/react';
-import { EditorState, convertToRaw } from 'draft-js';
+import { ChakraProvider, Box, Heading, Text, Button, VStack, Divider } from '@chakra-ui/react';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const Stuck = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [link, setLink] = useState('');
+  const [questions, setQuestions] = useState([]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [savedLink, setSavedLink] = useState('');
-  const [savedContent, setSavedContent] = useState('');
 
-  const handleSelectChange = (e) => {
-    setSelectedOption(e.target.value);
+  const handleAskQuestion = () => {
+    const contentState = editorState.getCurrentContent();
+    const questionText = contentState.getPlainText();
+
+    setQuestions([...questions, { text: questionText, answers: [] }]);
+    setEditorState(EditorState.createEmpty());
   };
 
-  const handleSaveLink = () => {
-    setSavedLink(link);
-    setLink('');
-  };
+  const handleAnswerQuestion = (questionIndex) => {
+    const contentState = editorState.getCurrentContent();
+    const answerText = contentState.getPlainText();
 
-  const handleSaveContent = () => {
-    const contentState = convertToRaw(editorState.getCurrentContent());
-    const contentText = contentState.blocks.map((block) => block.text).join('\n');
-    setSavedContent(contentText);
-    setEditorState(EditorState.createEmpty()); // Clear the editor
+    const updatedQuestions = [...questions];
+    updatedQuestions[questionIndex].answers.push(answerText);
+    
+    setQuestions(updatedQuestions);
+    setEditorState(EditorState.createEmpty());
   };
 
   return (
-    <>
-      <Select placeholder='Select option' onChange={handleSelectChange} value={selectedOption}>
-        <option value='option1'>Share a Resource Link</option>
-        <option value='option2'>Create a tutorial</option>
-      </Select>
+    <ChakraProvider>
+      <Box p={8}>
+        <Heading mb={4}>QnA Forum</Heading>
 
-      {selectedOption === 'option1' && (
-        <Box mt={4}>
-          <Text>Paste your link:</Text>
-          <Flex>
-            <Input value={link} onChange={(e) => setLink(e.target.value)} placeholder='Enter your link' />
-            <Button ml={2} colorScheme='teal' onClick={handleSaveLink}>
-              Save Link
-            </Button>
-          </Flex>
-        </Box>
-      )}
-
-      {selectedOption === 'option2' && (
-        <Box mt={4}>
-          <Text>Write your tutorial:</Text>
+        <VStack align="stretch" spacing={4}>
           <Editor
             editorState={editorState}
-            toolbarClassName='toolbarClassName'
-            wrapperClassName='wrapperClassName'
-            editorClassName='editorClassName'
-            onEditorStateChange={(newEditorState) => setEditorState(newEditorState)}
+            onEditorStateChange={setEditorState}
+            placeholder="Ask a question..."
           />
-          <Button mt={2} colorScheme='teal' onClick={handleSaveContent}>
-            Save Content
+          <Button colorScheme="teal" onClick={handleAskQuestion} disabled={editorState.getCurrentContent().hasText()}>
+            Ask
           </Button>
-        </Box>
-      )}
+        </VStack>
 
-      {savedLink && (
-        <Box mt={4}>
-          <Text>Saved Link:</Text>
-          <Box bgColor='lightgray' p={2} borderRadius='md'>
-            <a href={savedLink} target='_blank' rel='noopener noreferrer'>
-              {savedLink}
-            </a>
-          </Box>
-        </Box>
-      )}
+        <Divider my={8} />
 
-      {savedContent && (
-        <Box mt={4}>
-          <Text>Saved Content:</Text>
-          <Box bgColor='lightgray' p={2} borderRadius='md'>
-            {savedContent}
+        {questions.map((q, index) => (
+          <Box key={index} borderWidth="1px" borderRadius="lg" p={4}>
+            <Text fontSize="lg">{q.text}</Text>
+            
+            <VStack mt={2} align="stretch" spacing={2}>
+              {q.answers.map((a, ansIndex) => (
+                <Box key={ansIndex} border="1px" borderColor="gray.200" p={2} borderRadius="md">
+                  <Text>{a}</Text>
+                </Box>
+              ))}
+            </VStack>
+
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={setEditorState}
+              placeholder="Your Answer..."
+            />
+
+            <Button
+              mt={2}
+              colorScheme="blue"
+              size="sm"
+              onClick={() => handleAnswerQuestion(index)}
+              disabled={!editorState.getCurrentContent().hasText()}
+            >
+              Answer
+            </Button>
           </Box>
-        </Box>
-      )}
-    </>
+        ))}
+      </Box>
+    </ChakraProvider>
   );
 };
 
