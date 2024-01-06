@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { IconButton, Button, Flex, Box, Text , Link, Heading } from '@chakra-ui/react';
 import { FaPlus, FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw , convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '@fontsource/inter/400.css'; // Import Inter font for Chakra UI
+import draftToHtml from 'draftjs-to-html';
+
 
 const ExcecutingStep = () => {
  
@@ -23,15 +25,25 @@ const ExcecutingStep = () => {
     };
   
     const handleSave = () => {
+      // Get the current content state of the editor
       const contentState = editorState.getCurrentContent();
-      const plainText = contentState.getPlainText();
-      console.log('PlainText:', plainText);
     
-      setSavedContents([...savedContents, plainText]);
+      // Convert the content state to a raw object
+      const rawContentState = convertToRaw(contentState);
+    
+      // Update the state to include the new raw content state
+      setSavedContents([...savedContents, rawContentState]);
+    
+      // Initialize or update the votes for the current index with upvotes and downvotes set to 0
       setVotes({ ...votes, [currentIndex]: { upvotes: 0, downvotes: 0 } });
-      setCurrentIndex(currentIndex + 1); // Increment the index
+    
+      // Increment the index for the next saved content
+      setCurrentIndex(currentIndex + 1);
+    
+      // Hide the editor by setting showEditor to false
       setShowEditor(false);
     };
+    
     
     const handleUpvote = (index) => {
       setVotes({
@@ -59,13 +71,13 @@ const ExcecutingStep = () => {
       <IconButton icon={<FaPlus />} size="lg" colorScheme="teal" aria-label="Add" onClick={handleToggleEditor} mb={4} />
 
       {showEditor && (
-        <Flex direction="column" align="center" width="100%" bgColor="yellow">
+        <Flex direction="column" align="center" width="100% ">
           <Editor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
-            wrapperStyle={{ backgroundColor: 'grey', width: '1200px', height: '300px' }}
-            editorStyle={{ border: '1px solid black', height: '300px' }}
+            wrapperStyle={{ backgroundColor: 'black', width: '1200px' }}
+            editorStyle={{ border: '1px solid black'}}
             toolbarStyle={{ backgroundColor: 'white', color: 'green' }}
             editorClassName="editorClassName"
             onEditorStateChange={onEditorStateChange}
@@ -78,21 +90,24 @@ const ExcecutingStep = () => {
         </Flex>
       )}
 
-      {savedContents.map((content, index) => (
-        <>
-         <Link key={index} href={'/execution'} _hover={{ textDecoration: 'none' }}>
-        <Box key={index} mt={4} p={4} bgColor="white" color="black">
-          <Text fontSize="lg" fontWeight="bold" mb={2}>Saved Content {index + 1}:</Text>
-          <Text>{content}</Text>
-        </Box>
-         </Link>
-         <Flex mt={2}>
-        <Link href = {'/stuck'}   mr={4} >problem</Link>
-        <Link href = {'/tutorial'} >tutorial</Link>
-         <Text mx={2}>{(votes[index]?.upvotes -votes[index]?.downvotes) || 0}</Text>
-       </Flex>
-       </>
-      ))}
+{savedContents.map((rawContentState, index) => (
+  <React.Fragment key={index}>
+      <Box mt={4} p={4} bgColor="white" color="black"  w='75%'  >
+        <Text fontSize="lg" fontWeight="bold" mb={2}>Saved Content {index + 1}:</Text>
+        {/* Render the Editor with the raw content state */}
+        <Editor
+          toolbarHidden={!showEditor}
+          readOnly={!showEditor}
+          editorState={EditorState.createWithContent(convertFromRaw(rawContentState))}
+        />
+      </Box>
+    <Flex mt={2}>
+      <Link href={'/stuck'} mr={4}>problem</Link>
+      <Link href={'/tutorial'}>tutorial</Link>
+      <Text mx={2}>{(votes[index]?.upvotes - votes[index]?.downvotes) || 0}</Text>
+    </Flex>
+  </React.Fragment>
+))}
     </Flex>
 
    </>
