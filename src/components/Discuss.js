@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconButton, Button, Flex, Box, Text , Link } from '@chakra-ui/react';
+import { IconButton, Button, Flex, Box, Text , Link, Heading, Center } from '@chakra-ui/react';
 import { FaPlus, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -54,16 +54,17 @@ const Discuss = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" bgColor="gray.800" minHeight="100vh" color="white" p={4}>
+      <Heading>Write a plan to execute the startup</Heading>
       <IconButton icon={<FaPlus />} size="lg" colorScheme="teal" aria-label="Add" onClick={handleToggleEditor} mb={4} />
 
       {showEditor && (
-        <Flex direction="column" align="center" width="100%" bgColor="yellow">
+        <Flex direction="column" align="center" width="100%" >
           <Editor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
-            wrapperStyle={{ backgroundColor: 'grey', width: '1200px', height: '300px' }}
-            editorStyle={{ border: '1px solid black', height: '300px' }}
+            wrapperStyle={{ backgroundColor: 'black', width: '1200px' }}
+            editorStyle={{ border: '1px solid black'}}
             toolbarStyle={{ backgroundColor: 'white', color: 'green' }}
             editorClassName="editorClassName"
             onEditorStateChange={onEditorStateChange}
@@ -75,21 +76,21 @@ const Discuss = () => {
 
         </Flex>
       )}
-
+       
       {savedContents.map((content, index) => (
-        <>
+        <Box  w='75%'  align="center" justify="center"  >
          <Link key={index} href={'/execution'} _hover={{ textDecoration: 'none' }}>
-        <Box key={index} mt={4} p={4} bgColor="white" color="black">
+        <Box key={index} mt={4} p={4} bgColor="white" color="black"  width='75%'  >
           <Text fontSize="lg" fontWeight="bold" mb={2}>Saved Content {index + 1}:</Text>
           <Text>{content}</Text>
         </Box>
          </Link>
-         <Flex mt={2}>
+         <Flex mt={2} align="center" justify="center"  >
          <IconButton  color='black' icon={<FaArrowUp />} aria-label="Upvote" onClick={() => handleUpvote(index)} />
          <IconButton   color='black' icon={<FaArrowDown />} aria-label="Downvote" onClick={() => handleDownvote(index)} />
          <Text mx={2}>{(votes[index]?.upvotes -votes[index]?.downvotes) || 0}</Text>
        </Flex>
-       </>
+       </Box>
       ))}
     </Flex>
   );

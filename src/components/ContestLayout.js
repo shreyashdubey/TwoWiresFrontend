@@ -24,7 +24,7 @@ import { Box,
   Spacer,
   Button,
   Input,
-  Stack , Flex, FormControl, FormHelperText, FormLabel ,
+  Stack , Flex, FormControl, FormHelperText, FormLabel , Tooltip , 
 } from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 import Layout from './DashBoard.js';
@@ -205,9 +205,10 @@ const ContestLayout = () => {
                 <Tabs w = '20%'>
                     <TabList>
                     <Tab  ><Text color='custom.white'>Overview</Text></Tab>
-                    <Tab  onClick={handleDiscussTabClick} ><Text color='custom.white'>Discuss</Text></Tab>
+                    <Tooltip label='write a detailed plan'>
+                    <Tab  onClick={handleDiscussTabClick} ><Text color='custom.white'>Plan</Text></Tab>
+                    </Tooltip>
                     </TabList>
-                   
                 </Tabs>
                 <Spacer/>
                 {!hideJoinButton && (
