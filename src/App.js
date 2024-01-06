@@ -60,6 +60,13 @@ const App = () => {
         navigate('/login');
       }
     }, [accessToken , navigate]);
+
+    
+    useEffect(()=>{
+      if(accessToken && pathname === '/'){
+        navigate('/home');
+      }
+    },[accessToken, pathname, navigate]);
   
 
     useEffect(() => {
