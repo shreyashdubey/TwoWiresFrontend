@@ -12,7 +12,7 @@ import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
 import UserProfile from './UserProfile';
 import UserContest from './UserContest.js';
-import Layout from './DashBoard.js.js';
+import Layout from './DashBoard.js';
 import Experience from './Experience.js';
 
 const User = () => {
@@ -58,7 +58,7 @@ const User = () => {
       };
 
     return(
-        <Box   w='50%' ml={['400px' ,'10px','30px','210px','300px', '400px']}  alignItems="center"  > 
+        <Box w='50%' margin="auto" alignItems="center" justifyContent="center" > 
             <Flex mt='15px' w='100%'> 
                     <Tabs ml={3} mt="20px" w ='100%' index={activeTab}
                             onChange={handleTabChange} >
@@ -96,7 +96,7 @@ const User = () => {
 const About = ({ children }) => {
   return (
     <UserProfile>
-    <Flex direction="column"  >
+    <Flex direction="column" alignItems="center" justifyContent="center"  >
       <User />
       {children}
     </Flex>

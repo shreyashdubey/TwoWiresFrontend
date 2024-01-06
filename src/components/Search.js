@@ -72,7 +72,7 @@ import {
   
     return (
       <>
-        <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
+        <InputGroup w="250px" mr="125px" bgColor="custom.darkStateBlue">
           <Select
               onChange={handleSelectChange}
               value={selectedOption}

@@ -19,6 +19,7 @@ import {
   Text, 
   Center,
   Box ,
+  Tooltip ,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { FaHome, FaEnvelope, FaBell, FaUser } from 'react-icons/fa';
@@ -35,8 +36,14 @@ import logoutdark from './images/logoutdark.png'
 import teamdark from './images/teamdark.png'
 import Search from './Search';
 import BelowDashBoard from './BelowDashboard';
+import Notifications from './images/notification.png'
+import { useOverview } from './OverviewContext';
+import instance from '../utils/api'
+import { jwtDecode } from "jwt-decode";
+import { GET_ALL_NOTIFICATION } from '../utils/endpoints';
 
-const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
+
+const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
   const navigate = useNavigate();
   const location = useLocation();
   let activeTab = 0
@@ -44,6 +51,11 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const [homeImage, sethomeImage] = useState(false);
   const [teamImage , setTeamImage] = useState(false);
   const [logoutImage , setLogoutImage] = useState(false)
+  const {setNotify} = useOverview()
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [notification , setNotification] = useState([])
+  const [notificationClicked , setNotificationClicked] = useState(true)
 
   const handleUserTabClick = () => {
     navigate('/about');
@@ -55,6 +67,12 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
 
   const handleUserContestTabClick = () => {
     navigate('/createcompetition');
+  };
+
+
+  const handleUserNotificationClick = () => {
+    setNotificationClicked(false)
+    navigate('/notification');
   };
 
   const handleUserLogoutTabClick = () => {
@@ -133,9 +151,34 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
       setTeamImage(false);
       setLogoutImage(true);
     }
+
+    const fetchData = async () => {
+      try {
+        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const decodedToken = jwtDecode(accessToken);
+        console.log('decode',decodedToken)
+        const userId = decodedToken.user._id;
+        const response = await instance.get(
+            `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=100`
+          );
+        
+        const notifications = response.notifications
+
+        setNotify(notifications)
+        setNotification(notifications)
+        // You can also set other state variables like page, pageSize, etc. based on the response.
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
     
-  }, [location]);
-  
+    
+  }, [location, page, pageSize]);
+  const notificationsSize=notification.length
+  console.log('1234',notificationsSize)
 
   const handleTabChange = (index) => {
     activeTab = index
@@ -188,6 +231,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           gap: "16px", // Adjust the value to set the desired spacing
         }}
         >
+          <Tooltip label = 'Contest'>
         <Tab  onClick={handleContestTabClick} Color='custom.darkStateBlue'>
           {contestImage ? (
              <Image
@@ -209,6 +253,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label = 'User'>
           <Tab  onClick={handleUserTabClick}>
           {homeImage ? (
              <Image
@@ -230,6 +276,8 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label = 'user can list problem as contest which they have experienced in life so enterprenueurs can solve ' >
           <Tab  onClick={handleUserContestTabClick}>
           {teamImage ? (
              <Image
@@ -251,6 +299,41 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
+          <Tooltip label='notification' >
+          <Tab  
+          onClick={handleUserNotificationClick}
+          >
+          <Box position='relative'>
+          <Image
+            boxSize='25px'
+            objectFit='cover'
+            src={Notifications}
+            alt='Dan Abramov'
+            border='5px' // Adjust the border width as needed
+            borderColor='custom.white'
+          />
+          {notificationClicked && (
+              <Box
+              position='absolute'
+              top='-1'
+              right='-1.5'
+              backgroundColor='red'
+              height='16px'
+              width='16px'
+              borderRadius='50%'
+            >
+            <Text fontSize='x-small' height='1px' color='black'>
+               {notificationsSize}
+            </Text>
+            
+        </Box>
+          )}
+         
+  </Box>
+          </Tab>
+          </Tooltip>
+          <Tooltip label = 'Logout' >
           <Tab  onClick={handleUserLogoutTabClick}>
           {logoutImage ? (
              <Image
@@ -272,6 +355,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
           />
           )}
           </Tab>
+          </Tooltip>
         </TabList>
         <TabPanels>
           <TabPanel></TabPanel>
@@ -285,7 +369,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   );
 };
 
-const Layout = ({children}) => {
+const Layout = ({children , notificationsSize}) => {
   const [isSearchSelected ,setIsSearchSelected] = useState(false)
   return (
     <Flex direction="column" minHeight='100vh' bgcolor='custom. midnightBlue' >

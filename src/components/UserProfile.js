@@ -10,8 +10,8 @@ import TeamTab from './Team';
 import pixels from './images/pixels.jpg'
 import SkillComponent from './SkillComponent';
 import EducationComponent from './EducationComponent';
-import DashBoard from './DashBoard.js.js';
-import Layout from './DashBoard.js.js';
+import DashBoard from './DashBoard.js';
+import Layout from './DashBoard.js';
 import theme from '../utils/color';
 
 const User = () => {

@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate , useLocation} from "react-router-dom";
 import Signup from './components/Signup'; // Your Signup component
 import Login from './components/login' // Your Login component
 import Home from './components/Home';
-import DashBoard from './components/DashBoard.js.js';
+import DashBoard from './components/DashBoard.js';
 import FriendRequest from './components/FriendRequest';
 import Forgot from './components/Forgot';
 import Authentication from './components/Authentication'
@@ -31,29 +31,20 @@ import AboutStartup from './components/AboutStartup.js';
 import MyUploader from './components/MyUploader.js';
 import Starfeild from './components/StartFeild.js'
 import ActiveContestDiscription from './components/ActiveContestDiscription.js';
-import Layout from './components/DashBoard.js.js';
-import {
-  Box,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Input,
-  VStack,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-  useDisclosure,
-  HStack,
-  Heading,
-  Text ,
-  Image ,
-} from '@chakra-ui/react';
 import Search from './components/Search.js';
+import Main from './components/Animation/Main.js'
+import Tre from './components/Animation/Tree.js';
+import Cross from './components/Animation/Cross.js';
+import OneSignal from 'react-onesignal';
+import { Button } from '@chakra-ui/react';
+import Key from './components/KeyBoard.js';
+import Problem from './components/Problem.js';
+import EmailVerification from './components/EmailVerification.js';
+import Notification from './components/Notification.js';
+import Discuss from './components/Discuss.js';
+import ExcecutingStep from './components/ExecutingStep.js';
+import Tutorial from './components/Tutorial.js';
+import Stuck from './components/Stuck.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -69,9 +60,63 @@ const App = () => {
         navigate('/login');
       }
     }, [accessToken , navigate]);
+  
+
+    useEffect(() => {
+      // runOneSignal();
+      OneSignal.push(()=> {
+        OneSignal.init(
+          {
+            appId: "12fedbe1-46f0-44fb-893a-b765cbabf575", //STEP 9
+            promptOptions: {
+              slidedown: {
+                enabled: true,
+                actionMessage: "We'd like to show you notifications for the latest news and updates about the following categories.",
+                acceptButtonText: "OMG YEEEEESS!",
+                cancelButtonText: "NAHHH",
+                categories: {
+                    tags: [
+                        {
+                            tag: "react",
+                            label: "ReactJS",
+                        },
+                        {
+                          tag: "angular",
+                          label: "Angular",
+                        },
+                        {
+                          tag: "vue",
+                          label: "VueJS",
+                        },
+                        {
+                          tag: "js",
+                          label: "JavaScript",
+                        }
+                    ]
+                }     
+            } 
+          },
+          welcomeNotification: {
+            "title": "One Signal",
+            "message": "Thanks for subscribing!",
+          } 
+        },
+          //Automatically subscribe to the new_app_version tag
+          OneSignal.sendTag("new_app_version", "new_app_version", tagsSent => {
+            // Callback called when tag has finished sending
+            console.log('new_app_version TAG SENT', tagsSent);
+          })
+        );
+      });
+    },[])
+
+   
+    window.OneSignal = window.OneSignal || [];
+    const OneSignal = window.OneSignal;
 
   return (
     <>
+     <OverviewProvider>
     <Routes>
       {/* Define your routes here */}
       {accessToken && (
@@ -100,7 +145,25 @@ const App = () => {
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
           <Route path="/search" element={<Search />} />
-          
+          <Route path="/main" element={<Main />} />
+          <Route path="/tree" element={<Tre />} />
+          <Route path="/cross" element={<Cross />} />
+          <Route path="/key" element={<Key />} />
+          <Route path="/problem" element={<Problem />} />
+          <Route path="/verification" element={<EmailVerification />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/createcompetition" element={<CreateCompetitionForm />} />
+          <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
+          <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
+          <Route path="/review" element={<PublishContest />} />
+          <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
+          <Route path="/myuploader" element={<MyUploader />} />
+          <Route path="/startfeild" element={<Starfeild />} />
+          <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
+          <Route path="/discuss" element={<Discuss />} />
+          <Route path="/execution" element={<ExcecutingStep />} />
+          <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/stuck" element={<Stuck/>} />
 
         </>
 
@@ -108,20 +171,10 @@ const App = () => {
       <Route path="/" element={<Signup />} />
       <Route path="/aboutstartup" element={<AboutStartup />} />
       <Route path="/login" element={<Login />} />
+      
       {/* Add other routes for different pages */}
     </Routes>
     {/* {auth && ( */}
-  <OverviewProvider>
-    <Routes> 
-      <Route path="/createcompetition" element={<CreateCompetitionForm />} />
-      <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
-      <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
-      <Route path="/review" element={<PublishContest />} />
-      <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
-      <Route path="/myuploader" element={<MyUploader />} />
-      <Route path="/startfeild" element={<Starfeild />} />
-      <Route path="/activediscription/:contestId" element={<ActiveContestDiscription />} />
-    </Routes>
 
   </OverviewProvider>
 {/* )  */}

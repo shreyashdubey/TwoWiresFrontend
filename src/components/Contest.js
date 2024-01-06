@@ -1,7 +1,7 @@
 // ActiveCompetitions.js
 import React, { useState , useEffect} from 'react';
-import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
-import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex,} from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex, Link} from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
@@ -11,6 +11,7 @@ import instance from '../utils/api'
 const ActiveCompetitions = () => {
   const chakraUIColor = useColorModeValue('rgba(0, 87, 255, 1)', 'rgba(0, 87, 255, 1)');
   const chakraUIColorLastbox = useColorModeValue('#FFBA93', '#FFBA93');
+  const navigate = useNavigate();
  
 const [contestData , setContestData]  = useState([''])
   useEffect(() => {
@@ -42,7 +43,14 @@ const [contestData , setContestData]  = useState([''])
   //   '2xl': '300px'
   // });
   const ok=1
-  
+  const handleCardClick = (contestId,index) => {
+    // Navigate to the overview page with user ID and contest ID
+    console.log('12345bfhjndv')
+    const constestIndex = contestData[index]
+    const name = constestIndex.contestName;
+    const contestOrganizer =  constestIndex.contestOrganizer
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true  }});
+  };
   return (
     <Layout>
       <Center>
@@ -50,7 +58,11 @@ const [contestData , setContestData]  = useState([''])
       <Heading mb={7} fontSize={20} fontWeight={50} color='custom.white' mt='10px' >Active Competition</Heading>
       <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
         {contestData.map((contest, index) => (
-          <Link key={index} to={`/activediscription/${contest._id}`}>
+        <Link
+        key={contest._id}
+        // _hover={{ textDecoration: 'none' }}
+        onClick={() => handleCardClick(contest._id, index)}
+      >
             <Box
               as={Card}
               boxShadow="lg"

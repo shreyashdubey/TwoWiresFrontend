@@ -24,7 +24,7 @@ import { Box,
   Spacer,
   Button,
   Input,
-  Stack , Flex, FormControl, FormHelperText, FormLabel ,
+  Stack , Flex, FormControl, FormHelperText, FormLabel , Tooltip , 
 } from '@chakra-ui/react';
 import contest1 from './images/contest3.jpg'
 import Layout from './DashBoard.js';
@@ -39,9 +39,8 @@ import {
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import { Navigate, useParams } from 'react-router-dom';
-import ContestLayout from './ContestLayout.js';
 
-const ContestDiscription = () => {
+const ContestLayout = () => {
   // Assuming you have contest details available
   
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -177,13 +176,132 @@ const ContestDiscription = () => {
 
 
   return (
-    <Layout>
-      <Box>
-      <ContestLayout/> 
-      <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
+    <>
+        <Box
+        backgroundImage={`url(${contestDetails.imageSrc})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        ml={['95px' , '90px' , '100px','110px','130px','190px']}
+        backgroundRepeat="no-repeat"
+        mt='100px'
+        w="75%"
+        h="35vh"  // Adjust the height as needed
+        position="relative"
+        borderRadius='10px'
+        >
+        <Center h="100%">
+            <VStack spacing={4} align="center" color="white" textShadow="2px 2px 4px rgba(0, 0, 0, 0.7)">
+            <Text fontSize="xl" fontWeight="bold">
+                {contestDetails.name}
+            </Text>
+            <Text>{contestDetails.description}</Text>
+            <Text fontSize="lg">Organizer: {contestDetails.organizer}</Text>
+            <Text fontSize="lg">Time Left: {contestDetails.monthsLeft} Months</Text>
+            </VStack>
+        </Center>
+        </Box>
+        <Box p={4} bg="gray.100" w = '75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']} bgColor='darkSlateBlue'>
+            <HStack>
+                <Tabs w = '20%'>
+                    <TabList>
+                    <Tab  ><Text color='custom.white'>Overview</Text></Tab>
+                    <Tooltip label='write a detailed plan'>
+                    <Tab  onClick={handleDiscussTabClick} ><Text color='custom.white'>Plan</Text></Tab>
+                    </Tooltip>
+                    </TabList>
+                </Tabs>
+                <Spacer/>
+                {!hideJoinButton && (
+        <Button bgColor='custom.button' onClick={handleJoinClick}>
+          <Text  color='custom.white' >Join Competition</Text>
+        </Button>
+      )}
+        
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Participant Option</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <Stack spacing={2} direction='column'>
+            <Checkbox  onChange={(e) => {
+               if (e.target.checked) {
+                 // Only call fetchTeamNames() when "Join as team" is checked
+                 handleFileSubmit();
+               }
+            }}>join as individual</Checkbox>
+            <Checkbox onChange={(e) => {
+               setJoinAsTeam(e.target.checked);
+               if (e.target.checked) {
+                 // Only call fetchTeamNames() when "Join as team" is checked
+                 fetchTeamNames();
+               }
+            }}>
+              Join as team
+            </Checkbox>
+          </Stack>
+            {joinAsTeam && (
+              <Flex pt="48" justify="center" align="center" w="full">
+                <FormControl w="60">
+                <AutoComplete openOnFocus 
+               onChange={(value) => {
+                handleFileSubmit();
+              }}>
+                    <AutoCompleteInput
+                      variant="filled"
+                    />
+                    <AutoCompleteList>
+                      {teamSuggestions.map((soccerWinner, cid) => (
+                        <AutoCompleteItem
+                          key={`option-${cid}`}
+                          value={soccerWinner.teamName}
+                          textTransform="capitalize"
+                        >
+                          {soccerWinner.teamName}
+                        </AutoCompleteItem>
+                      ))}
+                    </AutoCompleteList>
+                  </AutoComplete>
+
+                  <FormHelperText>Who do you support.</FormHelperText>
+                </FormControl>
+              </Flex>
+            )}
+
+          </ModalBody>
+          <ModalFooter>
+            <Button bgColor='custom.button' mr={3} onClick={handleAcceptClick} isDisabled={isDisabled}>
+            <Text color='custom.white'>Register</Text>
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {showSubmissionTab && (
+        <>
+          <Tabs>
+            <TabList>
+              <Tab><Text color='custom.white'>Submission</Text></Tab>
+            </TabList>
+          </Tabs>
+          <Input type="file" onChange={handleFileChange} mt={2} w='10%' />
+          <Button colorScheme="teal" mt={2} onClick={handleFileSubmit}>
+            <Text color='custom.white'>Submit</Text>
+          </Button>
+        </>
+      )}
+            </HStack>    
+        </Box>
+        
+        <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}>
+        {!variable.published && (
+               <Button onClick={handleDeleteButtonClick}>Delete</Button>
+        )}
+      {/* <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>   */}
       </Box>
-    </Layout> 
+
+    </>
   );
 };
 
-export default ContestDiscription;
+export default ContestLayout;
