@@ -277,13 +277,13 @@ const OverviewSection = ({published , submitted}) => {
 
   return (
     <>
-    <Box p={4} w='100%' >
+    <Box p={4} w='100%'   mb='100px' >
     {(isSaved || store ) && !submitButton && !published && !submitted && (
           <Button type="submit" colorScheme="teal" size="lg" onClick={handleContestUpdate}>
              Submit Contest for review
           </Button>
     )}
-    <Box w='100%' >
+    <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}  >
       <Heading mt='50px' >
         Overview{' '}
         {!isOverviewEditing && !submitButton && !submitted && !published && (
@@ -315,7 +315,7 @@ const OverviewSection = ({published , submitted}) => {
         <Text dangerouslySetInnerHTML={{ __html: overviewText }} />
       )}
        </Box>
-       <Box mt='20px'> 
+       <Box mt='20px'   w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']} > 
        <Heading mb={4}>
         Description{' '}
         {!isDiscriptionEditing && !submitButton && !submitted && !published && (
@@ -348,7 +348,7 @@ const OverviewSection = ({published , submitted}) => {
       )}
       </Box>
      
-      <Box  mt='20px'> 
+      <Box  mt='20px'   w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']} > 
        <Heading mb={4}>
         Evaluation{' '}
         {!isEvaluationTextEditing && !submitButton && !submitted &&  !published && (

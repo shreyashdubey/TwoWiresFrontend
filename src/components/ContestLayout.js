@@ -176,7 +176,7 @@ const ContestLayout = () => {
 
 
   return (
-    <Layout>
+    <>
         <Box
         backgroundImage={`url(${contestDetails.imageSrc})`}
         backgroundSize="cover"
@@ -299,7 +299,7 @@ const ContestLayout = () => {
       {/* <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>   */}
       </Box>
 
-    </Layout>
+    </>
   );
 };
 

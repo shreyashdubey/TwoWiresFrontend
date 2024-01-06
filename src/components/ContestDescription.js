@@ -177,11 +177,12 @@ const ContestDiscription = () => {
 
 
   return (
+    <Layout>
       <Box>
       <ContestLayout/> 
       <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
       </Box>
-
+    </Layout> 
   );
 };
 
