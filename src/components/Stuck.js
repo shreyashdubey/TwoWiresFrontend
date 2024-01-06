@@ -1,81 +1,66 @@
 import React, { useState } from 'react';
-import { ChakraProvider, Box, Heading, Text, Button, VStack, Divider } from '@chakra-ui/react';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { Box, Button } from '@chakra-ui/react';
 
 const Stuck = () => {
-  const [questions, setQuestions] = useState([]);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [questionContent, setQuestionContent] = useState('');
+  const [questionContentShow, setQuestionContentShow] = useState('');
+  const [answers, setAnswers] = useState([]);
+  const [newAnswerContent, setNewAnswerContent] = useState('');
+  const [showEditor, setShowEditor] = useState(false);
 
-  const handleAskQuestion = () => {
-    const contentState = editorState.getCurrentContent();
-    const questionText = contentState.getPlainText();
-
-    setQuestions([...questions, { text: questionText, answers: [] }]);
-    setEditorState(EditorState.createEmpty());
+  const handleAnswer = () => {
+    // You may want to sanitize or validate the HTML content before saving it to the state
+    setAnswers([...answers, newAnswerContent]);
+    console.log(answers);
+    setNewAnswerContent('');
   };
 
-  const handleAnswerQuestion = (questionIndex) => {
-    const contentState = editorState.getCurrentContent();
-    const answerText = contentState.getPlainText();
-
-    const updatedQuestions = [...questions];
-    updatedQuestions[questionIndex].answers.push(answerText);
-    
-    setQuestions(updatedQuestions);
-    setEditorState(EditorState.createEmpty());
+  const handleQuestion = () => {
+    // You may want to sanitize or validate the HTML content before saving it to the state
+    setQuestionContentShow(questionContent);
+    setQuestionContent('');
+    setShowEditor(true)
   };
+
+  
 
   return (
-    <ChakraProvider>
-      <Box p={8}>
-        <Heading mb={4}>QnA Forum</Heading>
-
-        <VStack align="stretch" spacing={4}>
-          <Editor
-            editorState={editorState}
-            onEditorStateChange={setEditorState}
-            placeholder="Ask a question..."
-          />
-          <Button colorScheme="teal" onClick={handleAskQuestion} disabled={editorState.getCurrentContent().hasText()}>
-            Ask
-          </Button>
-        </VStack>
-
-        <Divider my={8} />
-
-        {questions.map((q, index) => (
-          <Box key={index} borderWidth="1px" borderRadius="lg" p={4}>
-            <Text fontSize="lg">{q.text}</Text>
-            
-            <VStack mt={2} align="stretch" spacing={2}>
-              {q.answers.map((a, ansIndex) => (
-                <Box key={ansIndex} border="1px" borderColor="gray.200" p={2} borderRadius="md">
-                  <Text>{a}</Text>
-                </Box>
-              ))}
-            </VStack>
-
-            <Editor
-              editorState={editorState}
-              onEditorStateChange={setEditorState}
-              placeholder="Your Answer..."
-            />
-
-            <Button
-              mt={2}
-              colorScheme="blue"
-              size="sm"
-              onClick={() => handleAnswerQuestion(index)}
-              disabled={!editorState.getCurrentContent().hasText()}
-            >
-              Answer
-            </Button>
-          </Box>
-        ))}
+    <>
+      <Box borderColor="white" borderWidth="medium">
+        <ReactQuill
+          theme="snow"
+          value={questionContent}
+          onChange={setQuestionContent}
+          placeholder="Ask a Question"
+        />
+        <Button onClick={handleQuestion}>Submit Question</Button>
       </Box>
-    </ChakraProvider>
+      { showEditor && (
+           <Box mt="20px" borderColor="white" borderWidth="medium">
+           <h2>Question:</h2>
+           <div dangerouslySetInnerHTML={{ __html: questionContentShow }} />
+   
+           <h2>Answers:</h2>
+           <ul>
+             {answers.map((answer, index) => (
+               <li key={index}>
+                 <div dangerouslySetInnerHTML={{ __html: answer }} />
+               </li>
+             ))}
+           </ul>
+           <ReactQuill
+             theme="snow"
+             value={newAnswerContent}
+             onChange={setNewAnswerContent}
+             placeholder="Your Answer"
+           />
+           <Button onClick={handleAnswer}>Submit Answer</Button>
+         </Box>
+      )}
+      
+    </>
   );
 };
 
