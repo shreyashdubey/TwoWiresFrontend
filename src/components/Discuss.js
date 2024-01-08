@@ -39,6 +39,7 @@ const Discuss = () => {
   
     // Hide the editor by setting showEditor to false
     setShowEditor(false);
+    setEditorState(EditorState.createEmpty())
   };
   
   const handleUpvote = (index) => {
@@ -88,20 +89,20 @@ const Discuss = () => {
        
       {savedContents.map((rawContentState, index) => (
        <React.Fragment key={index}>
-       <Box mt={4} p={4} bgColor="white" color="black"  w='75%'  >
+       <Box mt={4} p={4} bgColor="black"   w='75%'  >
          <Link key={index} href={'/execution'} _hover={{ textDecoration: 'none' }}>
-         <Text fontSize="lg" fontWeight="bold" mb={2}>Saved Content {index + 1}:</Text>
+         <Text fontSize="lg" fontWeight="bold" mb={2} color='black' >Saved Content {index + 1}:</Text>
          {/* Render the Editor with the raw content state */}
          <Editor
-           toolbarHidden={!showEditor}
+           toolbarHidden='true'
            readOnly={!showEditor}
            editorState={EditorState.createWithContent(convertFromRaw(rawContentState))}
          />
         </Link>
        </Box>
      <Flex mt={2}>
-       <Link href={'/stuck'} mr={4}>problem</Link>
-       <Link href={'/tutorial'}>tutorial</Link>
+     <IconButton  color='black' icon={<FaArrowUp />} aria-label="Upvote" onClick={() => handleUpvote(index)} />
+     <IconButton   color='black' icon={<FaArrowDown />} aria-label="Downvote" onClick={() => handleDownvote(index)} />
        <Text mx={2}>{(votes[index]?.upvotes - votes[index]?.downvotes) || 0}</Text>
      </Flex>
    </React.Fragment>
