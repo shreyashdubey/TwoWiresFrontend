@@ -95,6 +95,9 @@ const Login = ( ) => {
     };
   }, []);
 	
+  if (user) {
+    navigate("/contest");
+  }
 
     return (
       <StartFieldBg>

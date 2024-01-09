@@ -71,7 +71,7 @@ const Signup = () => {
   };
 
   if (user) {
-    navigate("/home");
+    navigate("/contest");
   }
 
   return (

@@ -64,7 +64,7 @@ const App = () => {
     
     useEffect(()=>{
       if(accessToken && pathname === '/'){
-        navigate('/home');
+        navigate('/contest');
       }
     },[accessToken, pathname, navigate]);
   
