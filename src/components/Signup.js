@@ -172,7 +172,7 @@ const Signup = () => {
               </ChakraLink>
             </Text> */}
             <Button type="submit" colorScheme="blue" mt="25px" w='270px' padding="4px" >
-                { isLoading ? <Spinner size='sm' /> : 'SIgnup' }
+                { isLoading ? <Spinner size='sm' /> : 'Signup' }
              </Button>
           </form>
           <Text mt="4" textAlign="center">
