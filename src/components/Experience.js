@@ -36,6 +36,7 @@ import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import { GET_EXPERIENCE_ENTRIES } from '../utils/endpoints';
 import { EDIT_EXPERIENCE } from '../utils/endpoints';
+import { ACCESS_TOKEN } from '../utils/siteConstants';
 
 const Experience = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +65,7 @@ const Experience = () => {
     // Fetch education entries when the component mounts
     const fetchEducationEntries = async () => {
       try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
         const response = await instance.get(
@@ -135,7 +136,7 @@ const Experience = () => {
     }
     console.log('hey2')
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
       const industry = newEducation.industry
@@ -259,7 +260,7 @@ const Experience = () => {
     }
 
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
       const educationId = educationData[editedEducationIndex]._id;

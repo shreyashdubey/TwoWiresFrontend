@@ -26,6 +26,7 @@ import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import Layout from './DashBoard.js';
 import UserContest from './UserContest.js';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const PublishContest = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const PublishContest = () => {
     const fetchUserContests = async () => {
       try {
       
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
   

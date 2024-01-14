@@ -35,6 +35,7 @@ import userdark from './images/homedark.png'
 import logoutdark from './images/logoutdark.png'
 import teamdark from './images/teamdark.png'
 import Search from './Search';
+import { ACCESS_TOKEN } from '../utils/siteConstants';
 
 const BelowDashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const BelowDashBoard = ({isSearchSelected , setIsSearchSelected}) => {
   };
 
   const handleUserLogoutTabClick = () => {
-    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem(ACCESS_TOKEN);
 
     // Redirect to the login page or any other desired page
     navigate('/login');

@@ -39,6 +39,7 @@ import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import { useParams } from 'react-router-dom';
 import { MdOutlineDoNotDisturbOnTotalSilence } from 'react-icons/md';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const ContestDashboard = () => {
   // Assuming you have contest details available
@@ -57,7 +58,7 @@ const ContestDashboard = () => {
     id:'',
     teamName : '' ,
   });
-  const accessToken = localStorage.getItem('ACCESS_TOKEN');
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const decodedToken = jwtDecode(accessToken);
   const {contestId ,ok} = useParams();
   const [title, setTitle] = useState('');
@@ -121,7 +122,7 @@ const ContestDashboard = () => {
   const handleFileSubmit = async() => {
     setIsDisabled(false)
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
       // Replace 'your_backend_api_url' with the actual endpoint for fetching team names
@@ -140,7 +141,7 @@ const ContestDashboard = () => {
   const fetchTeamNames = async () => {
     console.log('worked')
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
       // Replace 'your_backend_api_url' with the actual endpoint for fetching team names

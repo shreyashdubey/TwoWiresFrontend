@@ -39,6 +39,7 @@ import { EDIT_EDUCATION } from '../utils/endpoints';
 import { DELETE_EDUCATION } from '../utils/endpoints';
 import { FaMoon, FaSun } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
+import { ACCESS_TOKEN } from '../utils/siteConstants';
 
 
 const EducationComponent = () => {
@@ -64,7 +65,7 @@ const EducationComponent = () => {
     // Fetch education entries when the component mounts
     const fetchEducationEntries = async () => {
       try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
         const response = await instance.get(
@@ -116,7 +117,7 @@ const EducationComponent = () => {
       return; // Prevent form submission
     }
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
       const school = newEducation.school
@@ -223,7 +224,7 @@ const EducationComponent = () => {
     }
 
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
       const educationId = educationData[editedEducationIndex]._id;

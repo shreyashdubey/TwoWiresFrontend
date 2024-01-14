@@ -28,6 +28,7 @@ import { ADD_SKILL } from '../utils/endpoints';
 import { GET_ALL_SKILL } from '../utils/endpoints';
 import { DELETE_SKILL } from '../utils/endpoints';
 import { useToast } from '@chakra-ui/react'
+import { ACCESS_TOKEN } from '../utils/siteConstants';
 
 const SkillComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,7 +44,7 @@ const SkillComponent = () => {
 
   const fetchSkills = async () => {
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id;
 
@@ -80,7 +81,7 @@ const SkillComponent = () => {
     }
 
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
       const skillName = newSkill

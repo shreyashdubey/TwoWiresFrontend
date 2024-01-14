@@ -1,0 +1,2 @@
+export const INVALID_TOKEN_STATUS_CODE = 469;
+export const ACCESS_TOKEN = 'ACCESS_TOKEN';

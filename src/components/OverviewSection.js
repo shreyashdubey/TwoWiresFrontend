@@ -8,6 +8,7 @@ import Layout from './DashBoard.js';
 import instance from '../utils/api.js';
 import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const OverviewSection = ({published , submitted}) => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
@@ -148,7 +149,7 @@ const OverviewSection = ({published , submitted}) => {
     const description = descriptionText 
     const tags = ['tag1' , 'tag2'] 
   
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
     const decodedToken = jwtDecode(accessToken);
     const admin = decodedToken.user._id;
 
@@ -216,7 +217,7 @@ const OverviewSection = ({published , submitted}) => {
 
     try {
       // Prepare the data for the API request
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
 

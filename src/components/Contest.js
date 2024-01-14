@@ -7,6 +7,7 @@ import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
 import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const ActiveCompetitions = () => {
   const chakraUIColor = useColorModeValue('rgba(0, 87, 255, 1)', 'rgba(0, 87, 255, 1)');
@@ -17,10 +18,10 @@ const [contestData , setContestData]  = useState([''])
   useEffect(() => {
     const fetchUserContests = async () => {
       try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
-        instance.defaults.headers.common['Authorization'] = 'key '+localStorage.getItem('ACCESS_TOKEN');
+        instance.defaults.headers.common['Authorization'] = 'key '+localStorage.getItem(ACCESS_TOKEN);
         const contestsResponse = await instance.get(`/api/contest/get-all-contests?page=1&pageSize=30`);
         const contests = contestsResponse.contests;
         setContestData(contests);

@@ -26,6 +26,7 @@ import { jwtDecode } from "jwt-decode";
 import instance from '../utils/api'
 import Layout from './DashBoard.js';
 import UserContest from './UserContest.js';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const CreateCompetitionForm = () => {
   useEffect(() => {
     const fetchUserContests = async () => {
       try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
   
@@ -85,7 +86,7 @@ const CreateCompetitionForm = () => {
 
     try {
       // Prepare the data for the API request
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
 
@@ -122,7 +123,7 @@ const CreateCompetitionForm = () => {
 
     try {
       // Prepare the data for the API request
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
 

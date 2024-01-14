@@ -7,6 +7,7 @@ import { LOGIN, SIGNUP , CREATE_TEAM } from '../utils/endpoints';
 import InviteUsers from './InviteUser';
 import { jwtDecode } from "jwt-decode";
 import Layout from './DashBoard.js';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const CreateNewTeam = () => {
   const [teamName, setTeamName] = useState('');
@@ -25,7 +26,7 @@ const CreateNewTeam = () => {
       return;
     }
     try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const owner = decodedToken.user._id
         const response = await instance.post(CREATE_TEAM ,{teamName,owner}, {'Content-Type': 'application/json'})

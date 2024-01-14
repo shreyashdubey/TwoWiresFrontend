@@ -45,10 +45,11 @@ import Discuss from './components/Discuss.js';
 import ExcecutingStep from './components/ExecutingStep.js';
 import Tutorial from './components/Tutorial.js';
 import Stuck from './components/Stuck.js';
+import { ACCESS_TOKEN } from './utils/siteConstants.js';
 
 const App = () => {
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');  
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);  
     const location = useLocation()
     const {pathname} = location
     console.log(pathname)

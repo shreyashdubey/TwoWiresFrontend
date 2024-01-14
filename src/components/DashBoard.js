@@ -41,6 +41,7 @@ import { useOverview } from './OverviewContext';
 import instance from '../utils/api'
 import { jwtDecode } from "jwt-decode";
 import { GET_ALL_NOTIFICATION } from '../utils/endpoints';
+import { ACCESS_TOKEN } from '../utils/siteConstants';
 
 
 const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
@@ -76,7 +77,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
   };
 
   const handleUserLogoutTabClick = () => {
-    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem(ACCESS_TOKEN);
 
     // Redirect to the login page or any other desired page
     navigate('/login');
@@ -154,7 +155,7 @@ const DashBoard = ({isSearchSelected , setIsSearchSelected }) => {
 
     const fetchData = async () => {
       try {
-        const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         console.log('decode',decodedToken)
         const userId = decodedToken.user._id;

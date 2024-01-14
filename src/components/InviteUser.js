@@ -25,6 +25,7 @@ import { jwtDecode } from "jwt-decode";
 import { GET_TEAM_MEMBER } from '../utils/endpoints';
 import Layout from './DashBoard.js';
 import { TeamContext } from './CreateTeam.js';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const InviteUsers = () => {
   const [username, setUsername] = useState('');
@@ -56,7 +57,7 @@ const InviteUsers = () => {
 
     // Add your user invitation logic here
     try {
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const sender = decodedToken.user._id;
       const response_username = await instance.get(`${GET_USERID}${username}`);
@@ -114,7 +115,7 @@ const InviteUsers = () => {
 const fetchTeamMember = async () => {
   try {
    // Replace the URL with your actual API endpoint
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
     const decodedToken = jwtDecode(accessToken);
     const owner = decodedToken.user._id
    // const response = await instance.get(GET_TEAM_MEMBER/`${team}` ,{team ,owner}, {'Content-Type': 'application/json'})

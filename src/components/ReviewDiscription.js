@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 import { useParams } from 'react-router-dom';
 import ContestDiscription from './ContestDescription.js';
 import ContestDashboard from './ContestDashboard.js';
+import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
 const ReviewDiscription = () => {
   const [isOverviewEditing, setIsOverviewEditing] = useState(false);
@@ -70,7 +71,7 @@ const ReviewDiscription = () => {
 
     try {
       // Prepare the data for the API request
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.user._id
 
