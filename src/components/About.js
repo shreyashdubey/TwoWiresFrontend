@@ -14,6 +14,7 @@ import UserProfile from './UserProfile';
 import UserContest from './UserContest.js';
 import Layout from './DashBoard.js';
 import Experience from './Experience.js';
+import Team from "./Team.js";
 
 const User = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const User = () => {
     const [activeTab, setActiveTab] = useState(0);
     const handleTeamTabClick = () => {
         // Redirect to the "/user" route
+        // Team();
          navigate('/team');
       };
       const handleAboutTabClick = () => {
@@ -53,7 +55,7 @@ const User = () => {
       }, [location]);
     
       const handleTabChange = (index) => {
-        console.log(index)
+        console.log("active Tab.....................", index)
         setActiveTab(index);
       };
 
