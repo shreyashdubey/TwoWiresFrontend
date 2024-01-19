@@ -20,6 +20,8 @@ import {
   Center,
   Box,
   Tooltip,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
@@ -83,20 +85,20 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
 
   const handleSearchSelect = () => {
     setIsSearchSelected(true);
-    console.log(isSearchSelected, "i am here ........")
+    console.log(isSearchSelected, "i am here ........");
   };
 
   const handleFocused = () => {
     setIsfocused(true);
     setIsSearchSelected(true);
-    console.log(isSearchSelected, "i am here ........")
-  }
+    console.log(isSearchSelected, "i am here Focus........");
+  };
 
   const handleBlur = () => {
     setIsSearchSelected(false);
     setIsfocused(false);
-    console.log(isSearchSelected, "i am here ........")
-  }
+    console.log(isSearchSelected, "i am here Blur........");
+  };
 
   useEffect(() => {
     const { pathname, params } = location;
@@ -223,50 +225,51 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
       </InputGroup>
       */}
       <Center>
-        {isSearchSelected ? (
-          <>
-            <Spacer />
-            <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
-              <InputLeftElement
-                pointerEvents="none"
-                children={
-                  <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
-                }
-              />
-              <Input
-                type="text"
-                placeholder="Search..."
-                color="custom.white"
-                onFocus={handleFocused}
-                onBlur={handleBlur}
-                onClick={handleSearchSelect}
-              />
-            </InputGroup>
-            <Spacer />
-            <Search />
-          </>
-        ) : (
-          <>
-            <Spacer />
-            <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
-              <InputLeftElement
-                pointerEvents="none"
-                children={
-                  <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
-                }
-              />
-              <Input
-                type="text"
-                placeholder="Search..."
-                color="custom.white"
-                onFocus={handleFocused}
-                onBlur={handleBlur}
-                onClick={handleSearchSelect}
-              />
-            </InputGroup>
-            <Spacer />
-          </>
-        )}
+        <Wrap onFocus={handleFocused} onBlur={handleBlur}>
+          {isSearchSelected ? (
+            <>
+              <Spacer />
+              <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={
+                    <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
+                  }
+                />
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  color="custom.white"
+                  onFocus={handleBlur}
+                  onClick={handleSearchSelect}
+                />
+              </InputGroup>
+              <WrapItem>
+                <Search />
+              </WrapItem>
+              <Spacer />
+            </>
+          ) : (
+            <Wrap onFocus={handleFocused} onBlur={handleBlur}>
+              <Spacer />
+              <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={
+                    <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
+                  }
+                />
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  color="custom.white"
+                  onClick={handleSearchSelect}
+                />
+              </InputGroup>
+              <Spacer />
+            </Wrap>
+          )}
+        </Wrap>
       </Center>
       <Spacer />
       <Hide below="720px">
