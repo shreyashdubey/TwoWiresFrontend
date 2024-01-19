@@ -84,7 +84,9 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   };
 
   const handleSearchSelect = () => {
-    setIsSearchSelected(true);
+
+    isSearchSelected ? setIsSearchSelected(false) : setIsSearchSelected(true)
+  //  setIsSearchSelected(true);
     console.log(isSearchSelected, "i am here ........");
   };
 
