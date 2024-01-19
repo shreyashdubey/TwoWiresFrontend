@@ -58,6 +58,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const [notification, setNotification] = useState([]);
   const [notificationClicked, setNotificationClicked] = useState(true);
   const [isFocused, setIsfocused] = useState(false);
+  const [isBlur, setIsBlur] = useState(false);
 
   const handleUserTabClick = () => {
     navigate("/about");
@@ -84,9 +85,9 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   };
 
   const handleSearchSelect = () => {
-
-    isSearchSelected ? setIsSearchSelected(false) : setIsSearchSelected(true)
-  //  setIsSearchSelected(true);
+    // isSearchSelected ? setIsSearchSelected(false) : setIsSearchSelected(true)
+    setIsSearchSelected(true);
+    setIsfocused(true);
     console.log(isSearchSelected, "i am here ........");
   };
 
@@ -97,8 +98,8 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   };
 
   const handleBlur = () => {
-    setIsSearchSelected(false);
     setIsfocused(false);
+    setIsSearchSelected(false);
     console.log(isSearchSelected, "i am here Blur........");
   };
 
@@ -242,7 +243,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                   type="text"
                   placeholder="Search..."
                   color="custom.white"
-                  onFocus={handleBlur}
+                  // onFocus={handleBlur}
                   onClick={handleSearchSelect}
                 />
               </InputGroup>
@@ -265,6 +266,8 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                   type="text"
                   placeholder="Search..."
                   color="custom.white"
+                  onFocus={handleFocused}
+                  onBlur={handleBlur}
                   onClick={handleSearchSelect}
                 />
               </InputGroup>
