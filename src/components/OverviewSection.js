@@ -224,7 +224,7 @@ const OverviewSection = ({published , submitted}) => {
 
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{contestOrganizer:userId , isSubmitted:true}, {'Content-Type': 'application/json'})
+       const response = await instance.put(`/api/contest/edit-contest/${contestId}`,{contestCreator:userId , isSubmitted:true}, {'Content-Type': 'application/json'})
 
       // Handle the response from the API
         console.log('API Response:', response);
@@ -279,12 +279,15 @@ const OverviewSection = ({published , submitted}) => {
   return (
     <>
     <Box p={4} w='100%'   mb='100px' >
-    {(isSaved || store ) && !submitButton && !published && !submitted && (
-          <Button type="submit" colorScheme="teal" size="lg" onClick={handleContestUpdate}>
-             Submit Contest for review
-          </Button>
-    )}
-    <Box w='75%'  ml={['95px' , '90px' , '100px','110px','130px','190px']}  >
+    {((isSaved || store) && !submitButton && !published && !submitted) ? (
+  <Button type="submit" colorScheme="teal" size="md" onClick={handleContestUpdate}  ml={['95px' , '90px' , '100px','110px','1302px','190px']}  >
+    Submit Contest for review
+  </Button>
+) : (
+  // Placeholder, you can replace this with whatever you need or leave it empty
+  <></>
+)}
+    <Box w='75%'  ml={['95px' , '90px' , '100px','110px','1302px','190px']}  >
       <Heading mt='50px' >
         Overview{' '}
         {!isOverviewEditing && !submitButton && !submitted && !published && (
@@ -382,12 +385,12 @@ const OverviewSection = ({published , submitted}) => {
       )}
       </Box>
       {isSaved  && isEditing && (
-          <Button type="submit" colorScheme="teal" size="lg" onClick={handleUpdate}>
+          <Button type="submit" colorScheme="teal" size="md" onClick={handleUpdate}>
             Update
           </Button>
         )}
         {!isSaved && isEditing &&   (
-          <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}>
+          <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}  size='md' >
             Save Overview
           </Button>
         )}
