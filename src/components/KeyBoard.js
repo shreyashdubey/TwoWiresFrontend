@@ -10,6 +10,7 @@ import {
   Center,
   Box,
   Button,
+  Hide,
 } from '@chakra-ui/react'
 
 // Instead of the default import, you can also use this:
@@ -85,7 +86,7 @@ function Key() {
 
   return (
     <Box bgColor = 'black'  height='500px'>
-      <Center >
+      <Center   >
       <FormControl  width='15%'>
     <FormLabel>Email address</FormLabel>
       <Input
@@ -98,6 +99,8 @@ function Key() {
     </FormControl>
     <Button>send</Button>
     </Center>
+    <Hide below="720px">
+    <Center ml= {['-400px' , '-420px' , '-300px' , '-400px', '-350px' , '-400px' , '-400px']}  >
       <Keyboard
         keyboardRef={r => (keyboard.current = r)}
         layoutName={layout}
@@ -140,6 +143,8 @@ function Key() {
         physicalKeyboardHighlight = {true}
         physicalKeyboardHighlightPress =  {true}
       />
+      </Center>
+    </Hide>
     </Box>
   );
 }
