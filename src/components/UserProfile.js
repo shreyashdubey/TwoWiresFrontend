@@ -120,7 +120,7 @@ const User = () => {
       const about = userDetail.about
       const userId = user._id
       // Make the PUT request to update user details
-      const response = await axios.put('http://localhost:3001/api/users/update-user-details', {
+      const response = await axios.put('/api/users/update-user-details', {
          userId ,firstName , lastName , currentLocation , about ,
       });
       if(response){
