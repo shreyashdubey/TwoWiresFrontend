@@ -50,12 +50,13 @@ const [contestData , setContestData]  = useState([''])
     const constestIndex = contestData[index]
     const name = constestIndex.contestName;
     const contestOrganizer =  constestIndex.contestOrganizer
-    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true  }});
+    const showTab = true
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true , showTab }});
   };
   return (
     <Layout>
       <Center>
-    <Flex  centerContent mt={10} w={['100%' , '100%' , '100%' , '100%', '75%']}  direction='column' alignItems="center">
+    <Flex  centerContent mt={10} w={['100%' , '100%' , '100%' , '10s0%', '75%']}  direction='column' alignItems="center">
       <Heading mb={7} fontSize={20} fontWeight={50} color='custom.white' mt='10px' >Active Competition</Heading>
       <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
         {contestData.map((contest, index) => (

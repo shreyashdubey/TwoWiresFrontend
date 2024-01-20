@@ -97,10 +97,7 @@ const ContestDiscription = () => {
  
   
   const contestDetails = {
-    name: variable.name,
-    organizer : variable.organizer,
-    monthsLeft: 2,
-    imageSrc: contest1, // Replace with the actual image source
+    
   };
 
   const handleFileChange = (event) => {
@@ -180,7 +177,7 @@ const ContestDiscription = () => {
   return (
     <Layout>
       <Box>
-      <ContestLayout/> 
+      <ContestLayout  showTab = {variable.showTab}/> 
       <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
       </Box>
     </Layout> 
