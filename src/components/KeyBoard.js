@@ -10,8 +10,12 @@ import {
   Center,
   Box,
   Button,
+  Spinner,
   Hide,
+  Text, 
+  AbsoluteCenter,
 } from '@chakra-ui/react'
+import axios from '../utils/api';
 
 // Instead of the default import, you can also use this:
 // import { KeyboardReact as Keyboard } from "react-simple-keyboard";
@@ -24,6 +28,8 @@ function Key() {
   const [layout, setLayout] = useState("default");
   const keyboard = useRef();
   const [clickedButton, setClickedButton] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChange = input => {
     setInput(input);
@@ -84,67 +90,86 @@ function Key() {
   }
 
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      setIsLoading(true);
+      // Make the POST request to save the email to the database
+      const email = input
+      const response = await axios.post('http://localhost:3001/api/landing-page/subscribe', {
+        email,
+      });
+
+      // Update the state with the response message
+    } catch (error) {
+      // Handle errors here (e.g., display an error message)
+      console.error('Error subscribing email:', error.message);
+    }finally{
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Box bgColor = 'black'  height='500px'>
-      <Center   >
-      <FormControl  width='15%'>
-    <FormLabel>Email address</FormLabel>
-      <Input
-       type='email'
-       //value={input}
-       placeholder={"Tap on the virtual keyboard to start"}
-       onChange={onChangeInput}
-       />
-      <FormHelperText>We'll never share your email.</FormHelperText>
-    </FormControl>
-    <Button>send</Button>
+      <Center    >
+    <form  onSubmit={handleSubmit}   >
+              <FormControl mb="3" mt = "20"   >
+                <Input
+                  type='email'
+                  //value={input}
+                  placeholder={"Tap on the virtual keyboard to start"}
+                  onChange={onChangeInput}
+                  required
+                />
+              </FormControl>
+              <Center>
+              <Button type="submit" colorScheme="blue"   >
+                { isLoading ? <Spinner size='sm' /> : 'Enter' }
+               </Button>
+              </Center>
+              
+    
+            </form>
     </Center>
     <Hide below="720px">
-    <Center ml= {['-400px' , '-420px' , '-300px' , '-400px', '-350px' , '-400px' , '-400px']}  >
-      <Keyboard
-        keyboardRef={r => (keyboard.current = r)}
-        layoutName={layout}
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-        theme={"hg-theme-default hg-layout-default myTheme"}
-        disableRowButtonContainers={true}
-        layout={{
-          default: [
-            "1 2 3 4 5 6 7 8 9 0",
-            "q w e r t y u i o p",
-            "a s d f g h j k l #",
-            "z x c v b n m .com @ %"
-          ],
-          shift: [
-            "Q W E R T Y U I O P",
-            'A S D F G H J K L',
-            "Z X C V B N M .com @"
-          ]
-        }}
-        // buttonTheme={[
-        //   {
-        //     class: "hg-red",
-        //     buttons: `Q W E R T Y U q w e r t y u i o p v x j  ${alpha} `
-        //   },
-        //   {
-        //     class: "hg-highlight",
-        //     buttons: "Q q A B C"
-        //   }
-        // ]}
-        buttonTheme={dynamicButtonTheme}
-        buttonAttributes = { [
-          {
-            attribute: "aria-label",
-            value: "bee",
-            buttons: "b B c C"
-          },
-          // ... additional buttonAttributes objects ...
-        ]}
-        physicalKeyboardHighlight = {true}
-        physicalKeyboardHighlightPress =  {true}
-      />
-      </Center>
-    </Hide>
+    <Center>
+          <Keyboard
+            keyboardRef={(r) => (keyboard.current = r)}
+            layoutName={layout}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            theme={"hg-theme-default hg-layout-default myTheme"}
+            disableRowButtonContainers={true}
+            layout={{
+              default: [
+                "1 2 3 4 5 6 7 8 9 0",
+                "q w e r t y u i o p",
+                "a s d f g h j k l #",
+                "z x c v b n m .com @ %",
+              ],
+              shift: [
+                "Q W E R T Y U I O P",
+                'A S D F G H J K L',
+                "Z X C V B N M .com @",
+              ],
+            }}
+            buttonTheme={dynamicButtonTheme}
+            buttonAttributes={[
+              {
+                attribute: "aria-label",
+                value: "bee",
+                buttons: "b B c C",
+              },
+              // ... additional buttonAttributes objects ...
+            ]}
+            physicalKeyboardHighlight={true}
+            physicalKeyboardHighlightPress={true}
+          />
+        </Center>
+      
+
+      </Hide>
     </Box>
   );
 }

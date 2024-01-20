@@ -536,8 +536,9 @@ const handleComponentClickException = (componentId) => {
         custom={5}
       /> */}
     </motion.svg>
-    <Key/>
     </Hide>
+    <Key/>
+   
       </Box>
 
 
