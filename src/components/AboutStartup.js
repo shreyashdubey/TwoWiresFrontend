@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
-import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex, Grid , Button , useMediaQuery , } from '@chakra-ui/react';
+import { Container, Heading, SimpleGrid, Card, Box, Badge, Text, Image, VStack, HStack, Spacer ,useColorModeValue ,  useBreakpointValue, Center, Flex, Grid , Button , useMediaQuery ,Hide , } from '@chakra-ui/react';
 import contest1 from './images/contest1.jpeg'
 import contest2  from './images/contest2.jpeg'
 import Layout from './DashBoard.js';
@@ -200,7 +200,7 @@ const handleComponentClickException = (componentId) => {
         </VStack>
       </Container>  */}
    
-
+   <Hide below='720px'>
    <motion.svg
         width="100%"
         height="100%"
@@ -537,6 +537,7 @@ const handleComponentClickException = (componentId) => {
       /> */}
     </motion.svg>
     <Key/>
+    </Hide>
       </Box>
 
 
