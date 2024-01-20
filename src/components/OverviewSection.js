@@ -385,12 +385,12 @@ const OverviewSection = ({published , submitted}) => {
       )}
       </Box>
       {isSaved  && isEditing && (
-          <Button type="submit" colorScheme="teal" size="md" onClick={handleUpdate}>
+          <Button type="submit" colorScheme="teal" size="md" onClick={handleUpdate} ml={['95px' , '90px' , '100px','110px','1302px','190px']} >
             Update
           </Button>
         )}
         {!isSaved && isEditing &&   (
-          <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}  size='md' >
+          <Button onClick={handleSaveOverview} colorScheme="teal" mt={4}  size='md'  ml={['95px' , '90px' , '100px','110px','1302px','190px']} >
             Save Overview
           </Button>
         )}
