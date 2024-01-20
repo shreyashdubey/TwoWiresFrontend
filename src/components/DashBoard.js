@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Flex,
@@ -43,6 +43,9 @@ import instance from "../utils/api";
 import { jwtDecode } from "jwt-decode";
 import { GET_ALL_NOTIFICATION } from "../utils/endpoints";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
+import FilterBar from "./FilterBar";
+import { Divider } from "@chakra-ui/react";
+import useOutsideClick from "../Hooks/UseOutsideClick";
 
 const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const navigate = useNavigate();
@@ -97,11 +100,14 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
     console.log(isSearchSelected, "i am here Focus........");
   };
 
+  
   const handleBlur = () => {
     setIsfocused(false);
     setIsSearchSelected(false);
     console.log(isSearchSelected, "i am here Blur........");
   };
+  const headerRef = useRef();
+  useOutsideClick(headerRef, handleBlur);
 
   useEffect(() => {
     const { pathname, params } = location;
@@ -196,24 +202,25 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   };
 
   return (
-    <Flex
-      bgColor="custom.charcoal"
-      h="55px"
-      align="center"
-      style={{ position: "sticky", top: "0", zIndex: 1000 }}
-      as="header"
-      width="100%"
-      backdropFilter="saturate(180%) blur(5px)"
-    >
-      <Hide below="720px">
-        <Heading ml={8} fontSize={30} fontWeight={10} color="custom.white">
-          <ChakraLink href="/contest" _hover={{ textDecoration: "none" }}>
-            SourcedStartup
-          </ChakraLink>
-        </Heading>
-      </Hide>
-      <Spacer />
-      {/* 
+    <Box ref={headerRef}>
+      <Flex
+        bgColor="custom.charcoal"
+        h="55px"
+        align="center"
+        style={{ position: "sticky", top: "0", zIndex: 1000 }}
+        as="header"
+        width="100%"
+        backdropFilter="saturate(180%) blur(5px)"
+      >
+        <Hide below="720px">
+          <Heading ml={8} fontSize={30} fontWeight={10} color="custom.white">
+            <ChakraLink href="/contest" _hover={{ textDecoration: "none" }}>
+              SourcedStartup
+            </ChakraLink>
+          </Heading>
+        </Hide>
+        <Spacer />
+        {/* 
       <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue" >
         <InputLeftElement
           pointerEvents="none"
@@ -227,202 +234,179 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
           />
       </InputGroup>
       */}
-      <Center>
-        <Wrap onFocus={handleFocused} onBlur={handleBlur}>
-          {isSearchSelected ? (
-            <>
-              <Spacer />
-              <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={
-                    <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
-                  }
-                />
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  color="custom.white"
-                  // onFocus={handleBlur}
-                  onClick={handleSearchSelect}
-                />
-              </InputGroup>
-              <WrapItem>
-                <Search />
-              </WrapItem>
-              <Spacer />
-            </>
-          ) : (
-            <Wrap onFocus={handleFocused} onBlur={handleBlur}>
-              <Spacer />
-              <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={
-                    <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
-                  }
-                />
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  color="custom.white"
-                  onFocus={handleFocused}
-                  onBlur={handleBlur}
-                  onClick={handleSearchSelect}
-                />
-              </InputGroup>
-              <Spacer />
-            </Wrap>
-          )}
-        </Wrap>
-      </Center>
-      <Spacer />
-      <Hide below="720px">
-        <Tabs
-          variant="unstyled"
-          mt="40px"
-          mr="100px"
-          index={activeTab}
-          onChange={handleTabChange}
-          Color="custom.darkStateBlue"
-        >
-          <TabList
-            style={{
-              display: "flex",
-              gap: "16px", // Adjust the value to set the desired spacing
-            }}
+        <Center>
+          <Wrap onFocus={handleFocused}>
+            <Spacer />
+            <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue">
+              <InputLeftElement
+                pointerEvents="none"
+                children={
+                  <Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />
+                }
+              />
+              <Input
+                type="text"
+                placeholder="Search..."
+                color="custom.white"
+                // onFocus={handleBlur}
+                onClick={handleSearchSelect}
+              />
+            </InputGroup>
+          </Wrap>
+        </Center>
+        <Spacer />
+        <Hide below="720px">
+          <Tabs
+            variant="unstyled"
+            mt="40px"
+            mr="100px"
+            index={activeTab}
+            onChange={handleTabChange}
+            Color="custom.darkStateBlue"
           >
-            <Tooltip label="Contest">
-              <Tab onClick={handleContestTabClick} Color="custom.darkStateBlue">
-                {contestImage ? (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={trophy}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                ) : (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={trophydark}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                )}
-              </Tab>
-            </Tooltip>
-            <Tooltip label="User">
-              <Tab onClick={handleUserTabClick}>
-                {homeImage ? (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={user}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                ) : (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={userdark}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                )}
-              </Tab>
-            </Tooltip>
-            <Tooltip label="user can list problem as contest which they have experienced in life so enterprenueurs can solve ">
-              <Tab onClick={handleUserContestTabClick}>
-                {teamImage ? (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={team}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                ) : (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={teamdark}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                )}
-              </Tab>
-            </Tooltip>
-            <Tooltip label="notification">
-              <Tab onClick={handleUserNotificationClick}>
-                <Box position="relative">
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={Notifications}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                  {notificationClicked && (
-                    <Box
-                      position="absolute"
-                      top="-1"
-                      right="-1.5"
-                      backgroundColor="red"
-                      height="16px"
-                      width="16px"
-                      borderRadius="50%"
-                    >
-                      <Text fontSize="x-small" height="1px" color="black">
-                        {notificationsSize}
-                      </Text>
-                    </Box>
+            <TabList
+              style={{
+                display: "flex",
+                gap: "16px", // Adjust the value to set the desired spacing
+              }}
+            >
+              <Tooltip label="Contest">
+                <Tab
+                  onClick={handleContestTabClick}
+                  Color="custom.darkStateBlue"
+                >
+                  {contestImage ? (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={trophy}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  ) : (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={trophydark}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
                   )}
-                </Box>
-              </Tab>
-            </Tooltip>
-            <Tooltip label="Logout">
-              <Tab onClick={handleUserLogoutTabClick}>
-                {logoutImage ? (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={logout}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                ) : (
-                  <Image
-                    boxSize="25px"
-                    objectFit="cover"
-                    src={logoutdark}
-                    alt="Dan Abramov"
-                    border="5px" // Adjust the border width as needed
-                    borderColor="custom.white"
-                  />
-                )}
-              </Tab>
-            </Tooltip>
-          </TabList>
-          <TabPanels>
-            <TabPanel></TabPanel>
-            <TabPanel></TabPanel>
-            <TabPanel></TabPanel>
-            <TabPanel></TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Hide>
-    </Flex>
+                </Tab>
+              </Tooltip>
+              <Tooltip label="User">
+                <Tab onClick={handleUserTabClick}>
+                  {homeImage ? (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={user}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  ) : (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={userdark}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  )}
+                </Tab>
+              </Tooltip>
+              <Tooltip label="user can list problem as contest which they have experienced in life so enterprenueurs can solve ">
+                <Tab onClick={handleUserContestTabClick}>
+                  {teamImage ? (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={team}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  ) : (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={teamdark}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  )}
+                </Tab>
+              </Tooltip>
+              <Tooltip label="notification">
+                <Tab onClick={handleUserNotificationClick}>
+                  <Box position="relative">
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={Notifications}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                    {notificationClicked && (
+                      <Box
+                        position="absolute"
+                        top="-1"
+                        right="-1.5"
+                        backgroundColor="red"
+                        height="16px"
+                        width="16px"
+                        borderRadius="50%"
+                      >
+                        <Text fontSize="x-small" height="1px" color="black">
+                          {notificationsSize}
+                        </Text>
+                      </Box>
+                    )}
+                  </Box>
+                </Tab>
+              </Tooltip>
+              <Tooltip label="Logout">
+                <Tab onClick={handleUserLogoutTabClick}>
+                  {logoutImage ? (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={logout}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  ) : (
+                    <Image
+                      boxSize="25px"
+                      objectFit="cover"
+                      src={logoutdark}
+                      alt="Dan Abramov"
+                      border="5px" // Adjust the border width as needed
+                      borderColor="custom.white"
+                    />
+                  )}
+                </Tab>
+              </Tooltip>
+            </TabList>
+            <TabPanels>
+              <TabPanel></TabPanel>
+              <TabPanel></TabPanel>
+              <TabPanel></TabPanel>
+              <TabPanel></TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Hide>
+      </Flex>
+      {isSearchSelected ? <FilterBar />: null}
+      
+    </Box>
   );
 };
 
@@ -434,6 +418,7 @@ const Layout = ({ children, notificationsSize }) => {
         isSearchSelected={isSearchSelected}
         setIsSearchSelected={setIsSearchSelected}
       />
+
       {children}
       <BelowDashBoard />
     </Flex>

@@ -257,6 +257,12 @@ const CreateCompetitionForm = () => {
     });
   };
 
+  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+    <button className="example-custom-input" onClick={onClick} ref={ref}>
+      {value}
+    </button>
+  ));
+
   return (
     <Layout>
       <VStack>
@@ -333,50 +339,13 @@ const CreateCompetitionForm = () => {
                   <Flex direction="column">
                     <FormControl flex="1">
                       <FormLabel>Start Time</FormLabel>
-                      {/* <Input
+                      <Input
                         type="datetime-local"
                         value={formData.startTime}
                         onChange={(e) =>
                           handleInputChange("startTime", e.target.value)
                         }
                         required
-                      /> */}
-                      <DatePicker
-                        render={<Icon />}
-                        format="MM/DD/YYYY HH:mm A"
-                        animations={[transition()]}
-                        plugins={[
-                          <TimePicker
-                            position="bottom"
-                            hideSeconds
-                            width="100%"
-                          />,
-                        ]}
-                      />
-                    </FormControl>
-
-                    <FormControl flex="1">
-                      <FormLabel>End Time</FormLabel>
-                      {/* <Input
-                        type="datetime-local"
-                        value={formData.endTime}
-                        onChange={(e) =>
-                          handleInputChange("endTime", e.target.value)
-                        }
-                        required
-                      /> */}
-                      
-                      <DatePicker
-                        render={<Icon />}
-                        format="MM/DD/YYYY HH:mm A"
-                        animations={[transition()]}
-                        plugins={[
-                          <TimePicker
-                            position="bottom"
-                            hideSeconds
-                            width="100%"
-                          />,
-                        ]}
                       />
                       {/* <DatePicker
                         render={<Icon />}
@@ -390,6 +359,32 @@ const CreateCompetitionForm = () => {
                           />,
                         ]}
                       /> */}
+                    </FormControl>
+
+                    <FormControl flex="1">
+                      <FormLabel>End Time</FormLabel>
+                      <Input
+                        type="datetime-local"
+                        value={formData.endTime}
+                        onChange={(e) =>
+                          handleInputChange("endTime", e.target.value)
+                        }
+                        required
+                      />
+                      
+                      {/* <DatePicker
+                        render={<Icon />}
+                        format="MM/DD/YYYY HH:mm A"
+                        animations={[transition()]}
+                        plugins={[
+                          <TimePicker
+                            position="bottom"
+                            hideSeconds
+                            width="100%"
+                          />,
+                        ]}
+                      /> */}
+                      
                     </FormControl>
                   </Flex>
 
