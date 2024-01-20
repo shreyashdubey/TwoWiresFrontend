@@ -62,7 +62,7 @@ const [contestData , setContestData]  = useState([''])
         {contestData.map((contest, index) => (
         <Link
         key={contest._id}
-        // _hover={{ textDecoration: 'none' }}
+        _hover={{ textDecoration: 'none' }}
         onClick={() => handleCardClick(contest._id, index)}
       >
             <Box
@@ -74,6 +74,7 @@ const [contestData , setContestData]  = useState([''])
               h="300px"
               borderRadius="15px"
               overflow="hidden"
+              textDecoration='none'
             >
               <Box borderRadius="50px 50px 0 0" h='25%'>
                 <Image src={contest1} alt={`Contest ${index + 1}`} height="100%" width="100%" objectFit="cover" />
