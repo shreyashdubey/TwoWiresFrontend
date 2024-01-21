@@ -69,8 +69,7 @@ const App = () => {
         navigate('/contest');
       }
     },[accessToken, pathname, navigate]);
-  
-
+   
     useEffect(() => {
       // runOneSignal();
       OneSignal.push(()=> {
