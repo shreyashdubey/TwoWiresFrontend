@@ -1,7 +1,14 @@
-import { ChakraProvider, Box, Input, Button, VStack, Heading } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Box,
+  Input,
+  Button,
+  VStack,
+  Heading,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import instance from '../utils/api';
+import instance from "../utils/api";
 import { VERIFICATION } from "../utils/endpoints";
 
 function EmailVerification() {
@@ -14,17 +21,18 @@ function EmailVerification() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-  try {
-        const otp_user = otp
-        const response = await instance.post(VERIFICATION,{otp_user:otp}, {'Content-Type': 'application/json'})
-        if(response.success)
-        {
-            navigate('/contest')
-        }
-        else
-        {
-            alert(response.message)
-        }
+    try {
+      const otp_user = otp;
+      const response = await instance.post(
+        VERIFICATION,
+        { otp_user: otp },
+        { "Content-Type": "application/json" },
+      );
+      if (response.success) {
+        navigate("/contest");
+      } else {
+        alert(response.message);
+      }
     } catch (error) {
       console.log(error);
       alert("An error occurred during signup. Please try again later.");

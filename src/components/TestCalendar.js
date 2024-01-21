@@ -1,4 +1,4 @@
-import { Select, Box, Grid, Center } from '@chakra-ui/react';
+import { Select, Box, Grid, Center } from "@chakra-ui/react";
 
 const TestCalendar = () => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
@@ -10,14 +10,14 @@ const TestCalendar = () => {
   };
 
   return (
-    <Box bgColor={'red.500'} w='50%'>
+    <Box bgColor={"red.500"} w="50%">
       <Grid
-        bgColor={'blue.600'}
+        bgColor={"blue.600"}
         templateColumns="repeat(2, 1fr)"
         gap={4}
         p={4}
         alignItems="center"
-        justifyContent='center'
+        justifyContent="center"
       >
         <Select
           placeholder="Start Month"

@@ -1,46 +1,55 @@
-import React, { useState } from 'react';
-import { Flex, Heading, PinInput, PinInputField, Button, Text, Box, HStack, Center } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
-import PasswordReset from './PasswordReset';
+import React, { useState } from "react";
+import {
+  Flex,
+  Heading,
+  PinInput,
+  PinInputField,
+  Button,
+  Text,
+  Box,
+  HStack,
+  Center,
+} from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import PasswordReset from "./PasswordReset";
 
 const Authentication = () => {
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const handleChange = (value) => {
     // Allow only numeric input
-    const sanitizedValue = value.replace(/\D/g, '');
+    const sanitizedValue = value.replace(/\D/g, "");
     setOtp(sanitizedValue);
   };
 
   const handleSubmit = async () => {
-    navigate('/account/password/confirm')
+    navigate("/account/password/confirm");
     try {
       // Add your OTP submission logic here, e.g., make an API call
-      const response = await fetch('http://http:localhost:3000/verify-otp', {
-        method: 'POST',
+      const response = await fetch("http://http:localhost:3000/verify-otp", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ otp }),
       });
       // Assuming the server responds with JSON
       const data = await response.json();
-  
+
       // Handle the response data based on your server's API
       if (true) {
-          navigate('/PasswordReset')
+        navigate("/PasswordReset");
       } else {
         // Error: Handle the error response data
-        console.error('OTP verification failed:', data.error);
+        console.error("OTP verification failed:", data.error);
       }
-  
+
       // You can add additional logic or API calls here based on your needs
     } catch (error) {
       // Handle any network or other errors
-      console.log('Error submitting OTP:');
+      console.log("Error submitting OTP:");
     }
   };
-  
 
   return (
     <Flex direction="column" align="center" justify="center" height="100vh">
@@ -74,7 +83,13 @@ const Authentication = () => {
           </Button>
         </Center>
         <Center>
-          <Button colorScheme="blue" variant="link" onClick={handleSubmit} mt="5" w="150px">
+          <Button
+            colorScheme="blue"
+            variant="link"
+            onClick={handleSubmit}
+            mt="5"
+            w="150px"
+          >
             Resend OTP
           </Button>
         </Center>

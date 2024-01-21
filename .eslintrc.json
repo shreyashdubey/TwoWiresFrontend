@@ -1,20 +1,32 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "standard",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "no-console": 2
-    }
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "no-console": "warn",
+    "react/prop-types": "warn",
+    "react/react-in-jsx-scope": "warn",
+    "no-unused-vars": "warn",
+    "import/no-duplicates": "warn",
+    "react/jsx-key": "warn",
+    "camelcase": "warn",
+    "eqeqeq": "warn",
+    "no-undef": "warn",
+    "react/no-unescaped-entities": "warn",
+    "react/no-children-prop": "warn",
+    "no-constant-condition": "warn",
+    "react/display-name": "warn",
+    "dot-notation": "warn"
+  }
 }

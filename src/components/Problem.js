@@ -1,4 +1,4 @@
-import {Box, Input, Button, VStack , Text } from "@chakra-ui/react";
+import { Box, Input, Button, VStack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 function Problem() {
@@ -14,20 +14,22 @@ function Problem() {
   };
 
   return (
-   
-      <Box p={8}>
-        <VStack spacing={4}>
-           <Text>Write down the problems or ideas that you would like entrepreneurs to execute</Text> 
-          <Input
-            placeholder="Enter something..."
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-          <Button colorScheme="teal" onClick={handleButtonClick}>
-            Submit
-          </Button>
-        </VStack>
-      </Box>
+    <Box p={8}>
+      <VStack spacing={4}>
+        <Text>
+          Write down the problems or ideas that you would like entrepreneurs to
+          execute
+        </Text>
+        <Input
+          placeholder="Enter something..."
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <Button colorScheme="teal" onClick={handleButtonClick}>
+          Submit
+        </Button>
+      </VStack>
+    </Box>
   );
 }
 

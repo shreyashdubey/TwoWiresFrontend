@@ -1,7 +1,7 @@
-import React, { useState  , useEffect , useContext} from 'react';
-import axios from 'axios';
-import { UserContext } from '../UserContext';
-import ChatWindow from './ChatWindow'; // Import the ChatWindow component
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../UserContext";
+import ChatWindow from "./ChatWindow"; // Import the ChatWindow component
 
 const FriendsListModal = ({ onClose }) => {
   const [friends, setFriends] = useState([]);
@@ -12,13 +12,15 @@ const FriendsListModal = ({ onClose }) => {
     // Fetch user's friends from the server
     const fetchFriends = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/connectroute/friends/${userData.userId}`);
+        const response = await axios.get(
+          `http://localhost:3001/api/connectroute/friends/${userData.userId}`,
+        );
         setFriends(response.data);
       } catch (error) {
-        console.error('Error fetching friends:', error);
+        console.error("Error fetching friends:", error);
       }
     };
-    
+
     fetchFriends();
   }, []);
 
@@ -38,7 +40,12 @@ const FriendsListModal = ({ onClose }) => {
         ))}
       </ul>
       <button onClick={onClose}>Close</button>
-      {selectedFriend && <ChatWindow friend={selectedFriend} onClose={() => setSelectedFriend(null)} />}
+      {selectedFriend && (
+        <ChatWindow
+          friend={selectedFriend}
+          onClose={() => setSelectedFriend(null)}
+        />
+      )}
     </div>
   );
 };

@@ -1,13 +1,13 @@
 // SearchForm.js
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const SearchForm = ({ setSearchResults }) => {
   const [searchData, setSearchData] = useState({
-    profession: '',
-    expertise: '',
-    username: '',
+    profession: "",
+    expertise: "",
+    username: "",
   });
 
   const handleChange = (e) => {
@@ -20,7 +20,7 @@ const SearchForm = ({ setSearchResults }) => {
 
   const handleSearch = async () => {
     try {
-      let query = '';
+      let query = "";
       if (searchData.profession) {
         query += `profession=${searchData.profession}&`;
       }
@@ -35,7 +35,7 @@ const SearchForm = ({ setSearchResults }) => {
       const response = await axios.get(`/api/users/search?${query}`);
       setSearchResults(response.data.users);
     } catch (error) {
-      console.error('Error searching users:', error);
+      console.error("Error searching users:", error);
       setSearchResults([]);
     }
   };

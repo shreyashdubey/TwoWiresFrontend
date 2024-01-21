@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 const Starfield = ({
   speedFactor = 0.1,
-  backgroundColor = 'black',
+  backgroundColor = "black",
   starColor = [255, 255, 255],
   starCount = 2500,
 }) => {
@@ -12,7 +12,7 @@ const Starfield = ({
     const canvas = canvasRef.current;
 
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
 
       if (ctx) {
         let w = window.innerWidth;
@@ -25,7 +25,7 @@ const Starfield = ({
 
         setCanvasExtents();
 
-        window.addEventListener('resize', () => {
+        window.addEventListener("resize", () => {
           w = window.innerWidth;
           h = window.innerHeight;
           setCanvasExtents();
@@ -44,7 +44,7 @@ const Starfield = ({
           return out;
         };
 
-        let stars = makeStars(starCount);
+        const stars = makeStars(starCount);
 
         const clear = () => {
           ctx.fillStyle = backgroundColor;
@@ -53,7 +53,15 @@ const Starfield = ({
 
         const putPixel = (x, y, brightness) => {
           const rgb =
-            'rgba(' + starColor[0] + ',' + starColor[1] + ',' + starColor[2] + ',' + brightness + ')';
+            "rgba(" +
+            starColor[0] +
+            "," +
+            starColor[1] +
+            "," +
+            starColor[2] +
+            "," +
+            brightness +
+            ")";
           ctx.fillStyle = rgb;
           ctx.fillRect(x, y, 1, 1);
         };
@@ -109,14 +117,14 @@ const Starfield = ({
 
         requestAnimationFrame(init);
       } else {
-        console.error('Could not get 2d context from canvas element');
+        console.error("Could not get 2d context from canvas element");
       }
     } else {
-      console.error('Could not find canvas element');
+      console.error("Could not find canvas element");
     }
 
     return () => {
-      window.removeEventListener('resize', () => {});
+      window.removeEventListener("resize", () => {});
     };
   }, [starColor, backgroundColor, speedFactor, starCount]);
 
@@ -126,15 +134,15 @@ const Starfield = ({
       style={{
         padding: 0,
         margin: 0,
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
         zIndex: 10,
         opacity: 1,
-        pointerEvents: 'none',
-        mixBlendMode: 'screen',
+        pointerEvents: "none",
+        mixBlendMode: "screen",
       }}
     />
   );
