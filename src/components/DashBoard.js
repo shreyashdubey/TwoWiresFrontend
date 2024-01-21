@@ -21,7 +21,6 @@ import {
   Box,
   Tooltip,
   Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
@@ -44,8 +43,8 @@ import { jwtDecode } from "jwt-decode";
 import { GET_ALL_NOTIFICATION } from "../utils/endpoints";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
 import FilterBar from "./FilterBar";
-import { Divider } from "@chakra-ui/react";
 import useOutsideClick from "../Hooks/UseOutsideClick";
+
 
 const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const navigate = useNavigate();
@@ -100,7 +99,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
     console.log(isSearchSelected, "i am here Focus........");
   };
 
-  
   const handleBlur = () => {
     setIsfocused(false);
     setIsSearchSelected(false);
@@ -220,20 +218,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
           </Heading>
         </Hide>
         <Spacer />
-        {/* 
-      <InputGroup w="250px" ml="20px" bgColor="custom.darkStateBlue" >
-        <InputLeftElement
-          pointerEvents="none"
-          children={<Icon as={SearchIcon} bgcolor="#custom.darkStateBlue" />}
-        />
-        <Input
-         type="text"
-          placeholder="Search..." 
-          color="custom.white" 
-          onClick = {handleSearchSelect}
-          />
-      </InputGroup>
-      */}
         <Center>
           <Wrap onFocus={handleFocused}>
             <Spacer />
@@ -248,7 +232,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                 type="text"
                 placeholder="Search..."
                 color="custom.white"
-                // onFocus={handleBlur}
                 onClick={handleSearchSelect}
               />
             </InputGroup>
@@ -404,8 +387,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
           </Tabs>
         </Hide>
       </Flex>
-      {isSearchSelected ? <FilterBar />: null}
-      
+      {isSearchSelected ? <FilterBar /> : null}
     </Box>
   );
 };

@@ -41,12 +41,14 @@ import UserContest from "./UserContest.js";
 import Layout from "./DashBoard.js";
 import Experience from "./Experience.js";
 import Team from "./Team.js";
-import Competition from "./Contest.js";
+import Competition from "./Contest/Contest.js";
+import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
 const User = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const handleTeamTabClick = () => {
     // Redirect to the "/user" route
     //  navigate("</Team>");
@@ -63,6 +65,7 @@ const User = () => {
   };
 
   useEffect(() => {
+    setIsLoading(false);
     console.log("mey");
     const { pathname } = location;
     switch (pathname) {
@@ -88,36 +91,82 @@ const User = () => {
 
   return (
     <Box w="50%" margin="auto" alignItems="center" justifyContent="center">
-      <Flex mt="15px" w="100%">
+      {isLoading? (
+
+        <Flex mt="15px" w="100%">
         <Tabs
           ml={3}
           mt="20px"
           w="100%"
           index={activeTab}
           onChange={handleTabChange}
-        >
+          >
           <TabList>
             <Tab onClick={handleAboutTabClick}>
-              <Text color="custom.white">About</Text>
+              <Text color="custom.white">
+                <Skeleton>About</Skeleton>
+              </Text>
             </Tab>
             <Spacer />
             <Tab onClick={handleCompetitionTabClick}>
-              <Text color="custom.white">Competition</Text>
+              <Text color="custom.white">
+                <Skeleton>Competition</Skeleton>
+              </Text>
             </Tab>
             <Spacer />
             <Tab onClick={handleTeamTabClick}>
-              <Text color="custom.white">Team</Text>
+              <Text color="custom.white">
+                <Skeleton>Team</Skeleton>
+              </Text>
             </Tab>
           </TabList>
           <TabPanels>
+            <SkeletonText>
+              <TabPanel>
+                <SkillComponent />
+                <EducationComponent />
+                <Experience />
+              </TabPanel>
+            </SkeletonText>
+          </TabPanels>
+        </Tabs>
+      </Flex>
+      ) : (<Flex mt="15px" w="100%">
+      <Tabs
+        ml={3}
+        mt="20px"
+        w="100%"
+        index={activeTab}
+        onChange={handleTabChange}
+      >
+        <TabList>
+          <Tab onClick={handleAboutTabClick}>
+            <Text color="custom.white">
+              About
+            </Text>
+          </Tab>
+          <Spacer />
+          <Tab onClick={handleCompetitionTabClick}>
+            <Text color="custom.white">
+              Competition
+            </Text>
+          </Tab>
+          <Spacer />
+          <Tab onClick={handleTeamTabClick}>
+            <Text color="custom.white">
+              Team
+            </Text>
+          </Tab>
+        </TabList>
+        <TabPanels>
             <TabPanel>
               <SkillComponent />
               <EducationComponent />
               <Experience />
             </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Flex>
+        </TabPanels>
+      </Tabs>
+    </Flex>)}
       {/* Your page content goes here */}
     </Box>
   );
@@ -133,5 +182,9 @@ const About = ({ children }) => {
     </UserProfile>
   );
 };
+
+/*
+
+*/
 
 export default About;
