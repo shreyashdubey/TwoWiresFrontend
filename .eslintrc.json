@@ -27,6 +27,7 @@
     "react/no-children-prop": "warn",
     "no-constant-condition": "warn",
     "react/display-name": "warn",
-    "dot-notation": "warn"
+    "dot-notation": "warn",
+    "prettier/prettier": "warn"
   }
 }
