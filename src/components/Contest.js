@@ -18,6 +18,7 @@ import {
   Center,
   Flex,
   Link,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import contest1 from "./images/contest1.jpeg";
 import contest2 from "./images/contest2.jpeg";
@@ -25,6 +26,7 @@ import Layout from "./DashBoard.js";
 import { jwtDecode } from "jwt-decode";
 import instance from "../utils/api";
 import { ACCESS_TOKEN } from "../utils/siteConstants.js";
+import heroBanner from "./images/AdobeStock_670476122.png";
 
 const ActiveCompetitions = () => {
   const chakraUIColor = useColorModeValue(
@@ -33,7 +35,7 @@ const ActiveCompetitions = () => {
   );
   const chakraUIColorLastbox = useColorModeValue("#FFBA93", "#FFBA93");
   const navigate = useNavigate();
-
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [contestData, setContestData] = useState([""]);
   useEffect(() => {
     const fetchUserContests = async () => {
@@ -88,6 +90,31 @@ const ActiveCompetitions = () => {
   };
   return (
     <Layout>
+      <Box padding={{ md: "18px 24px", sm: "10px 12px", xl: "20px 48px" }}>
+        <Center>
+          <Flex
+            maxWidth="1400px"
+            marginLeft=""
+            direction={{ md: "row", sm: "column" }}
+            alignItems="center"
+          >
+            <Box>
+              <Heading marginBottom="12px">
+                Where ideas soar and connections roar!
+              </Heading>
+              <Text>
+                Embark on a journey of boundless possibilities where innovators
+                converge, ideas flourish, and collaborations thrive. Join our
+                vibrant community, where connecting minds is the catalyst for
+                transformative innovation!
+              </Text>
+            </Box>
+            <Box>
+              <Image src={heroBanner} maxHeight="1100px" />
+            </Box>
+          </Flex>
+        </Center>
+      </Box>
       <Center>
         <Flex
           centerContent
@@ -151,13 +178,11 @@ const ActiveCompetitions = () => {
                       lineHeight="tight"
                       isTruncated
                     >
-                      <Text color="custom.white">
-                        contestname : {contest.contestName}
-                      </Text>
+                      <Text color="custom.white">{contest.contestName}</Text>
                     </Box>
 
                     <Text mt={2} color="custom.white">
-                      organizer : {contest.contestOrganizer}
+                      {contest.contestOrganizer}
                     </Text>
 
                     <Box mt="30px" borderTop="1px solid #e1e1e1" pt={2}>
