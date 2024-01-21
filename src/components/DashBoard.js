@@ -359,7 +359,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
 const Layout = ({ children, notificationsSize }) => {
   const [isSearchSelected, setIsSearchSelected] = useState(false);
   return (
-    <Flex direction="column" minHeight="100vh" bgcolor="custom. midnightBlue">
+    <Flex direction="column" minHeight="100vh" bgColor="custom.midnightBlue">
       <DashBoard
         isSearchSelected={isSearchSelected}
         setIsSearchSelected={setIsSearchSelected}
