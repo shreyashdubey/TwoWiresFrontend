@@ -3,12 +3,12 @@
 .simple-keyboard.hg-theme-default.myTheme {
   /* border: 5px solid rgba(37, 37, 37, 0.7); */
   border-radius: 10px;
-  margin: 100px;
+  /* margin: 100px; */
   background-color: black;
   color: rgb(138, 19, 189);
   width: 500px;
-  margin-left: 520px;
-  margin-top: 80px;
+  /* margin-left: 520px;
+  margin-top: 80px; */
 }
 
 .simple-keyboard.hg-layout-default .hg-button.hg-row0 {
