@@ -56,8 +56,9 @@ const App = () => {
 
 
     useEffect(() => {
-      if (!accessToken && pathname!='/aboutstartup' && pathname !='/' ) {
+      if (!accessToken  && pathname !='/contest' && pathname!='/aboutstartup' && pathname !='/'  ) {
         // Redirect to login if accessToken is null
+        console.log('come')
         navigate('/login');
       }
     }, [accessToken , navigate]);
@@ -148,7 +149,6 @@ const App = () => {
           <Route path="/education" element={<EducationComponent />} />
           <Route path="/dashboard"  element={<DashBoard />} />
           <Route path="/about" element={<About />} />
-         <Route path="/contest" element={<ActiveCompetitions />} />
           <Route path="/competition" element={<UserContest />} />
           {/* <Route path="/create" element={<CreateConcept />} /> */}
           <Route path="/calendar" element={<TestCalendar />} />
@@ -162,7 +162,6 @@ const App = () => {
           <Route path="/notification" element={<Notification />} />
           <Route path="/createcompetition" element={<CreateCompetitionForm />} />
           <Route path="/overview/:contestId/:ok" element={<OverviewSection />} />
-          <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
           <Route path="/review" element={<PublishContest />} />
           <Route path="/reviewdiscription/:contestId/:ok" element={<ReviewDiscription />} />
           <Route path="/myuploader" element={<MyUploader />} />
@@ -179,6 +178,8 @@ const App = () => {
       <Route path="/" element={<Signup />} />
       <Route path="/aboutstartup" element={<AboutStartup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/contest" element={<ActiveCompetitions />} />
+      <Route path="/discription/:contestId/:ok" element={<ContestDiscription />} />
       
       {/* Add other routes for different pages */}
     </Routes>

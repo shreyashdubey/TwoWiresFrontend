@@ -41,7 +41,7 @@ import instance from '../utils/api'
 import { Navigate, useParams } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../utils/siteConstants.js';
 
-const ContestLayout = ({showTab}) => {
+const ContestLayout = ({showTab , comefrom}) => {
   // Assuming you have contest details available
   
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -83,9 +83,11 @@ const ContestLayout = ({showTab}) => {
   //   }
   // }, [soccerWinner]);
 
-
+  console.log('haha', comefrom)
   const handleJoinClick = () => {
-    setIsModalOpen(true);
+    if(comefrom ==='signup')   setIsModalOpen(true);
+    else navigate('/' , {state:{organizer:variable.organizer,name: variable.name , published :true  , contestId : contestId , ok: ok  , showTab}})
+    
   };
 
   const handleAcceptClick = () => {

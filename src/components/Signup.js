@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLogin from "./GoogleLogin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,   useLocation} from "react-router-dom";
 import instance from '../utils/api';
 import { LOGIN, SIGNUP } from '../utils/endpoints';
 import startup from '../images/startup.jpg'
@@ -27,6 +27,8 @@ Modal.setAppElement('#root'); // Set the root element as the modal's parent
 
 const Signup = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const variable= location.state;
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
   const [formData, setFormData] = useState({
@@ -56,7 +58,13 @@ const Signup = () => {
             if (accessToken) {
               localStorage.setItem("ACCESS_TOKEN", accessToken)
               localStorage.setItem("REFRESH_TOKEN", refreshToken)
+              if(variable){
+                const comefrom = 'signup'
+                navigate(`/discription/${variable.contestId}/${variable.ok}` ,  {state:{organizer:variable.organizer,name: variable.name , published :true , showTab : variable.showTab  , comefrom : comefrom}});
+              }
+              else{
                 navigate('/contest');
+              }
         } else {
           // Signup failed
           alert('Signup failed. Please try again.');

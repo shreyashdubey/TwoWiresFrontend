@@ -177,7 +177,7 @@ const ContestDiscription = () => {
   return (
     <Layout>
       <Box>
-      <ContestLayout  showTab = {variable.showTab}/> 
+      <ContestLayout  showTab = {variable.showTab}  comefrom = {variable.comefrom}  /> 
       <OverviewSection  published  ={variable.published} submitted = {variable.submitted}/>  
       </Box>
     </Layout> 

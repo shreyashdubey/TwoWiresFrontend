@@ -18,10 +18,14 @@ const [contestData , setContestData]  = useState([''])
   useEffect(() => {
     const fetchUserContests = async () => {
       try {
-        const accessToken = localStorage.getItem(ACCESS_TOKEN);
-        const decodedToken = jwtDecode(accessToken);
-        const userId = decodedToken.user._id;
-        instance.defaults.headers.common['Authorization'] = 'key '+localStorage.getItem(ACCESS_TOKEN);
+        // console.log('1')
+        // const accessToken = localStorage.getItem(ACCESS_TOKEN);
+        // console.log('2')
+        // const decodedToken = jwtDecode(accessToken);
+        // console.log('3')
+        // const userId = decodedToken.user._id;
+        // instance.defaults.headers.common['Authorization'] = 'key '+localStorage.getItem(ACCESS_TOKEN);
+       
         const contestsResponse = await instance.get(`/api/contest/get-all-contests?page=1&pageSize=30`);
         const contests = contestsResponse.contests;
         setContestData(contests);
@@ -51,7 +55,8 @@ const [contestData , setContestData]  = useState([''])
     const name = constestIndex.contestName;
     const contestOrganizer =  constestIndex.contestOrganizer
     const showTab = true
-    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true , showTab }});
+    const comefrom = 'contest'
+    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , published :true , showTab , comefrom : comefrom }});
   };
   return (
     <Layout>
