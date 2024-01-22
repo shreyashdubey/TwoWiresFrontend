@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "countries-list": "^3.0.6",
     "country-state-city": "^3.2.1",
+    "date-fns": "^3.3.0",
     "draftjs-to-html": "^0.9.1",
     "framer-motion": "^10.17.9",
     "jwt-decode": "^4.0.0",

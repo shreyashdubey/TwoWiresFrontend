@@ -61,7 +61,8 @@ const InviteUsers = () => {
       const decodedToken = jwtDecode(accessToken);
       const sender = decodedToken.user._id;
       const response_username = await instance.get(`${GET_USERID}${username}`);
-      const reciever = response_username.userId
+      console.log('kaka' , response_username)
+      const reciever = response_username.data._id
       const response_team = await instance.post(INVITE_USER ,{reciever,sender ,team}, {'Content-Type': 'application/json'})
       if (response_team) {
         const status = response_team.inviteStatus; 
