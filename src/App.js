@@ -20,7 +20,7 @@ import About from './components/About.js';
 import ActiveCompetitions from './components/Contest/Contest.js';
 import UserContest from './components/UserContest.js'
 import ContestDiscription from './components/ContestDescription.js';
-import CreateCompetitionForm from './components/CreateCompetitionForm.js'
+import CreateCompetitionForm from './components/CreateCompetition/CreateCompetitionForm.js'
 import Experience from './components/Experience.js';
 import TestCalendar from './components/TestCalendar.js';
 import OverviewSection from './components/OverviewSection.js';

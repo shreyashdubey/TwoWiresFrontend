@@ -1,24 +1,12 @@
 import React, { useMemo } from "react";
 import {
-  Container,
-  Heading,
-  SimpleGrid,
   Card,
   Box,
-  Badge,
   Text,
-  Image,
-  VStack,
-  HStack,
-  Spacer,
   useColorModeValue,
-  useBreakpointValue,
-  Center,
-  Flex,
   Link,
 } from "@chakra-ui/react";
-
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Skeleton, SkeletonText } from "@chakra-ui/react";
 
 const ContestSkeletion = ({ noOfCards }) => {
   const chakraUIColor = useColorModeValue(

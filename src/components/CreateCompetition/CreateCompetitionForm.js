@@ -10,29 +10,24 @@ import {
   Button,
   VStack,
   Center,
-  Select,
   Textarea,
   Flex,
-  Spacer,
   HStack,
   Card,
   Link,
-  Grid,
   SimpleGrid,
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
-import { useOverview } from "./OverviewContext";
-import { CREATE_CONTEST } from "../utils/endpoints";
+import { useOverview } from "../OverviewContext.js";
+import { CREATE_CONTEST } from "../../utils/endpoints.js";
 import { jwtDecode } from "jwt-decode";
-import instance from "../utils/api";
-import Layout from "./DashBoard.js";
-import UserContest from "./UserContest.js";
-import { ACCESS_TOKEN } from "../utils/siteConstants.js";
-import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import transition from "react-element-popper/animations/transition";
-import Icon from "react-multi-date-picker/components/icon";
+import instance from "../../utils/api.js";
+import Layout from "../DashBoard.js";
+import { ACCESS_TOKEN } from "../../utils/siteConstants.js";
+import CreateCompetitionSkeleton from "./CreateCompetitionSkeleton.js";
+import { Skeleton, SkeletonText } from "@chakra-ui/react";
+
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -56,6 +51,9 @@ const CreateCompetitionForm = () => {
   const contestDetail = {};
 
   const [userContests, setUserContests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log(isLoading, "isLoading");
 
   useEffect(() => {
     const fetchUserContests = async () => {
@@ -69,6 +67,8 @@ const CreateCompetitionForm = () => {
         );
         const contests = contestsResponse.contests;
         setUserContests(contests);
+        setIsLoading(false);
+        console.log(isLoading, "isLoading");
       } catch (error) {
         console.error("Error fetching user contests:", error);
         // Handle error cases if needed
@@ -263,9 +263,9 @@ const CreateCompetitionForm = () => {
     </button>
   ));
 
-  return (
-    <Layout>
-      <VStack>
+  return <Layout>
+    {/* <CreateCompetitionSkeleton cardsNo={6}/> */}
+    <VStack>
         <VStack>
           <HStack mt="20px">
             <Button
@@ -371,7 +371,7 @@ const CreateCompetitionForm = () => {
                         }
                         required
                       />
-                      
+
                       {/* <DatePicker
                         render={<Icon />}
                         format="MM/DD/YYYY HH:mm A"
@@ -384,7 +384,6 @@ const CreateCompetitionForm = () => {
                           />,
                         ]}
                       /> */}
-                      
                     </FormControl>
                   </Flex>
 
@@ -431,7 +430,7 @@ const CreateCompetitionForm = () => {
             alignItems="center"
           >
             <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
-              {userContests.map((contest, index) => (
+              {isLoading? (<CreateCompetitionSkeleton cardNo={6}/>) : (userContests.map((contest, index) => (
                 <Link
                   key={contest._id}
                   _hover={{ textDecoration: "none" }}
@@ -464,13 +463,14 @@ const CreateCompetitionForm = () => {
                     {/* Add other contest details as needed */}
                   </Card>
                 </Link>
-              ))}
+              )))}
+              
             </SimpleGrid>
           </Flex>
         </VStack>
       </VStack>
-    </Layout>
-  );
+
+  </Layout>;
 };
 
 export default CreateCompetitionForm;
