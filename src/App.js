@@ -19,7 +19,8 @@ import UserProfile from './components/UserProfile.js';
 import About from './components/About.js';
 import ActiveCompetitions from './components/Contest.js';
 import UserContest from './components/UserContest.js'
-import ContestDiscription from './components/ContestDescription.js';
+// import ContestDiscription from './components/ContestDescription.js';
+import ContestDiscription from './pages/contestDescription';
 import CreateCompetitionForm from './components/CreateCompetitionForm.js'
 import Experience from './components/Experience.js';
 import TestCalendar from './components/TestCalendar.js';
