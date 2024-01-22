@@ -1,15 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { UserProvider } from './UserContext';
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import theme from './utils/color';
-import { OverviewProvider } from './components/OverviewContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import { UserProvider } from "./UserContext";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import theme from "./utils/color";
+import { OverviewProvider } from "./components/OverviewContext";
 
-import App from './App';
+import App from "./App";
 
-
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement).render(
   <ChakraProvider theme={theme}>
     {/* Use ColorModeScript to set the initial color mode */}
@@ -21,9 +20,8 @@ ReactDOM.createRoot(rootElement).render(
       src="https://otpless.com/auth.js"
       cid="OZKDMIB9EXXJIOH8XBB89OMBI4SBNMMG"
     ></script> */}
-      <Router>
-          <App />
-      </Router>
-
-  </ChakraProvider>
+    <Router>
+      <App />
+    </Router>
+  </ChakraProvider>,
 );

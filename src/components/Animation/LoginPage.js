@@ -1,9 +1,5 @@
-
-
-
-
 // Example LoginPage.js
-import React from 'react';
+import React from "react";
 
 const LoginPage = ({ onBack }) => {
   return (

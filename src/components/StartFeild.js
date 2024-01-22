@@ -1,4 +1,4 @@
-import Starfield from './StartField';
+import Starfield from "./StartField";
 
 function Starfeild() {
   return (
@@ -15,12 +15,12 @@ function Starfeild() {
 }
 
 const StartFieldBg = ({ children }) => {
-    return (
-     <>
-        < Starfield/>
-        {children}
-      </>
-    );
-  };
+  return (
+    <>
+      <Starfield />
+      {children}
+    </>
+  );
+};
 
-  export default StartFieldBg
+export default StartFieldBg;

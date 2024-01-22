@@ -4,7 +4,7 @@ import Keyboard from "react-simple-keyboard";
 import {
   FormControl,
   FormLabel,
-  Input ,
+  Input,
   FormErrorMessage,
   FormHelperText,
   Center,
@@ -12,10 +12,10 @@ import {
   Button,
   Spinner,
   Hide,
-  Text, 
+  Text,
   AbsoluteCenter,
-} from '@chakra-ui/react'
-import axios from '../utils/api';
+} from "@chakra-ui/react";
+import axios from "../utils/api";
 
 // Instead of the default import, you can also use this:
 // import { KeyboardReact as Keyboard } from "react-simple-keyboard";
@@ -31,7 +31,7 @@ function Key() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const onChange = input => {
+  const onChange = (input) => {
     setInput(input);
     console.log("Input changed", input);
   };
@@ -41,7 +41,7 @@ function Key() {
     setLayout(newLayoutName);
   };
 
-  const onKeyPress = button => {
+  const onKeyPress = (button) => {
     console.log("Button pressed", button);
     setClickedButton(button);
     /**
@@ -50,12 +50,12 @@ function Key() {
     if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
-  const onChangeInput = event => {
+  const onChangeInput = (event) => {
     const input = event.target.value;
     setInput(input);
-    console.log('input' , input)
+    console.log("input", input);
     keyboard.current.setInput(input);
-    console.log('keyboard' , keyboard)
+    console.log("keyboard", keyboard);
   };
 
   const dynamicButtonTheme = [
@@ -82,13 +82,12 @@ function Key() {
     },
   ];
   if (clickedButton) {
-    console.log(dynamicButtonTheme)
+    console.log(dynamicButtonTheme);
     dynamicButtonTheme.push({
       class: "hg-highlight",
       buttons: clickedButton,
     });
   }
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -96,44 +95,45 @@ function Key() {
     try {
       setIsLoading(true);
       // Make the POST request to save the email to the database
-      const email = input
-      const response = await axios.post('http://localhost:3001/api/landing-page/subscribe', {
-        email,
-      });
+      const email = input;
+      const response = await axios.post(
+        "http://localhost:3001/api/landing-page/subscribe",
+        {
+          email,
+        },
+      );
 
       // Update the state with the response message
     } catch (error) {
       // Handle errors here (e.g., display an error message)
-      console.error('Error subscribing email:', error.message);
-    }finally{
+      console.error("Error subscribing email:", error.message);
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Box bgColor = 'black'  height='500px'>
-      <Center    >
-    <form  onSubmit={handleSubmit}   >
-              <FormControl mb="3" mt = "20"   >
-                <Input
-                  type='email'
-                  //value={input}
-                  placeholder={"Tap on the virtual keyboard to start"}
-                  onChange={onChangeInput}
-                  required
-                />
-              </FormControl>
-              <Center>
-              <Button type="submit" colorScheme="blue"   >
-                { isLoading ? <Spinner size='sm' /> : 'Enter' }
-               </Button>
-              </Center>
-              
-    
-            </form>
-    </Center>
-    <Hide below="720px">
-    <Center>
+    <Box bgColor="black" height="500px">
+      <Center>
+        <form onSubmit={handleSubmit}>
+          <FormControl mb="3" mt="20">
+            <Input
+              type="email"
+              // value={input}
+              placeholder={"Tap on the virtual keyboard to start"}
+              onChange={onChangeInput}
+              required
+            />
+          </FormControl>
+          <Center>
+            <Button type="submit" colorScheme="blue">
+              {isLoading ? <Spinner size="sm" /> : "Enter"}
+            </Button>
+          </Center>
+        </form>
+      </Center>
+      <Hide below="720px">
+        <Center>
           <Keyboard
             keyboardRef={(r) => (keyboard.current = r)}
             layoutName={layout}
@@ -150,7 +150,7 @@ function Key() {
               ],
               shift: [
                 "Q W E R T Y U I O P",
-                'A S D F G H J K L',
+                "A S D F G H J K L",
                 "Z X C V B N M .com @",
               ],
             }}
@@ -167,11 +167,9 @@ function Key() {
             physicalKeyboardHighlightPress={true}
           />
         </Center>
-      
-
       </Hide>
     </Box>
   );
 }
 
-export default Key
+export default Key;

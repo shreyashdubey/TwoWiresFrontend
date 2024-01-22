@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const SearchResults = ({ results, sendFriendRequest }) => {
   return (
@@ -14,7 +14,9 @@ const SearchResults = ({ results, sendFriendRequest }) => {
                 <h4>{user.username}</h4>
                 <p>{user.profession}</p>
                 <p>{user.expertise}</p>
-                <button onClick={() => sendFriendRequest(user._id)}>Send Friend Request</button>
+                <button onClick={() => sendFriendRequest(user._id)}>
+                  Send Friend Request
+                </button>
               </div>
             </li>
           ))}

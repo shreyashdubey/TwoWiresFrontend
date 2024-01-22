@@ -1,5 +1,5 @@
-import React, { useState  , useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -15,37 +15,39 @@ import {
   Flex,
   Spacer,
   HStack,
-  Card , 
+  Card,
   Link,
-  Grid ,  
-  SimpleGrid , Tag , TagLabel
-} from '@chakra-ui/react';
-import { useOverview } from './OverviewContext';
-import { CREATE_CONTEST } from '../utils/endpoints';
+  Grid,
+  SimpleGrid,
+  Tag,
+  TagLabel,
+} from "@chakra-ui/react";
+import { useOverview } from "./OverviewContext";
+import { CREATE_CONTEST } from "../utils/endpoints";
 import { jwtDecode } from "jwt-decode";
-import instance from '../utils/api'
-import Layout from './DashBoard.js';
-import UserContest from './UserContest.js';
-import { ACCESS_TOKEN } from '../utils/siteConstants.js';
+import instance from "../utils/api";
+import Layout from "./DashBoard.js";
+import UserContest from "./UserContest.js";
+import { ACCESS_TOKEN } from "../utils/siteConstants.js";
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [form , setForm] = useState()
+  const [form, setForm] = useState();
   const { isOverviewSaved } = useOverview();
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [editContestId, setEditContestId] = useState(null);
   const [initialFetch, setInitialFetch] = useState(false);
-  const {isSubmitted} = useOverview()
+  const { isSubmitted } = useOverview();
 
-  console.log(isOverviewSaved)
+  console.log(isOverviewSaved);
   const [formData, setFormData] = useState({
-    contestName: '',
-    contestOrganizer: '',
-   // contestCreator: [{}],
-    startTime: '',
-    endTime: '',
-    description: '',
+    contestName: "",
+    contestOrganizer: "",
+    // contestCreator: [{}],
+    startTime: "",
+    endTime: "",
+    description: "",
   });
   const contestDetail = {};
 
@@ -57,12 +59,14 @@ const CreateCompetitionForm = () => {
         const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
-  
-        const contestsResponse = await instance.get(`/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`);
+
+        const contestsResponse = await instance.get(
+          `/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`,
+        );
         const contests = contestsResponse.contests;
         setUserContests(contests);
       } catch (error) {
-        console.error('Error fetching user contests:', error);
+        console.error("Error fetching user contests:", error);
         // Handle error cases if needed
       }
     };
@@ -88,32 +92,36 @@ const CreateCompetitionForm = () => {
       // Prepare the data for the API request
       const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
-      const userId = decodedToken.user._id
+      const userId = decodedToken.user._id;
 
-        const contestName =  formData.contestName
-        const contestOrganizer= formData.contestOrganizer
-        const contestCreator = [userId] // Assuming contestCreator is a single value, adjust as needed
-        const startTime = formData.startTime
-        const endTime = formData.endTime
+      const contestName = formData.contestName;
+      const contestOrganizer = formData.contestOrganizer;
+      const contestCreator = [userId]; // Assuming contestCreator is a single value, adjust as needed
+      const startTime = formData.startTime;
+      const endTime = formData.endTime;
 
       // Make the API request
-       const response = await instance.post(CREATE_CONTEST,{contestName , contestOrganizer , contestCreator ,startTime , endTime }, {'Content-Type': 'application/json'})
+      const response = await instance.post(
+        CREATE_CONTEST,
+        { contestName, contestOrganizer, contestCreator, startTime, endTime },
+        { "Content-Type": "application/json" },
+      );
 
       // Handle the response from the API
-        console.log('API Response:', response.data);
+      console.log("API Response:", response.data);
 
       // Assuming the API response is successful, you can redirect to the overview page
       if (response.success) {
         // Optionally, you can set isOverviewSaved in the context or component state
         // to update the Save button logic if needed
         setIsFormVisible(false);
-        setInitialFetch(false)
-        //navigate('/overview');
+        setInitialFetch(false);
+        // navigate('/overview');
       } else {
         // Handle error cases if needed
       }
     } catch (error) {
-      console.error('API Request Error:', error);
+      console.error("API Request Error:", error);
       // Handle error cases if needed
     }
   };
@@ -125,54 +133,67 @@ const CreateCompetitionForm = () => {
       // Prepare the data for the API request
       const accessToken = localStorage.getItem(ACCESS_TOKEN);
       const decodedToken = jwtDecode(accessToken);
-      const userId = decodedToken.user._id
+      const userId = decodedToken.user._id;
 
-        const contestName =  formData.contestName
-        const contestOrganizer= formData.contestOrganizer
-        const contestCreator = [userId] // Assuming contestCreator is a single value, adjust as needed
-        const startTime = formData.startTime
-        const endTime = formData.endTime
-        const isPublished = false
+      const contestName = formData.contestName;
+      const contestOrganizer = formData.contestOrganizer;
+      const contestCreator = [userId]; // Assuming contestCreator is a single value, adjust as needed
+      const startTime = formData.startTime;
+      const endTime = formData.endTime;
+      const isPublished = false;
 
       // Make the API request
-       const response = await instance.put(`/api/contest/edit-contest/${editContestId}`,{contestName , contestOrganizer , contestCreator ,startTime , endTime , isPublished}, {'Content-Type': 'application/json'})
+      const response = await instance.put(
+        `/api/contest/edit-contest/${editContestId}`,
+        {
+          contestName,
+          contestOrganizer,
+          contestCreator,
+          startTime,
+          endTime,
+          isPublished,
+        },
+        { "Content-Type": "application/json" },
+      );
 
       // Handle the response from the API
-        console.log('API Response:', response.data);
+      console.log("API Response:", response.data);
 
       // Assuming the API response is successful, you can redirect to the overview page
       if (response.success) {
         // Optionally, you can set isOverviewSaved in the context or component state
         // to update the Save button logic if needed
         setIsFormVisible(false);
-        setEditContestId(null)
-        setInitialFetch(false)
-        //navigate('/overview');
+        setEditContestId(null);
+        setInitialFetch(false);
+        // navigate('/overview');
       } else {
         // Handle error cases if needed
       }
     } catch (error) {
-      console.error('API Request Error:', error);
+      console.error("API Request Error:", error);
       // Handle error cases if needed
     }
   };
 
   const handleEditButtonClick = (contestId, contestName) => {
     // Find the contest with the given ID from userContests
-    const contestToEdit = userContests.find((contest) => contest._id === contestId);
-  
+    const contestToEdit = userContests.find(
+      (contest) => contest._id === contestId,
+    );
+
     // Set the form data with the contest details
     setFormData({
       contestName: contestToEdit.contestName,
       contestOrganizer: contestToEdit.contestOrganizer,
-      startTime: '', // Add other fields as needed
-      endTime: '',
-      description: '',
+      startTime: "", // Add other fields as needed
+      endTime: "",
+      description: "",
     });
-  
+
     // Set the contest ID to track which contest is being edited
     setEditContestId(contestId);
-  
+
     // Open the form
     setIsFormVisible(true);
   };
@@ -180,26 +201,26 @@ const CreateCompetitionForm = () => {
   const handleDeleteButtonClick = async (contestId, contestCreatorId) => {
     try {
       // Make the API request to delete the contest
-      const response = await instance.delete(`/api/contest/delete-contest/${contestId}/${contestCreatorId}`);
-  
+      const response = await instance.delete(
+        `/api/contest/delete-contest/${contestId}/${contestCreatorId}`,
+      );
+
       // Handle the response from the API
-      console.log('API Response:', response.data);
-  
+      console.log("API Response:", response.data);
+
       // Assuming the API response is successful
       if (response.success) {
         // Trigger a re-fetch of user contests or update the UI as needed
         setIsFormSubmitted(!isFormSubmitted);
-        setInitialFetch(false)
+        setInitialFetch(false);
       } else {
         // Handle error cases if needed
       }
     } catch (error) {
-      console.error('API Request Error:', error);
+      console.error("API Request Error:", error);
       // Handle error cases if needed
     }
   };
-  
-  
 
   const handlePlusButtonClick = () => {
     setIsFormVisible(true);
@@ -209,64 +230,90 @@ const CreateCompetitionForm = () => {
     setIsFormVisible(false);
   };
 
-  const handleCardClick = (contestId,index) => {
+  const handleCardClick = (contestId, index) => {
     // Navigate to the overview page with user ID and contest ID
-    const constestIndex = userContests[index]
+    const constestIndex = userContests[index];
     const name = constestIndex.contestName;
-    const contestOrganizer =  constestIndex.contestOrganizer
-    const submitted = constestIndex.isSubmitted
-    const published = constestIndex.isPublished
-    let ok =0;
-    if(constestIndex.contestDescription){
-      ok=1
-      console.log(ok)
+    const contestOrganizer = constestIndex.contestOrganizer;
+    const submitted = constestIndex.isSubmitted;
+    const published = constestIndex.isPublished;
+    let ok = 0;
+    if (constestIndex.contestDescription) {
+      ok = 1;
+      console.log(ok);
     }
 
-    navigate(`/discription/${contestId}/${ok}` ,  {state:{organizer:contestOrganizer,name: name , submitted : submitted , published : published}});
+    navigate(`/discription/${contestId}/${ok}`, {
+      state: {
+        organizer: contestOrganizer,
+        name,
+        submitted,
+        published,
+      },
+    });
   };
 
   return (
     <Layout>
-    <VStack>
       <VStack>
-        <HStack mt='20px' >
-     <Button onClick={handlePlusButtonClick} colorScheme="teal" size="lg" mb={4}>
-        Open Form
-      </Button>
-      <Button onClick={handleCloseButtonClick} colorScheme="teal" size="lg" mb={4}>
-        Close Form
-      </Button>
-      </HStack>
-      {isFormVisible && (
-    <Box p={8}  w={['250px' , '300px' , '300px' , '500px' , '500px' , '500px']} borderWidth={1} borderRadius="lg" boxShadow="lg" mt='20px'>
-      <Heading mb={4}>Create a Competition</Heading>
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={4} align="stretch">
-          <FormControl>
-            <FormLabel>Contest Name</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter contest name in at max 15 words"
-              value={formData.contestName}
-              onChange={(e) => handleInputChange('contestName', e.target.value)}
-              required
-            />
-          </FormControl>
+        <VStack>
+          <HStack mt="20px">
+            <Button
+              onClick={handlePlusButtonClick}
+              colorScheme="teal"
+              size="lg"
+              mb={4}
+            >
+              Open Form
+            </Button>
+            <Button
+              onClick={handleCloseButtonClick}
+              colorScheme="teal"
+              size="lg"
+              mb={4}
+            >
+              Close Form
+            </Button>
+          </HStack>
+          {isFormVisible && (
+            <Box
+              p={8}
+              w={["250px", "300px", "300px", "500px", "500px", "500px"]}
+              borderWidth={1}
+              borderRadius="lg"
+              boxShadow="lg"
+              mt="20px"
+            >
+              <Heading mb={4}>Create a Competition</Heading>
+              <form onSubmit={handleSubmit}>
+                <VStack spacing={4} align="stretch">
+                  <FormControl>
+                    <FormLabel>Contest Name</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="Enter contest name in at max 15 words"
+                      value={formData.contestName}
+                      onChange={(e) =>
+                        handleInputChange("contestName", e.target.value)
+                      }
+                      required
+                    />
+                  </FormControl>
 
-          <FormControl>
-            <FormLabel>Contest Organizer</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter contest organizer in at max 12 words"
-              value={formData.contestOrganizer}
-              onChange={(e) =>
-                handleInputChange('contestOrganizer', e.target.value)
-              }
-              required
-            />
-          </FormControl>
+                  <FormControl>
+                    <FormLabel>Contest Organizer</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="Enter contest organizer in at max 12 words"
+                      value={formData.contestOrganizer}
+                      onChange={(e) =>
+                        handleInputChange("contestOrganizer", e.target.value)
+                      }
+                      required
+                    />
+                  </FormControl>
 
-          {/* <FormControl>
+                  {/* <FormControl>
             <FormLabel>Contest Creator</FormLabel>
             <Input
               type="text"
@@ -279,95 +326,114 @@ const CreateCompetitionForm = () => {
             />
           </FormControl> */}
 
-          <Flex direction='column'>
-            <FormControl flex="1">
-              <FormLabel>Start Time</FormLabel>
-              <Input
-                type="datetime-local"
-                value={formData.startTime}
-                onChange={(e) =>
-                  handleInputChange('startTime', e.target.value)
-                }
-                required
-              />
-            </FormControl>
+                  <Flex direction="column">
+                    <FormControl flex="1">
+                      <FormLabel>Start Time</FormLabel>
+                      <Input
+                        type="datetime-local"
+                        value={formData.startTime}
+                        onChange={(e) =>
+                          handleInputChange("startTime", e.target.value)
+                        }
+                        required
+                      />
+                    </FormControl>
 
-            <FormControl flex="1">
-              <FormLabel>End Time</FormLabel>
-              <Input
-                type="datetime-local"
-                value={formData.endTime}
-                onChange={(e) => handleInputChange('endTime', e.target.value)}
-                required
-              />
-            </FormControl>
-          </Flex>
+                    <FormControl flex="1">
+                      <FormLabel>End Time</FormLabel>
+                      <Input
+                        type="datetime-local"
+                        value={formData.endTime}
+                        onChange={(e) =>
+                          handleInputChange("endTime", e.target.value)
+                        }
+                        required
+                      />
+                    </FormControl>
+                  </Flex>
 
-          <FormControl>
-            <FormLabel>Description</FormLabel>
-            <Textarea
-              placeholder="Enter contest description"
-              value={formData.description}
-              onChange={(e) =>
-                handleInputChange('description', e.target.value)
-              }
-              resize="vertical"
-              rows={4}
-            />
-          </FormControl>
+                  <FormControl>
+                    <FormLabel>Description</FormLabel>
+                    <Textarea
+                      placeholder="Enter contest description"
+                      value={formData.description}
+                      onChange={(e) =>
+                        handleInputChange("description", e.target.value)
+                      }
+                      resize="vertical"
+                      rows={4}
+                    />
+                  </FormControl>
 
-          <Center>
-          {editContestId ? (
-            <Button type="submit" colorScheme="teal" size="lg" onClick={handleUpdate}>
-              Update Competition
-            </Button>
-          ) : (
-            <Button type="submit" colorScheme="teal" size="lg">
-              Create Competition
-            </Button>
+                  <Center>
+                    {editContestId ? (
+                      <Button
+                        type="submit"
+                        colorScheme="teal"
+                        size="lg"
+                        onClick={handleUpdate}
+                      >
+                        Update Competition
+                      </Button>
+                    ) : (
+                      <Button type="submit" colorScheme="teal" size="lg">
+                        Create Competition
+                      </Button>
+                    )}
+                  </Center>
+                </VStack>
+              </form>
+            </Box>
           )}
-          </Center>
         </VStack>
-      </form>
-    </Box>
-    )}
-    </VStack>
-  <VStack spacing={4} align="stretch">
-  <Flex  centerContent mt={10} w={['100%' , '100%' , '100%' , '100%', '100%']}  direction='column' alignItems="center">
-      <SimpleGrid  columns={[1,1,1,2,3,3]}  spacing={4}  mt='10px'>
-          {userContests.map((contest, index) => (
-            <Link
-              key={contest._id}
-              _hover={{ textDecoration: 'none' }}
-              onClick={() => handleCardClick(contest._id, index)}
-            >
-              <Card p={8} borderWidth={1} borderRadius="lg" boxShadow="lg"   w={['250px' , '300px' , '320px' , '300px' , '200px' , '300px']} h='200px' >
-                <Heading mb={4} fontSize='medium' >{contest.contestName}</Heading>
-                <Text fontSize='medium' >Organizer: {contest.contestOrganizer}</Text>
-                {!contest.isPublished && contest.isSubmitted && (
-                   <Tag   mt='30px' >
-                   <TagLabel >
-                     Waiting for review
-                   </TagLabel>
-                 </Tag>
-                )}
-                {contest.isPublished && (
-                   <Tag  bgColor='green'  mt='30px' >
-                   <TagLabel color='black' > 
-                     Published
-                   </TagLabel>
-                 </Tag>
-                )}
-                {/* Add other contest details as needed */}
-              </Card>
-            </Link>
-          ))}
-        </SimpleGrid>
-        </Flex>
-  </VStack>
-    </VStack>
+        <VStack spacing={4} align="stretch">
+          <Flex
+            centerContent
+            mt={10}
+            w={["100%", "100%", "100%", "100%", "100%"]}
+            direction="column"
+            alignItems="center"
+          >
+            <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
+              {userContests.map((contest, index) => (
+                <Link
+                  key={contest._id}
+                  _hover={{ textDecoration: "none" }}
+                  onClick={() => handleCardClick(contest._id, index)}
+                >
+                  <Card
+                    p={8}
+                    borderWidth={1}
+                    borderRadius="lg"
+                    boxShadow="lg"
+                    w={["250px", "300px", "320px", "300px", "200px", "300px"]}
+                    h="200px"
+                  >
+                    <Heading mb={4} fontSize="medium">
+                      {contest.contestName}
+                    </Heading>
+                    <Text fontSize="medium">
+                      Organizer: {contest.contestOrganizer}
+                    </Text>
+                    {!contest.isPublished && contest.isSubmitted && (
+                      <Tag mt="30px">
+                        <TagLabel>Waiting for review</TagLabel>
+                      </Tag>
+                    )}
+                    {contest.isPublished && (
+                      <Tag bgColor="green" mt="30px">
+                        <TagLabel color="black">Published</TagLabel>
+                      </Tag>
+                    )}
+                    {/* Add other contest details as needed */}
+                  </Card>
+                </Link>
+              ))}
+            </SimpleGrid>
+          </Flex>
+        </VStack>
+      </VStack>
     </Layout>
-
   );
 };
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import OneSignal from 'react-onesignal';
+import React from "react";
+import OneSignal from "react-onesignal";
 
 function RequestSender() {
   const sendRequest = () => {
@@ -8,18 +8,16 @@ function RequestSender() {
 
     // Define the notification content
     OneSignal.postNotification({
-        contents: { en: "You have a new friend request!" },
-        include_player_ids: [recipientPlayerId],
-        data: {
-          requestType: 'friendRequest',
-          senderName: 'John Doe', // Include any other custom data you want
-        },
-      });
-    }
+      contents: { en: "You have a new friend request!" },
+      include_player_ids: [recipientPlayerId],
+      data: {
+        requestType: "friendRequest",
+        senderName: "John Doe", // Include any other custom data you want
+      },
+    });
+  };
 
-  return (
-    <button onClick={sendRequest}>Send Request</button>
-  );
+  return <button onClick={sendRequest}>Send Request</button>;
 }
 
 export default RequestSender;

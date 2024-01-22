@@ -20,7 +20,13 @@ const ParentModal = ({ isOpen, onClose, onChildOpen }) => {
         <ModalCloseButton />
         <ModalBody>
           <p>Parent modal content goes here.</p>
-          <Button colorScheme="blue" onClick={() => { onChildOpen(); onClose(); }}>
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              onChildOpen();
+              onClose();
+            }}
+          >
             Open Child Modal
           </Button>
         </ModalBody>
@@ -57,13 +63,25 @@ const ChildModal = ({ isOpen, onClose }) => {
 };
 
 const ModalTesting = () => {
-  const { isOpen: isParentOpen, onOpen: onParentOpen, onClose: onParentClose } = useDisclosure();
-  const { isOpen: isChildOpen, onOpen: onChildOpen, onClose: onChildClose } = useDisclosure();
+  const {
+    isOpen: isParentOpen,
+    onOpen: onParentOpen,
+    onClose: onParentClose,
+  } = useDisclosure();
+  const {
+    isOpen: isChildOpen,
+    onOpen: onChildOpen,
+    onClose: onChildClose,
+  } = useDisclosure();
 
   return (
     <div>
       <Button onClick={onParentOpen}>Open Parent Modal</Button>
-      <ParentModal isOpen={isParentOpen} onClose={onParentClose} onChildOpen={onChildOpen} />
+      <ParentModal
+        isOpen={isParentOpen}
+        onClose={onParentClose}
+        onChildOpen={onChildOpen}
+      />
       <ChildModal isOpen={isChildOpen} onClose={onChildClose} />
     </div>
   );
