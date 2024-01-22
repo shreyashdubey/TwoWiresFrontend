@@ -18,6 +18,7 @@ import {
   SimpleGrid,
   Tag,
   TagLabel,
+  Image,
 } from "@chakra-ui/react";
 import { useOverview } from "../OverviewContext.js";
 import { CREATE_CONTEST } from "../../utils/endpoints.js";
@@ -27,7 +28,8 @@ import Layout from "../DashBoard.js";
 import { ACCESS_TOKEN } from "../../utils/siteConstants.js";
 import CreateCompetitionSkeleton from "./CreateCompetitionSkeleton.js";
 import { Skeleton, SkeletonText } from "@chakra-ui/react";
-
+import plus from "../images/plus.png";
+import close from "../images/close.png";
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const CreateCompetitionForm = () => {
 
   const [userContests, setUserContests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [formOpen, setFormOpen] = useState(true);
 
   console.log(isLoading, "isLoading");
 
@@ -263,29 +266,13 @@ const CreateCompetitionForm = () => {
     </button>
   ));
 
-  return <Layout>
-    {/* <CreateCompetitionSkeleton cardsNo={6}/> */}
-    <VStack>
+  return (
+    <Layout>
+      {/* <CreateCompetitionSkeleton cardsNo={6}/> */}
+      <VStack>
         <VStack>
-          <HStack mt="20px">
-            <Button
-              onClick={handlePlusButtonClick}
-              colorScheme="teal"
-              size="lg"
-              mb={4}
-            >
-              Open Form
-            </Button>
-            <Button
-              onClick={handleCloseButtonClick}
-              colorScheme="teal"
-              size="lg"
-              mb={4}
-            >
-              Close Form
-            </Button>
-          </HStack>
-          {isFormVisible && (
+          
+          {isFormVisible ? (
             <Box
               p={8}
               w={["250px", "300px", "300px", "500px", "500px", "500px"]}
@@ -294,6 +281,20 @@ const CreateCompetitionForm = () => {
               boxShadow="lg"
               mt="20px"
             >
+              <Button
+                bgColor="custom.button"
+                size="20px"
+                marginLeft="95%"
+                onClick={handleCloseButtonClick}
+                borderRadius="50%"
+              >
+                <Image
+                  boxSize="22px"
+                  objectFit="cover"
+                  src={close}
+                  alt="close"
+                />
+              </Button>
               <Heading mb={4}>Create a Competition</Heading>
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="stretch">
@@ -419,6 +420,13 @@ const CreateCompetitionForm = () => {
                 </VStack>
               </form>
             </Box>
+          ) : (
+            <Box mt="22px" display="flex" gap="10px" alignItems="center">
+              <Text fontSize="20px">Create Contest</Text>
+              <Button bgColor="custom.button" onClick={handlePlusButtonClick}>
+                <Image boxSize="35px" objectFit="cover" src={plus} alt="plus" />
+              </Button>
+            </Box>
           )}
         </VStack>
         <VStack spacing={4} align="stretch">
@@ -430,47 +438,51 @@ const CreateCompetitionForm = () => {
             alignItems="center"
           >
             <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
-              {isLoading? (<CreateCompetitionSkeleton cardNo={6}/>) : (userContests.map((contest, index) => (
-                <Link
-                  key={contest._id}
-                  _hover={{ textDecoration: "none" }}
-                  onClick={() => handleCardClick(contest._id, index)}
-                >
-                  <Card
-                    p={8}
-                    borderWidth={1}
-                    borderRadius="lg"
-                    boxShadow="lg"
-                    w={["250px", "300px", "320px", "300px", "200px", "300px"]}
-                    h="200px"
+              {isLoading ? (
+                <CreateCompetitionSkeleton cardNo={6} />
+              ) : (
+                userContests.map((contest, index) => (
+                  <Link
+                    key={contest._id}
+                    _hover={{ textDecoration: "none" }}
+                    onClick={() => handleCardClick(contest._id, index)}
                   >
-                    <Heading mb={4} fontSize="medium">
-                      {contest.contestName}
-                    </Heading>
-                    <Text fontSize="medium">
-                      Organizer: {contest.contestOrganizer}
-                    </Text>
-                    {!contest.isPublished && contest.isSubmitted && (
-                      <Tag mt="30px">
-                        <TagLabel>Waiting for review</TagLabel>
-                      </Tag>
-                    )}
-                    {contest.isPublished && (
-                      <Tag bgColor="green" mt="30px">
-                        <TagLabel color="black">Published</TagLabel>
-                      </Tag>
-                    )}
-                    {/* Add other contest details as needed */}
-                  </Card>
-                </Link>
-              )))}
-              
+                    <Card
+                      p={8}
+                      borderWidth={1}
+                      borderRadius="lg"
+                      boxShadow="lg"
+                      w={["250px", "300px", "320px", "300px", "200px", "300px"]}
+                      h="200px"
+                      justifyContent="space-between"
+                    >
+                      <Heading mb={4} fontSize="medium">
+                        {contest.contestName}
+                      </Heading>
+                      <Text fontSize="medium" overflow="hidden">
+                        Organizer: {contest.contestOrganizer}
+                      </Text>
+                      {!contest.isPublished && contest.isSubmitted && (
+                        <Tag mt="30px">
+                          <TagLabel>Waiting for review</TagLabel>
+                        </Tag>
+                      )}
+                      {contest.isPublished && (
+                        <Tag bgColor="green" mt="30px">
+                          <TagLabel color="black">Published</TagLabel>
+                        </Tag>
+                      )}
+                      {/* Add other contest details as needed */}
+                    </Card>
+                  </Link>
+                ))
+              )}
             </SimpleGrid>
           </Flex>
         </VStack>
       </VStack>
-
-  </Layout>;
+    </Layout>
+  );
 };
 
 export default CreateCompetitionForm;

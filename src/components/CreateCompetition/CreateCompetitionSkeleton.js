@@ -17,7 +17,7 @@ import { Skeleton, SkeletonText } from "@chakra-ui/react";
 const CreateCompetitionSkeleton = ({ cardNo }) => {
   const contestCard = useMemo(() => {
     const arr = [];
-    for (let i = 0; i <= cardNo; i++) {
+    for (let i = 0; i < cardNo; i++) {
       arr.push(
         <Link>
           <Card
