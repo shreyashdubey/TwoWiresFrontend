@@ -6,6 +6,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Avatar,
   Icon,
   Tabs,
   TabList,
@@ -20,7 +21,19 @@ import {
   Center,
   Box,
   Tooltip,
+  Button,
   Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
@@ -44,7 +57,11 @@ import { GET_ALL_NOTIFICATION } from "../utils/endpoints";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
 import FilterBar from "./FilterBar";
 import useOutsideClick from "../Hooks/UseOutsideClick";
-
+import UserProfile from "./UserProfile";
+import { getDecodedUserData } from "../utils/helper";
+import axios from "../utils/api";
+import { GET_USER_INFO } from "../utils/endpoints";
+import { Divider } from '@chakra-ui/react'
 
 const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const navigate = useNavigate();
@@ -107,7 +124,39 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const headerRef = useRef();
   useOutsideClick(headerRef, handleBlur);
 
+  const [userData, setUserData] = useState({
+    data: null,
+    isFetching: false,
+  });
+
+  const fetchUserData = async () => {
+    try {
+      const user = getDecodedUserData();
+      if (!user) {
+        throw new Error("User not found in JWT token");
+      }
+      setUserData({
+        data: null,
+        isFetching: true,
+      });
+      const userName = user.username;
+      const response = await axios.get(`${GET_USER_INFO}/${userName}`);
+      setUserData({
+        data: response.data,
+        isFetching: false,
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setUserData((prevState) => ({
+        ...prevState,
+        isFetching: false,
+      }));
+    }
+  };
+
   useEffect(() => {
+    fetchUserData();
     const { pathname, params } = location;
 
     // Check if the pathname matches the expected pattern
@@ -279,7 +328,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                   )}
                 </Tab>
               </Tooltip>
-              <Tooltip label="User">
+              {/* <Tooltip label="User">
                 <Tab onClick={handleUserTabClick}>
                   {homeImage ? (
                     <Image
@@ -301,7 +350,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                     />
                   )}
                 </Tab>
-              </Tooltip>
+              </Tooltip> */}
               <Tooltip label="user can list problem as contest which they have experienced in life so enterprenueurs can solve ">
                 <Tab onClick={handleUserContestTabClick}>
                   {teamImage ? (
@@ -354,27 +403,72 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                   </Box>
                 </Tab>
               </Tooltip>
-              <Tooltip label="Logout">
-                <Tab onClick={handleUserLogoutTabClick}>
-                  {logoutImage ? (
-                    <Image
-                      boxSize="25px"
-                      objectFit="cover"
-                      src={logout}
-                      alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
-                      borderColor="custom.white"
-                    />
-                  ) : (
-                    <Image
-                      boxSize="25px"
-                      objectFit="cover"
-                      src={logoutdark}
-                      alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
-                      borderColor="custom.white"
-                    />
-                  )}
+              <Tooltip>
+                <Tab>
+                  <Menu>
+                    <MenuButton as={Box} borderRadius="full"  backgroundColor="custom.midnightBlue">
+                      <Text
+                        fontSize="18"
+                        color="custom.white"
+                        backgroundColor="custom.teal"
+                        borderRadius="full"
+                        padding="4px"
+                      >
+                        {userData?.data?.firstName.charAt(0)}&nbsp;
+                        {userData?.data?.lastName.charAt(0)}
+                      </Text>
+                    </MenuButton>
+                    <MenuList height="160px" width="60px" backgroundColor="custom.emeraldDark">
+                      <MenuGroup
+                        title={`${userData?.data?.firstName}
+                        ${userData?.data?.lastName}`}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        fontSize="19px"
+                        color="custom.ongoing"
+                      >
+                        <Divider/>
+                        <MenuItem
+                          onClick={handleUserTabClick}
+                          fontSize="16px"
+                          paddingTop="10px"
+                          marginTop="15px"
+                          justifyContent="center"
+                          backgroundColor="custom.emeraldDark"
+                          _hover={{backgroundColor: "custom.emerald"}}
+                        >
+                          <Image
+                            boxSize="20px"
+                            objectFit="contain"
+                            src={user}
+                            alt="User" // Adjust the border width as needed
+                            borderColor="custom.white"
+                            margin="0 8px"
+                          />
+                          User Profile
+                        </MenuItem>
+                        <MenuItem
+                          onClick={handleUserLogoutTabClick}
+                          fontSize="16px"
+                          paddingTop="10px"
+                          justifyContent="center"
+                          backgroundColor="custom.emeraldDark"
+                          _hover={{backgroundColor: "custom.emerald"}}
+                        >
+                          <Image
+                            boxSize="20px"
+                            objectFit="contain"
+                            src={logout}
+                            alt="User" // Adjust the border width as needed
+                            borderColor="custom.white"
+                            margin="0 8px"
+                          />
+                          Logout
+                        </MenuItem>
+                      </MenuGroup>
+                    </MenuList>
+                  </Menu>
                 </Tab>
               </Tooltip>
             </TabList>

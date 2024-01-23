@@ -17,6 +17,8 @@ const theme = extendTheme({
       black: "#000000",
       teal: "#285E61",
       blue: "#0000ff",
+      emerald: "#047857",
+      emeraldDark: "#022c22",
     },
   },
   config: {
