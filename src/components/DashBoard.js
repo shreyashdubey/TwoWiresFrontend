@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Avatar,
   Icon,
   Tabs,
   TabList,
@@ -21,33 +20,24 @@ import {
   Center,
   Box,
   Tooltip,
-  Button,
   Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
   MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
 import trophy from "./images/trophy.png";
-import theme from "../utils/color";
 import user from "./images/home.png";
 import logout from "./images/logout.png";
 import team from "./images/team.png";
 
 import trophydark from "./images/trophydark.png";
-import userdark from "./images/homedark.png";
-import logoutdark from "./images/logoutdark.png";
 import teamdark from "./images/teamdark.png";
-import Search from "./Search";
 import BelowDashBoard from "./BelowDashboard";
 import Notifications from "./images/notification.png";
 import { useOverview } from "./OverviewContext";
@@ -57,11 +47,10 @@ import { GET_ALL_NOTIFICATION } from "../utils/endpoints";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
 import FilterBar from "./FilterBar";
 import useOutsideClick from "../Hooks/UseOutsideClick";
-import UserProfile from "./UserProfile";
 import { getDecodedUserData } from "../utils/helper";
 import axios from "../utils/api";
 import { GET_USER_INFO } from "../utils/endpoints";
-import { Divider } from '@chakra-ui/react'
+import { Divider } from "@chakra-ui/react";
 
 const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const navigate = useNavigate();
@@ -328,29 +317,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                   )}
                 </Tab>
               </Tooltip>
-              {/* <Tooltip label="User">
-                <Tab onClick={handleUserTabClick}>
-                  {homeImage ? (
-                    <Image
-                      boxSize="25px"
-                      objectFit="cover"
-                      src={user}
-                      alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
-                      borderColor="custom.white"
-                    />
-                  ) : (
-                    <Image
-                      boxSize="25px"
-                      objectFit="cover"
-                      src={userdark}
-                      alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
-                      borderColor="custom.white"
-                    />
-                  )}
-                </Tab>
-              </Tooltip> */}
               <Tooltip label="user can list problem as contest which they have experienced in life so enterprenueurs can solve ">
                 <Tab onClick={handleUserContestTabClick}>
                   {teamImage ? (
@@ -359,7 +325,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                       objectFit="cover"
                       src={team}
                       alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
+                      border="5px"
                       borderColor="custom.white"
                     />
                   ) : (
@@ -368,7 +334,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                       objectFit="cover"
                       src={teamdark}
                       alt="Dan Abramov"
-                      border="5px" // Adjust the border width as needed
+                      border="5px"
                       borderColor="custom.white"
                     />
                   )}
@@ -406,37 +372,38 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
               <Tooltip>
                 <Tab>
                   <Menu>
-                    <MenuButton as={Box} borderRadius="full"  backgroundColor="custom.midnightBlue">
+                    <MenuButton
+                      
+                      as={Box}
+                      borderRadius="full"
+                      backgroundColor="custom.midnightBlue"
+                    >
                       <Text
                         fontSize="18"
                         color="custom.white"
                         backgroundColor="custom.teal"
                         borderRadius="full"
-                        padding="4px"
+                        padding="5px"
                       >
-                        {userData?.data?.firstName.charAt(0)}&nbsp;
+                        {userData?.data?.firstName.charAt(0)}
                         {userData?.data?.lastName.charAt(0)}
                       </Text>
                     </MenuButton>
-                    <MenuList height="160px" width="60px" backgroundColor="custom.emeraldDark">
+                    <MenuList
+                      height="160px"
+                      width="60px"
+                    >
                       <MenuGroup
                         title={`${userData?.data?.firstName}
                         ${userData?.data?.lastName}`}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
                         fontSize="19px"
-                        color="custom.ongoing"
                       >
-                        <Divider/>
+                        <Divider />
                         <MenuItem
                           onClick={handleUserTabClick}
                           fontSize="16px"
                           paddingTop="10px"
                           marginTop="15px"
-                          justifyContent="center"
-                          backgroundColor="custom.emeraldDark"
-                          _hover={{backgroundColor: "custom.emerald"}}
                         >
                           <Image
                             boxSize="20px"
@@ -452,9 +419,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                           onClick={handleUserLogoutTabClick}
                           fontSize="16px"
                           paddingTop="10px"
-                          justifyContent="center"
-                          backgroundColor="custom.emeraldDark"
-                          _hover={{backgroundColor: "custom.emerald"}}
                         >
                           <Image
                             boxSize="20px"

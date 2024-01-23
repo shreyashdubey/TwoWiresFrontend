@@ -19,6 +19,7 @@ const theme = extendTheme({
       blue: "#0000ff",
       emerald: "#047857",
       emeraldDark: "#022c22",
+      pureBlue: "#3182CE",
     },
   },
   config: {

@@ -46,6 +46,7 @@ import ExcecutingStep from './components/ExecutingStep.js';
 import Tutorial from './components/Tutorial.js';
 import Stuck from './components/Stuck.js';
 import { ACCESS_TOKEN } from './utils/siteConstants.js';
+import Error404 from './components/Error404/Error404.js';
 
 const App = () => {
     const navigate = useNavigate();
@@ -179,6 +180,7 @@ const App = () => {
       <Route path="/" element={<Signup />} />
       <Route path="/aboutstartup" element={<AboutStartup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="*" element={<Error404/>} />
       
       {/* Add other routes for different pages */}
     </Routes>
