@@ -190,6 +190,7 @@ const ContestDiscription = () => {
         <ContestLayout
           showTab={variable.showTab}
           comefrom={variable.comefrom}
+          contestId = {contestId}
         />
         <OverviewSection
           published={variable.published}
