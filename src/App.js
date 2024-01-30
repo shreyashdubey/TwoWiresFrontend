@@ -27,7 +27,7 @@ import OverviewSection from "./components/OverviewSection.js";
 import { OverviewProvider } from "./components/OverviewContext.js";
 import PublishContest from "./components/PublishContest.js";
 import ReviewDiscription from "./components/ReviewDiscription.js";
-import AboutStartup from "./components/AboutStartup.js";
+import AboutStartup from "./components/Footer/AboutUs/AboutStartup.js";
 import MyUploader from "./components/MyUploader.js";
 import Starfeild from "./components/StartFeild.js";
 import ActiveContestDiscription from "./components/ActiveContestDiscription.js";
@@ -48,6 +48,9 @@ import Stuck from "./components/Stuck.js";
 import { ACCESS_TOKEN } from "./utils/siteConstants.js";
 import Error404 from "./components/Error404/Error404.js";
 import Footer from "./components/Footer/FooterPage/Footer.js";
+import PrivacyPolicy from "./components/Footer/PrivacyPolicy/PrivacyPolicy.js";
+import Career from "./components/Footer/Career/Career.js";
+import ContactUs from "./components/Footer/ContactUs/ContactUs.js";
 
 const App = () => {
   const navigate = useNavigate();
@@ -113,7 +116,7 @@ const App = () => {
         OneSignal.sendTag("new_app_version", "new_app_version", (tagsSent) => {
           // Callback called when tag has finished sending
           console.log("new_app_version TAG SENT", tagsSent);
-        }),
+        })
       );
     });
   }, []);
@@ -192,6 +195,9 @@ const App = () => {
               <Route path="/execution" element={<ExcecutingStep />} />
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/stuck" element={<Stuck />} />
+              <Route path="/career" element={<Career/>}/>
+              <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
+              <Route path="/contactus" element={<ContactUs/>}/>
             </>
           )}
           :
