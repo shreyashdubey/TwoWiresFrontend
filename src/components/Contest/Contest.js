@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router for navigation
 import {
-  Container,
   Heading,
   SimpleGrid,
   Card,
@@ -10,11 +9,7 @@ import {
   Badge,
   Text,
   Image,
-  VStack,
-  HStack,
-  Spacer,
   useColorModeValue,
-  useBreakpointValue,
   Center,
   Flex,
   Link,
@@ -27,11 +22,25 @@ import { ACCESS_TOKEN } from "../../utils/siteConstants.js";
 import ContestSkeletion from "./Skeleton.js";
 
 const ActiveCompetitions = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const chakraUIColor = useColorModeValue(
     "rgba(0, 87, 255, 1)",
     "rgba(0, 87, 255, 1)"
   );
   const navigate = useNavigate();
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   const [contestData, setContestData] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +64,7 @@ const ActiveCompetitions = () => {
       }
     };
     fetchUserContests();
-  }, []);
+  }, [currentPage]);
 
   const ok = 1;
   const handleCardClick = (contestId, index) => {
@@ -69,97 +78,144 @@ const ActiveCompetitions = () => {
     });
   };
   return (
-    <Layout>
-      <Center>
-        <Flex
-          centerContent
-          mt={10}
-          w={["100%", "100%", "100%", "100%", "75%"]}
-          direction="column"
-          alignItems="center"
-        >
-          <Heading
-            mb={7}
-            fontSize={20}
-            fontWeight={50}
-            color="custom.white"
-            mt="10px"
+    <>
+      <Layout>
+        <Center>
+          <Flex
+            centerContent
+            mt={10}
+            w={["100%", "100%", "100%", "100%", "75%"]}
+            direction="column"
+            alignItems="center"
           >
-            Active Competition
-          </Heading>
-          <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
-            {isLoading ? (
-              <ContestSkeletion noOfCards={6} />
-            ) : (
-              contestData.map((contest, index) => (
-                <Link
-                  key={contest._id}
-                  _hover={{ textDecoration: "none" }}
-                  onClick={() => handleCardClick(contest._id, index)}
-                >
-                  <Box
-                    as={Card}
-                    boxShadow="lg"
-                    transition="transform 0.3s"
-                    _hover={{ transform: "scale(1.05)" }}
-                    w={["250px", "300px", "320px", "300px", "200px", "300px"]}
-                    h="300px"
-                    borderRadius="15px"
-                    overflow="hidden"
-                    textDecoration="none"
-                  >
-                    <Box borderRadius="50px 50px 0 0" h="25%">
-                      <Image
-                        src={contest1}
-                        alt={`Contest ${index + 1}`}
-                        height="100%"
-                        width="100%"
-                        objectFit="cover"
-                      />
-                    </Box>
-
-                    <Box p="6">
-                      <Box d="flex" alignItems="baseline">
-                        <Badge
-                          borderRadius="full"
-                          px="2"
-                          colorScheme="teal"
-                          bgColor="custom.active"
-                        >
-                          <Text color="custom.white">Active</Text>
-                        </Badge>
-                      </Box>
-
+            <Heading
+              mb={7}
+              fontSize={20}
+              fontWeight={50}
+              color="custom.white"
+              mt="10px"
+            >
+              Active Competition
+            </Heading>
+            <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
+              {isLoading ? (
+                <ContestSkeletion noOfCards={6} />
+              ) : (
+                contestData.map((contest, index) => (
+                  <>
+                    <Link
+                      key={contest._id}
+                      _hover={{ textDecoration: "none" }}
+                      onClick={() => handleCardClick(contest._id, index)}
+                    >
                       <Box
-                        mt="1"
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        isTruncated
+                        as={Card}
+                        boxShadow="lg"
+                        transition="transform 0.3s"
+                        _hover={{ transform: "scale(1.05)" }}
+                        w={[
+                          "250px",
+                          "300px",
+                          "320px",
+                          "300px",
+                          "200px",
+                          "300px",
+                        ]}
+                        h="300px"
+                        borderRadius="15px"
+                        overflow="hidden"
+                        textDecoration="none"
                       >
-                        <Text color="custom.white">
-                          contestname : {contest.contestName}
-                        </Text>
-                      </Box>
+                        <Box borderRadius="50px 50px 0 0" h="25%">
+                          <Image
+                            src={contest1}
+                            alt={`Contest ${index + 1}`}
+                            height="100%"
+                            width="100%"
+                            objectFit="cover"
+                          />
+                        </Box>
 
-                      <Text mt={2} color="custom.white">
-                        organizer : {contest.contestOrganizer}
-                      </Text>
+                        <Box p="6">
+                          <Box d="flex" alignItems="baseline">
+                            <Badge
+                              borderRadius="full"
+                              px="2"
+                              colorScheme="teal"
+                              bgColor="custom.active"
+                            >
+                              <Text color="custom.white">Active</Text>
+                            </Badge>
+                          </Box>
 
-                      <Box mt="30px" borderTop="1px solid #e1e1e1" pt={2}>
-                        <Link color={chakraUIColor}>
-                          <Text color="custom.white">Know More</Text>
-                        </Link>
+                          <Box
+                            mt="1"
+                            fontWeight="semibold"
+                            as="h4"
+                            lineHeight="tight"
+                            isTruncated
+                          >
+                            <Text color="custom.white">
+                              contestname : {contest.contestName}
+                            </Text>
+                          </Box>
+
+                          <Text mt={2} color="custom.white">
+                            organizer : {contest.contestOrganizer}
+                          </Text>
+
+                          <Box mt="30px" borderTop="1px solid #e1e1e1" pt={2}>
+                            <Link color={chakraUIColor}>
+                              <Text color="custom.white">Know More</Text>
+                            </Link>
+                          </Box>
+                        </Box>
                       </Box>
-                    </Box>
-                  </Box>
-                </Link>
-              ))
-            )}
-          </SimpleGrid>
-        </Flex>
+                    </Link>
+                  </>
+                ))
+              )}
+            </SimpleGrid>
+          </Flex>
+        </Center>
+        {/*
+      <Center>
+         <Table>
+          <Tr>
+            <Td>
+              <Text color="custom.white">
+                {(currentPage - 1) * 6 + index + 1}
+              </Text>
+            </Td>
+          </Tr>
+        </Table> 
+        <HStack>
+          <Button
+            padding="1"
+            borderRadius="full"
+            bgColor="custom.button"
+            onClick={handlePrevPage}
+            mt={4}
+            display={currentPage === 1 ? "none" : "inline-block"}
+          >
+            <ArrowLeftIcon boxSize={2.5} />
+          </Button>
+          <Text color="custom.white" mt="17px">{`Page ${currentPage}`}</Text>
+          <Button
+            padding="1"
+            borderRadius="full"
+            bgColor="custom.button"
+            onClick={handleNextPage}
+            mt={4}
+            display={currentPage === totalPages ? "none" : "inline-block"}
+          >
+            <ArrowRightIcon boxSize={2.5} />
+          </Button>
+        </HStack>
       </Center>
-    </Layout>
+              */}
+      </Layout>
+    </>
   );
 };
 

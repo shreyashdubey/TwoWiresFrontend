@@ -12,7 +12,6 @@ import {
   Center,
   Textarea,
   Flex,
-  HStack,
   Card,
   Link,
   SimpleGrid,
@@ -30,6 +29,7 @@ import CreateCompetitionSkeleton from "./CreateCompetitionSkeleton.js";
 import { Skeleton, SkeletonText } from "@chakra-ui/react";
 import plus from "../images/plus.png";
 import close from "../images/close.png";
+import Footer from "../Footer/FooterPage/Footer.js";
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -267,88 +267,88 @@ const CreateCompetitionForm = () => {
   ));
 
   return (
-    <Layout>
-      {/* <CreateCompetitionSkeleton cardsNo={6}/> */}
-      <VStack>
+    <>
+      <Layout>
+        {/* <CreateCompetitionSkeleton cardsNo={6}/> */}
         <VStack>
-          
-          {isFormVisible ? (
-            <Box
-              p={8}
-              w={["250px", "300px", "300px", "500px", "500px", "500px"]}
-              borderWidth={1}
-              borderRadius="lg"
-              boxShadow="lg"
-              mt="20px"
-            >
-              <Button
-                bgColor="custom.button"
-                size="20px"
-                marginLeft="95%"
-                onClick={handleCloseButtonClick}
-                borderRadius="50%"
+          <VStack>
+            {isFormVisible ? (
+              <Box
+                p={8}
+                w={["250px", "300px", "300px", "500px", "500px", "500px"]}
+                borderWidth={1}
+                borderRadius="lg"
+                boxShadow="lg"
+                mt="20px"
               >
-                <Image
-                  boxSize="22px"
-                  objectFit="cover"
-                  src={close}
-                  alt="close"
-                />
-              </Button>
-              <Heading mb={4}>Create a Competition</Heading>
-              <form onSubmit={handleSubmit}>
-                <VStack spacing={4} align="stretch">
-                  <FormControl>
-                    <FormLabel>Contest Name</FormLabel>
-                    <Input
-                      type="text"
-                      placeholder="Enter contest name in at max 15 words"
-                      value={formData.contestName}
-                      onChange={(e) =>
-                        handleInputChange("contestName", e.target.value)
-                      }
-                      required
-                    />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel>Contest Organizer</FormLabel>
-                    <Input
-                      type="text"
-                      placeholder="Enter contest organizer in at max 12 words"
-                      value={formData.contestOrganizer}
-                      onChange={(e) =>
-                        handleInputChange("contestOrganizer", e.target.value)
-                      }
-                      required
-                    />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel>Contest Creator</FormLabel>
-                    <Input
-                      type="text"
-                      placeholder="Enter contest creator"
-                      value={formData.contestCreator}
-                      onChange={(e) =>
-                        handleInputChange("contestCreator", e.target.value)
-                      }
-                      required
-                    />
-                  </FormControl>
-
-                  <Flex direction="column">
-                    <FormControl flex="1">
-                      <FormLabel>Start Time</FormLabel>
+                <Button
+                  bgColor="custom.button"
+                  size="20px"
+                  marginLeft="95%"
+                  onClick={handleCloseButtonClick}
+                  borderRadius="50%"
+                >
+                  <Image
+                    boxSize="22px"
+                    objectFit="cover"
+                    src={close}
+                    alt="close"
+                  />
+                </Button>
+                <Heading mb={4}>Create a Competition</Heading>
+                <form onSubmit={handleSubmit}>
+                  <VStack spacing={4} align="stretch">
+                    <FormControl>
+                      <FormLabel>Contest Name</FormLabel>
                       <Input
-                        type="datetime-local"
-                        value={formData.startTime}
+                        type="text"
+                        placeholder="Enter contest name in at max 15 words"
+                        value={formData.contestName}
                         onChange={(e) =>
-                          handleInputChange("startTime", e.target.value)
+                          handleInputChange("contestName", e.target.value)
                         }
                         required
                       />
-                      {/* <DatePicker
+                    </FormControl>
+
+                    <FormControl>
+                      <FormLabel>Contest Organizer</FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="Enter contest organizer in at max 12 words"
+                        value={formData.contestOrganizer}
+                        onChange={(e) =>
+                          handleInputChange("contestOrganizer", e.target.value)
+                        }
+                        required
+                      />
+                    </FormControl>
+
+                    <FormControl>
+                      <FormLabel>Contest Creator</FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="Enter contest creator"
+                        value={formData.contestCreator}
+                        onChange={(e) =>
+                          handleInputChange("contestCreator", e.target.value)
+                        }
+                        required
+                      />
+                    </FormControl>
+
+                    <Flex direction="column">
+                      <FormControl flex="1">
+                        <FormLabel>Start Time</FormLabel>
+                        <Input
+                          type="datetime-local"
+                          value={formData.startTime}
+                          onChange={(e) =>
+                            handleInputChange("startTime", e.target.value)
+                          }
+                          required
+                        />
+                        {/* <DatePicker
                         render={<Icon />}
                         format="MM/DD/YYYY HH:mm A"
                         animations={[transition()]}
@@ -360,20 +360,20 @@ const CreateCompetitionForm = () => {
                           />,
                         ]}
                       /> */}
-                    </FormControl>
+                      </FormControl>
 
-                    <FormControl flex="1">
-                      <FormLabel>End Time</FormLabel>
-                      <Input
-                        type="datetime-local"
-                        value={formData.endTime}
-                        onChange={(e) =>
-                          handleInputChange("endTime", e.target.value)
-                        }
-                        required
-                      />
+                      <FormControl flex="1">
+                        <FormLabel>End Time</FormLabel>
+                        <Input
+                          type="datetime-local"
+                          value={formData.endTime}
+                          onChange={(e) =>
+                            handleInputChange("endTime", e.target.value)
+                          }
+                          required
+                        />
 
-                      {/* <DatePicker
+                        {/* <DatePicker
                         render={<Icon />}
                         format="MM/DD/YYYY HH:mm A"
                         animations={[transition()]}
@@ -385,103 +385,116 @@ const CreateCompetitionForm = () => {
                           />,
                         ]}
                       /> */}
+                      </FormControl>
+                    </Flex>
+
+                    <FormControl>
+                      <FormLabel>Description</FormLabel>
+                      <Textarea
+                        placeholder="Enter contest description"
+                        value={formData.description}
+                        onChange={(e) =>
+                          handleInputChange("description", e.target.value)
+                        }
+                        resize="vertical"
+                        rows={4}
+                      />
                     </FormControl>
-                  </Flex>
 
-                  <FormControl>
-                    <FormLabel>Description</FormLabel>
-                    <Textarea
-                      placeholder="Enter contest description"
-                      value={formData.description}
-                      onChange={(e) =>
-                        handleInputChange("description", e.target.value)
-                      }
-                      resize="vertical"
-                      rows={4}
-                    />
-                  </FormControl>
-
-                  <Center>
-                    {editContestId ? (
-                      <Button
-                        type="submit"
-                        colorScheme="teal"
-                        size="lg"
-                        onClick={handleUpdate}
-                      >
-                        Update Competition
-                      </Button>
-                    ) : (
-                      <Button type="submit" colorScheme="teal" size="lg">
-                        Create Competition
-                      </Button>
-                    )}
-                  </Center>
-                </VStack>
-              </form>
-            </Box>
-          ) : (
-            <Box mt="22px" display="flex" gap="10px" alignItems="center">
-              <Text fontSize="20px">Create Contest</Text>
-              <Button bgColor="custom.button" onClick={handlePlusButtonClick}>
-                <Image boxSize="35px" objectFit="cover" src={plus} alt="plus" />
-              </Button>
-            </Box>
-          )}
-        </VStack>
-        <VStack spacing={4} align="stretch">
-          <Flex
-            centerContent
-            mt={10}
-            w={["100%", "100%", "100%", "100%", "100%"]}
-            direction="column"
-            alignItems="center"
-          >
-            <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
-              {isLoading ? (
-                <CreateCompetitionSkeleton cardNo={6} />
-              ) : (
-                userContests.map((contest, index) => (
-                  <Link
-                    key={contest._id}
-                    _hover={{ textDecoration: "none" }}
-                    onClick={() => handleCardClick(contest._id, index)}
-                  >
-                    <Card
-                      p={8}
-                      borderWidth={1}
-                      borderRadius="lg"
-                      boxShadow="lg"
-                      w={["250px", "300px", "320px", "300px", "200px", "300px"]}
-                      h="200px"
-                      justifyContent="space-between"
+                    <Center>
+                      {editContestId ? (
+                        <Button
+                          type="submit"
+                          colorScheme="teal"
+                          size="lg"
+                          onClick={handleUpdate}
+                        >
+                          Update Competition
+                        </Button>
+                      ) : (
+                        <Button type="submit" colorScheme="teal" size="lg">
+                          Create Competition
+                        </Button>
+                      )}
+                    </Center>
+                  </VStack>
+                </form>
+              </Box>
+            ) : (
+              <Box mt="22px" display="flex" gap="10px" alignItems="center">
+                <Text fontSize="20px">Create Contest</Text>
+                <Button bgColor="custom.button" onClick={handlePlusButtonClick}>
+                  <Image
+                    boxSize="35px"
+                    objectFit="cover"
+                    src={plus}
+                    alt="plus"
+                  />
+                </Button>
+              </Box>
+            )}
+          </VStack>
+          <VStack spacing={4} align="stretch">
+            <Flex
+              centerContent
+              mt={10}
+              w={["100%", "100%", "100%", "100%", "100%"]}
+              direction="column"
+              alignItems="center"
+            >
+              <SimpleGrid columns={[1, 1, 1, 2, 3, 3]} spacing={4} mt="10px">
+                {isLoading ? (
+                  <CreateCompetitionSkeleton cardNo={6} />
+                ) : (
+                  userContests.map((contest, index) => (
+                    <Link
+                      key={contest._id}
+                      _hover={{ textDecoration: "none" }}
+                      onClick={() => handleCardClick(contest._id, index)}
                     >
-                      <Heading mb={4} fontSize="medium">
-                        {contest.contestName}
-                      </Heading>
-                      <Text fontSize="medium" overflow="hidden">
-                        Organizer: {contest.contestOrganizer}
-                      </Text>
-                      {!contest.isPublished && contest.isSubmitted && (
-                        <Tag mt="30px">
-                          <TagLabel>Waiting for review</TagLabel>
-                        </Tag>
-                      )}
-                      {contest.isPublished && (
-                        <Tag bgColor="green" mt="30px">
-                          <TagLabel color="black">Published</TagLabel>
-                        </Tag>
-                      )}
-                      {/* Add other contest details as needed */}
-                    </Card>
-                  </Link>
-                ))
-              )}
-            </SimpleGrid>
-          </Flex>
+                      <Card
+                        p={8}
+                        borderWidth={1}
+                        borderRadius="lg"
+                        boxShadow="lg"
+                        w={[
+                          "250px",
+                          "300px",
+                          "320px",
+                          "300px",
+                          "200px",
+                          "300px",
+                        ]}
+                        h="200px"
+                        justifyContent="space-between"
+                      >
+                        <Heading mb={4} fontSize="medium">
+                          {contest.contestName}
+                        </Heading>
+                        <Text fontSize="medium" overflow="hidden">
+                          Organizer: {contest.contestOrganizer}
+                        </Text>
+                        {!contest.isPublished && contest.isSubmitted && (
+                          <Tag mt="30px">
+                            <TagLabel>Waiting for review</TagLabel>
+                          </Tag>
+                        )}
+                        {contest.isPublished && (
+                          <Tag bgColor="green" mt="30px">
+                            <TagLabel color="black">Published</TagLabel>
+                          </Tag>
+                        )}
+                        {/* Add other contest details as needed */}
+                      </Card>
+                    </Link>
+                  ))
+                )}
+              </SimpleGrid>
+            </Flex>
+          </VStack>
         </VStack>
-      </VStack>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

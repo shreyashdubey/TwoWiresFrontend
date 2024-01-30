@@ -96,19 +96,16 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
     // isSearchSelected ? setIsSearchSelected(false) : setIsSearchSelected(true)
     setIsSearchSelected(true);
     setIsfocused(true);
-    console.log(isSearchSelected, "i am here ........");
   };
 
   const handleFocused = () => {
     setIsfocused(true);
     setIsSearchSelected(true);
-    console.log(isSearchSelected, "i am here Focus........");
   };
 
   const handleBlur = () => {
     setIsfocused(false);
     setIsSearchSelected(false);
-    console.log(isSearchSelected, "i am here Blur........");
   };
   const headerRef = useRef();
   useOutsideClick(headerRef, handleBlur);
