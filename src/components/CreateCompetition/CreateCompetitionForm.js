@@ -18,6 +18,8 @@ import {
   Tag,
   TagLabel,
   Image,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
 import { useOverview } from "../OverviewContext.js";
 import { CREATE_CONTEST } from "../../utils/endpoints.js";
@@ -26,7 +28,7 @@ import instance from "../../utils/api.js";
 import Layout from "../DashBoard.js";
 import { ACCESS_TOKEN } from "../../utils/siteConstants.js";
 import CreateCompetitionSkeleton from "./CreateCompetitionSkeleton.js";
-import { Skeleton, SkeletonText } from "@chakra-ui/react";
+
 import plus from "../images/plus.png";
 import close from "../images/close.png";
 import Footer from "../Footer/FooterPage/Footer.js";
@@ -66,7 +68,7 @@ const CreateCompetitionForm = () => {
         const userId = decodedToken.user._id;
 
         const contestsResponse = await instance.get(
-          `/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`
+          `/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`,
         );
         const contests = contestsResponse.contests;
         setUserContests(contests);
@@ -111,7 +113,7 @@ const CreateCompetitionForm = () => {
       const response = await instance.post(
         CREATE_CONTEST,
         { contestName, contestOrganizer, contestCreator, startTime, endTime },
-        { "Content-Type": "application/json" }
+        { "Content-Type": "application/json" },
       );
 
       // Handle the response from the API
@@ -123,7 +125,7 @@ const CreateCompetitionForm = () => {
         // to update the Save button logic if needed
         setIsFormVisible(false);
         setInitialFetch(false);
-        //navigate('/overview');
+        // navigate('/overview');
       } else {
         // Handle error cases if needed
       }
@@ -160,7 +162,7 @@ const CreateCompetitionForm = () => {
           endTime,
           isPublished,
         },
-        { "Content-Type": "application/json" }
+        { "Content-Type": "application/json" },
       );
 
       // Handle the response from the API
@@ -173,7 +175,7 @@ const CreateCompetitionForm = () => {
         setIsFormVisible(false);
         setEditContestId(null);
         setInitialFetch(false);
-        //navigate('/overview');
+        // navigate('/overview');
       } else {
         // Handle error cases if needed
       }
@@ -186,7 +188,7 @@ const CreateCompetitionForm = () => {
   const handleEditButtonClick = (contestId, contestName) => {
     // Find the contest with the given ID from userContests
     const contestToEdit = userContests.find(
-      (contest) => contest._id === contestId
+      (contest) => contest._id === contestId,
     );
 
     // Set the form data with the contest details
@@ -209,7 +211,7 @@ const CreateCompetitionForm = () => {
     try {
       // Make the API request to delete the contest
       const response = await instance.delete(
-        `/api/contest/delete-contest/${contestId}/${contestCreatorId}`
+        `/api/contest/delete-contest/${contestId}/${contestCreatorId}`,
       );
 
       // Handle the response from the API
@@ -253,9 +255,9 @@ const CreateCompetitionForm = () => {
     navigate(`/discription/${contestId}/${ok}`, {
       state: {
         organizer: contestOrganizer,
-        name: name,
-        submitted: submitted,
-        published: published,
+        name,
+        submitted,
+        published,
       },
     });
   };

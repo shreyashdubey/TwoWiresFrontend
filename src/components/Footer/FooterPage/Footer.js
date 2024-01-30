@@ -1,33 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Flex,
-  Divider,
-  Box,
-  Text,
-  Image,
-} from "@chakra-ui/react";
+import { Flex, Divider, Box, Text, Image } from "@chakra-ui/react";
 import { Button } from "@react-pdf-viewer/core";
 import facebook from "../../images/facebook.png";
 import linkedin from "../../images/linkedin.png";
 import twitter from "../../images/twitter.png";
 
-
-
 const Footer = () => {
-
   const navigate = useNavigate();
 
   const handleOnclickSS = () => {
-    navigate("/contest")
-  }
+    navigate("/contest");
+  };
 
   const handleAboutUs = () => {
-    navigate("/aboutstartup")
-  }
+    navigate("/aboutstartup");
+  };
 
   return (
-    <Flex flexDirection="column" padding="20px 0 0 0" bgGradient="linear(to top, custom.midnightBlue, custom.darkSlateBlue)">
+    <Flex
+      flexDirection="column"
+      padding="20px 0 0 0"
+      bgGradient="linear(to top, custom.midnightBlue, custom.darkSlateBlue)"
+    >
       {/* <Text
         display="flex"
         justifyContent="center"
@@ -39,7 +34,7 @@ const Footer = () => {
 
       <Button>
         <Text
-        marginLeft="-36%"
+          marginLeft="-36%"
           fontSize="30"
           fontFamily="monospace"
           width="100%"
@@ -60,16 +55,24 @@ const Footer = () => {
           fontSize="18px"
         >
           <Button onClick={handleAboutUs}>
-            <Text fontWeight="600" fontSize="20px">About</Text>
+            <Text fontWeight="600" fontSize="20px">
+              About
+            </Text>
           </Button>
           <Button>
-            <Text fontWeight="600" fontSize="20px">Privacy Policy</Text>
+            <Text fontWeight="600" fontSize="20px">
+              Privacy Policy
+            </Text>
           </Button>
           <Button>
-            <Text fontWeight="600" fontSize="20px">Career</Text>
+            <Text fontWeight="600" fontSize="20px">
+              Career
+            </Text>
           </Button>
           <Button>
-            <Text fontWeight="600" fontSize="20px">Contact Us</Text>
+            <Text fontWeight="600" fontSize="20px">
+              Contact Us
+            </Text>
           </Button>
         </Box>
         <Box
@@ -81,15 +84,36 @@ const Footer = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Text marginRight="30px" fontSize="18px" fontWeight="400">Connect with us</Text>
+          <Text marginRight="30px" fontSize="18px" fontWeight="400">
+            Connect with us
+          </Text>
           <Button>
-            <Image src={facebook} backgroundColor="white" borderRadius="full" width="30px" height="30px"/>
+            <Image
+              src={facebook}
+              backgroundColor="white"
+              borderRadius="full"
+              width="30px"
+              height="30px"
+            />
           </Button>
           <Button>
-            <Image src={linkedin} backgroundColor="white" borderRadius="full" width="30px" height="30px"/>
+            <Image
+              src={linkedin}
+              backgroundColor="white"
+              borderRadius="full"
+              width="30px"
+              height="30px"
+            />
           </Button>
           <Button>
-            <Image src={twitter} padding="2.5px" backgroundColor="white" borderRadius="full" width="30px" height="30px"/>
+            <Image
+              src={twitter}
+              padding="2.5px"
+              backgroundColor="white"
+              borderRadius="full"
+              width="30px"
+              height="30px"
+            />
           </Button>
         </Box>
       </Flex>

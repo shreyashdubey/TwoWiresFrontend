@@ -1,5 +1,5 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Signup from "./components/Signup"; // Your Signup component
@@ -41,7 +41,7 @@ import Key from "./components/KeyBoard.js";
 import Problem from "./components/Problem.js";
 import EmailVerification from "./components/EmailVerification.js";
 import Notification from "./components/Notification.js";
-import Discuss from "./components/Discuss.js";
+// import Discuss from "./components/Discuss.js";
 import ExcecutingStep from "./components/ExecutingStep.js";
 import Tutorial from "./components/Tutorial.js";
 import Stuck from "./components/Stuck.js";
@@ -74,7 +74,7 @@ const App = () => {
     OneSignal.push(() => {
       OneSignal.init(
         {
-          appId: "12fedbe1-46f0-44fb-893a-b765cbabf575", //STEP 9
+          appId: "12fedbe1-46f0-44fb-893a-b765cbabf575", // STEP 9
           promptOptions: {
             slidedown: {
               enabled: true,
@@ -109,11 +109,11 @@ const App = () => {
             message: "Thanks for subscribing!",
           },
         },
-        //Automatically subscribe to the new_app_version tag
+        // Automatically subscribe to the new_app_version tag
         OneSignal.sendTag("new_app_version", "new_app_version", (tagsSent) => {
           // Callback called when tag has finished sending
           console.log("new_app_version TAG SENT", tagsSent);
-        })
+        }),
       );
     });
   }, []);
@@ -188,7 +188,7 @@ const App = () => {
                 path="/activediscription/:contestId"
                 element={<ActiveContestDiscription />}
               />
-              <Route path="/discuss" element={<Discuss />} />
+              {/* <Route path="/discuss" element={<Discuss />} /> */}
               <Route path="/execution" element={<ExcecutingStep />} />
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/stuck" element={<Stuck />} />

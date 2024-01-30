@@ -32,7 +32,7 @@ const Error404 = () => {
       </Box>
       <Stack fontSize="20px" color="custom.pureBlue">
         <Button onClick={handlebackToHomePage} size="lg">
-          <ArrowBackIcon marginRight="10px"/>
+          <ArrowBackIcon marginRight="10px" />
           Back To HomePage
         </Button>
       </Stack>

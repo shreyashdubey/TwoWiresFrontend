@@ -5,13 +5,14 @@ import {
   Text,
   useColorModeValue,
   Link,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
-import { Skeleton, SkeletonText } from "@chakra-ui/react";
 
 const ContestSkeletion = ({ noOfCards }) => {
   const chakraUIColor = useColorModeValue(
     "rgba(0, 87, 255, 1)",
-    "rgba(0, 87, 255, 1)"
+    "rgba(0, 87, 255, 1)",
   );
   const skeletionCard = useMemo(() => {
     const skeletionArr = [];
@@ -60,7 +61,7 @@ const ContestSkeletion = ({ noOfCards }) => {
               </Link>
             </Box>
           </Box>
-        </Box>
+        </Box>,
       );
     }
     return skeletionArr;

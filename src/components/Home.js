@@ -41,7 +41,7 @@ import Layout from "./DashBoard.js";
 const Home = () => {
   return (
     <Layout>
-        <Box>{/* Your page content goes here */}</Box>
+      <Box>{/* Your page content goes here */}</Box>
     </Layout>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
-import { Wrap, WrapItem } from "@chakra-ui/react";
-import { Tag, TagLabel } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { Wrap, WrapItem, Tag, TagLabel, Box } from "@chakra-ui/react";
+
 import theme from "../utils/color";
 import Search from "./Search";
 

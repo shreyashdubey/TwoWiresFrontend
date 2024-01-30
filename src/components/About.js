@@ -1,10 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Link as ChakraLink,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";// Import the UserContext
+import { Link as ChakraLink, useNavigate, useLocation } from "react-router-dom"; // Import the UserContext
 import { Box } from "@chakra-ui/react";
 import {
   Text,
@@ -69,82 +65,77 @@ const User = () => {
 
   return (
     <Box w="50%" margin="auto" alignItems="center" justifyContent="center">
-      {isLoading? (
-
+      {isLoading ? (
         <Flex mt="15px" w="100%">
-        <Tabs
-          ml={3}
-          mt="20px"
-          w="100%"
-          index={activeTab}
-          onChange={handleTabChange}
+          <Tabs
+            ml={3}
+            mt="20px"
+            w="100%"
+            index={activeTab}
+            onChange={handleTabChange}
           >
-          <TabList>
-            <Tab onClick={handleAboutTabClick}>
-              <Text color="custom.white">
-                <Skeleton>About</Skeleton>
-              </Text>
-            </Tab>
-            <Spacer />
-            <Tab onClick={handleCompetitionTabClick}>
-              <Text color="custom.white">
-                <Skeleton>Competition</Skeleton>
-              </Text>
-            </Tab>
-            <Spacer />
-            <Tab onClick={handleTeamTabClick}>
-              <Text color="custom.white">
-                <Skeleton>Team</Skeleton>
-              </Text>
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <SkeletonText>
+            <TabList>
+              <Tab onClick={handleAboutTabClick}>
+                <Text color="custom.white">
+                  <Skeleton>About</Skeleton>
+                </Text>
+              </Tab>
+              <Spacer />
+              <Tab onClick={handleCompetitionTabClick}>
+                <Text color="custom.white">
+                  <Skeleton>Competition</Skeleton>
+                </Text>
+              </Tab>
+              <Spacer />
+              <Tab onClick={handleTeamTabClick}>
+                <Text color="custom.white">
+                  <Skeleton>Team</Skeleton>
+                </Text>
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <SkeletonText>
+                <TabPanel>
+                  <SkillComponent />
+                  <EducationComponent />
+                  <Experience />
+                </TabPanel>
+              </SkeletonText>
+            </TabPanels>
+          </Tabs>
+        </Flex>
+      ) : (
+        <Flex mt="15px" w="100%">
+          <Tabs
+            ml={3}
+            mt="20px"
+            w="100%"
+            index={activeTab}
+            onChange={handleTabChange}
+          >
+            <TabList>
+              <Tab onClick={handleAboutTabClick}>
+                <Text color="custom.white">About</Text>
+              </Tab>
+              <Spacer />
+              <Tab onClick={handleCompetitionTabClick}>
+                <Text color="custom.white">Competition</Text>
+              </Tab>
+              <Spacer />
+              <Tab onClick={handleTeamTabClick}>
+                <Text color="custom.white">Team</Text>
+              </Tab>
+            </TabList>
+            <TabPanels>
               <TabPanel>
                 <SkillComponent />
                 <EducationComponent />
                 <Experience />
               </TabPanel>
-            </SkeletonText>
-          </TabPanels>
-        </Tabs>
-      </Flex>
-      ) : (<Flex mt="15px" w="100%">
-      <Tabs
-        ml={3}
-        mt="20px"
-        w="100%"
-        index={activeTab}
-        onChange={handleTabChange}
-      >
-        <TabList>
-          <Tab onClick={handleAboutTabClick}>
-            <Text color="custom.white">
-              About
-            </Text>
-          </Tab>
-          <Spacer />
-          <Tab onClick={handleCompetitionTabClick}>
-            <Text color="custom.white">
-              Competition
-            </Text>
-          </Tab>
-          <Spacer />
-          <Tab onClick={handleTeamTabClick}>
-            <Text color="custom.white">
-              Team
-            </Text>
-          </Tab>
-        </TabList>
-        <TabPanels>
-            <TabPanel>
-              <SkillComponent />
-              <EducationComponent />
-              <Experience />
-            </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Flex>)}
+            </TabPanels>
+          </Tabs>
+        </Flex>
+      )}
       {/* Your page content goes here */}
     </Box>
   );

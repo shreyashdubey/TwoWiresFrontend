@@ -26,7 +26,7 @@ const ActiveCompetitions = () => {
   const [totalPages, setTotalPages] = useState(0);
   const chakraUIColor = useColorModeValue(
     "rgba(0, 87, 255, 1)",
-    "rgba(0, 87, 255, 1)"
+    "rgba(0, 87, 255, 1)",
   );
   const navigate = useNavigate();
 
@@ -50,10 +50,10 @@ const ActiveCompetitions = () => {
         const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
-        instance.defaults.headers.common["Authorization"] =
+        instance.defaults.headers.common.Authorization =
           "key " + localStorage.getItem(ACCESS_TOKEN);
         const contestsResponse = await instance.get(
-          `/api/contest/get-all-contests?page=1&pageSize=30`
+          `/api/contest/get-all-contests?page=1&pageSize=30`,
         );
         const contests = contestsResponse.contests;
         setContestData(contests);
@@ -74,7 +74,7 @@ const ActiveCompetitions = () => {
     const name = constestIndex.contestName;
     const contestOrganizer = constestIndex.contestOrganizer;
     navigate(`/discription/${contestId}/${ok}`, {
-      state: { organizer: contestOrganizer, name: name, published: true },
+      state: { organizer: contestOrganizer, name, published: true },
     });
   };
   return (

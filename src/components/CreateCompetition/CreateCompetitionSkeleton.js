@@ -11,8 +11,9 @@ import {
   SimpleGrid,
   Tag,
   TagLabel,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
-import { Skeleton, SkeletonText } from "@chakra-ui/react";
 
 const CreateCompetitionSkeleton = ({ cardNo }) => {
   const contestCard = useMemo(() => {
@@ -40,7 +41,7 @@ const CreateCompetitionSkeleton = ({ cardNo }) => {
               </Tag>
             </Skeleton>
           </Card>
-        </Link>
+        </Link>,
       );
     }
     return arr;

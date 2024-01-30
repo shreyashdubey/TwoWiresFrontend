@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@chakra-ui/react';
+import React from "react";
+import { Box } from "@chakra-ui/react";
 
 const Circl = () => {
   return (
@@ -18,7 +18,7 @@ const Circl = () => {
         background="linear-gradient(#00FF00, #00FF00, #00FF00)"
         animation="animate 1s linear infinite"
       >
-        {[1,2,3 ,4].map((index) => (
+        {[1, 2, 3, 4].map((index) => (
           <Box
             key={index}
             position="absolute"

@@ -21,14 +21,14 @@ import {
   Box,
   Tooltip,
   Wrap,
-} from "@chakra-ui/react";
-import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   MenuGroup,
+  Divider,
 } from "@chakra-ui/react";
+
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
 import trophy from "./images/trophy.png";
@@ -43,14 +43,12 @@ import Notifications from "./images/notification.png";
 import { useOverview } from "./OverviewContext";
 import instance from "../utils/api";
 import { jwtDecode } from "jwt-decode";
-import { GET_ALL_NOTIFICATION } from "../utils/endpoints";
+import { GET_ALL_NOTIFICATION, GET_USER_INFO } from "../utils/endpoints";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
 import FilterBar from "./FilterBar";
 import useOutsideClick from "../Hooks/UseOutsideClick";
 import { getDecodedUserData } from "../utils/helper";
 import axios from "../utils/api";
-import { GET_USER_INFO } from "../utils/endpoints";
-import { Divider } from "@chakra-ui/react";
 
 const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
   const navigate = useNavigate();
@@ -211,7 +209,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
         console.log("decode", decodedToken);
         const userId = decodedToken.user._id;
         const response = await instance.get(
-          `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=100`
+          `${GET_ALL_NOTIFICATION}?userId=${userId}&page=1&pageSize=100`,
         );
 
         const notifications = response.notifications;
@@ -370,7 +368,6 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                 <Tab>
                   <Menu>
                     <MenuButton
-                      
                       as={Box}
                       borderRadius="full"
                       backgroundColor="custom.midnightBlue"
@@ -386,10 +383,7 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
                         {userData?.data?.lastName.charAt(0)}
                       </Text>
                     </MenuButton>
-                    <MenuList
-                      height="160px"
-                      width="60px"
-                    >
+                    <MenuList height="160px" width="60px">
                       <MenuGroup
                         title={`${userData?.data?.firstName}
                         ${userData?.data?.lastName}`}
@@ -450,12 +444,11 @@ const DashBoard = ({ isSearchSelected, setIsSearchSelected }) => {
 const Layout = ({ children, notificationsSize }) => {
   const [isSearchSelected, setIsSearchSelected] = useState(false);
   return (
-    <Flex direction="column" minHeight="100vh" bgcolor="custom. midnightBlue">
+    <Flex direction="column" minHeight="100vh" bgColor="custom.midnightBlue">
       <DashBoard
         isSearchSelected={isSearchSelected}
         setIsSearchSelected={setIsSearchSelected}
       />
-
       {children}
       <BelowDashBoard />
     </Flex>

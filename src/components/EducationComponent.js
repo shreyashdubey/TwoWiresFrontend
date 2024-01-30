@@ -32,11 +32,14 @@ import plus from "./images/plus.png";
 import edit from "./images/edit.png";
 import remove from "./images/delete.png";
 import instance from "../utils/api";
-import { ADD_EDUCATION } from "../utils/endpoints";
+import {
+  ADD_EDUCATION,
+  GET_EDUCATION_ENTRIES,
+  EDIT_EDUCATION,
+  DELETE_EDUCATION,
+} from "../utils/endpoints";
 import { jwtDecode } from "jwt-decode";
-import { GET_EDUCATION_ENTRIES } from "../utils/endpoints";
-import { EDIT_EDUCATION } from "../utils/endpoints";
-import { DELETE_EDUCATION } from "../utils/endpoints";
+
 import { FaMoon, FaSun } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
@@ -70,14 +73,14 @@ const EducationComponent = () => {
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
         const response = await instance.get(
-          `${GET_EDUCATION_ENTRIES}?user=${userId}&page=1&pageSize=10`
+          `${GET_EDUCATION_ENTRIES}?user=${userId}&page=1&pageSize=10`,
         );
         const { educationEntries } = response;
         setEducationData(educationEntries);
       } catch (error) {
         console.error(
           "Error occurred while fetching education entries:",
-          error
+          error,
         );
       }
     };
@@ -141,7 +144,7 @@ const EducationComponent = () => {
           startYear,
           userId,
         },
-        { "Content-Type": "application/json" }
+        { "Content-Type": "application/json" },
       );
       const data = response;
       const { success, message } = data;
@@ -212,7 +215,7 @@ const EducationComponent = () => {
 
       // Make a DELETE request to the backend
       const response = await instance.delete(
-        `${DELETE_EDUCATION}/${educationIdToDelete}`
+        `${DELETE_EDUCATION}/${educationIdToDelete}`,
       );
 
       const { success, message } = response;
@@ -259,7 +262,7 @@ const EducationComponent = () => {
           endMonth,
           endYear,
         },
-        { "Content-Type": "application/json" }
+        { "Content-Type": "application/json" },
       );
 
       const { success, message, education } = response.data;

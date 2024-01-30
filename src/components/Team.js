@@ -41,7 +41,7 @@ const TeamTab = () => {
         //   pageSize: "10",
         // };
         const response = await instance.get(
-          `${GET_ALL_TEAM}?page=${currentPage}&pageSize=${pageSize}&owner=${owner}`
+          `${GET_ALL_TEAM}?page=${currentPage}&pageSize=${pageSize}&owner=${owner}`,
         );
         // const response = await instance.get(GET_ALL_TEAM, {params});
         setTeamData(response.teams);
