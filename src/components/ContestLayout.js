@@ -51,7 +51,7 @@ import { jwtDecode } from "jwt-decode";
 import instance from "../utils/api";
 import { ACCESS_TOKEN } from "../utils/siteConstants.js";
 
-const ContestLayout = ({ showTab, comefrom  }) => {
+const ContestLayout = ({ showTab, comefrom }) => {
   // Assuming you have contest details available
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -198,7 +198,7 @@ const ContestLayout = ({ showTab, comefrom  }) => {
   };
 
   const handleDiscussTabClick = () => {
-    navigate("/discuss", { state: { variable  ,  contestId} });
+    navigate("/discuss", { state: { variable } });
   };
 
   return (
