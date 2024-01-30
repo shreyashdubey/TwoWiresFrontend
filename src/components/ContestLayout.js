@@ -198,7 +198,7 @@ const ContestLayout = ({ showTab, comefrom }) => {
   };
 
   const handleDiscussTabClick = () => {
-    navigate("/discuss", { state: { variable, contestId } });
+    navigate("/discuss", { state: { variable } });
   };
 
   return (
