@@ -23,15 +23,15 @@ import ContestSkeletion from "./Skeleton.js";
 
 const ActiveCompetitions = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalCards, setTotalCards] = useState(6);
   const chakraUIColor = useColorModeValue(
     "rgba(0, 87, 255, 1)",
-    "rgba(0, 87, 255, 1)",
+    "rgba(0, 87, 255, 1)"
   );
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (currentPage < totalCards) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -44,6 +44,10 @@ const ActiveCompetitions = () => {
 
   const [contestData, setContestData] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
+  const lastCardIndex = currentPage * totalCards;
+  const firstCardIndex = lastCardIndex - totalCards;
+  const currentCards = contestData.slice(firstCardIndex, lastCardIndex);
+
   useEffect(() => {
     const fetchUserContests = async () => {
       try {
@@ -53,7 +57,7 @@ const ActiveCompetitions = () => {
         instance.defaults.headers.common.Authorization =
           "key " + localStorage.getItem(ACCESS_TOKEN);
         const contestsResponse = await instance.get(
-          `/api/contest/get-all-contests?page=1&pageSize=30`,
+          `/api/contest/get-all-contests?page=1&pageSize=30`
         );
         const contests = contestsResponse.contests;
         setContestData(contests);
@@ -101,7 +105,7 @@ const ActiveCompetitions = () => {
               {isLoading ? (
                 <ContestSkeletion noOfCards={6} />
               ) : (
-                contestData.map((contest, index) => (
+                currentCards.map((contest, index) => (
                   <>
                     <Link
                       key={contest._id}
@@ -178,42 +182,10 @@ const ActiveCompetitions = () => {
             </SimpleGrid>
           </Flex>
         </Center>
-        {/*
-      <Center>
-         <Table>
-          <Tr>
-            <Td>
-              <Text color="custom.white">
-                {(currentPage - 1) * 6 + index + 1}
-              </Text>
-            </Td>
-          </Tr>
-        </Table> 
-        <HStack>
-          <Button
-            padding="1"
-            borderRadius="full"
-            bgColor="custom.button"
-            onClick={handlePrevPage}
-            mt={4}
-            display={currentPage === 1 ? "none" : "inline-block"}
-          >
-            <ArrowLeftIcon boxSize={2.5} />
-          </Button>
-          <Text color="custom.white" mt="17px">{`Page ${currentPage}`}</Text>
-          <Button
-            padding="1"
-            borderRadius="full"
-            bgColor="custom.button"
-            onClick={handleNextPage}
-            mt={4}
-            display={currentPage === totalPages ? "none" : "inline-block"}
-          >
-            <ArrowRightIcon boxSize={2.5} />
-          </Button>
-        </HStack>
-      </Center>
-              */}
+
+        <Flex marginTop="20px" justifyContent="center">
+        
+        </Flex>
       </Layout>
     </>
   );

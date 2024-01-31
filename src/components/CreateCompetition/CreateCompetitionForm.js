@@ -31,7 +31,6 @@ import CreateCompetitionSkeleton from "./CreateCompetitionSkeleton.js";
 
 import plus from "../images/plus.png";
 import close from "../images/close.png";
-import Footer from "../Footer/FooterPage/Footer.js";
 
 const CreateCompetitionForm = () => {
   const navigate = useNavigate();
@@ -42,6 +41,11 @@ const CreateCompetitionForm = () => {
   const [editContestId, setEditContestId] = useState(null);
   const [initialFetch, setInitialFetch] = useState(false);
   const { isSubmitted } = useOverview();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCards, setTotalCards] = useState(6);
+  const lastCardIndex = currentPage * totalCards;
+  const firstCardIndex = lastCardIndex - totalCards;
 
   console.log(isOverviewSaved);
   const [formData, setFormData] = useState({
@@ -58,6 +62,8 @@ const CreateCompetitionForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(true);
 
+  const currentCards = userContests.slice(firstCardIndex, lastCardIndex);
+
   console.log(isLoading, "isLoading");
 
   useEffect(() => {
@@ -68,7 +74,7 @@ const CreateCompetitionForm = () => {
         const userId = decodedToken.user._id;
 
         const contestsResponse = await instance.get(
-          `/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`,
+          `/api/contest/get-contests-by-user/${userId}?page=1&pageSize=50`
         );
         const contests = contestsResponse.contests;
         setUserContests(contests);
@@ -113,7 +119,7 @@ const CreateCompetitionForm = () => {
       const response = await instance.post(
         CREATE_CONTEST,
         { contestName, contestOrganizer, contestCreator, startTime, endTime },
-        { "Content-Type": "application/json" },
+        { "Content-Type": "application/json" }
       );
 
       // Handle the response from the API
@@ -162,7 +168,7 @@ const CreateCompetitionForm = () => {
           endTime,
           isPublished,
         },
-        { "Content-Type": "application/json" },
+        { "Content-Type": "application/json" }
       );
 
       // Handle the response from the API
@@ -188,7 +194,7 @@ const CreateCompetitionForm = () => {
   const handleEditButtonClick = (contestId, contestName) => {
     // Find the contest with the given ID from userContests
     const contestToEdit = userContests.find(
-      (contest) => contest._id === contestId,
+      (contest) => contest._id === contestId
     );
 
     // Set the form data with the contest details
@@ -211,7 +217,7 @@ const CreateCompetitionForm = () => {
     try {
       // Make the API request to delete the contest
       const response = await instance.delete(
-        `/api/contest/delete-contest/${contestId}/${contestCreatorId}`,
+        `/api/contest/delete-contest/${contestId}/${contestCreatorId}`
       );
 
       // Handle the response from the API
@@ -238,6 +244,8 @@ const CreateCompetitionForm = () => {
   const handleCloseButtonClick = () => {
     setIsFormVisible(false);
   };
+
+
 
   const handleCardClick = (contestId, index) => {
     // Navigate to the overview page with user ID and contest ID
@@ -267,6 +275,21 @@ const CreateCompetitionForm = () => {
       {value}
     </button>
   ));
+
+  const handlePageNext = () => {
+    if(currentCards.length < 6){
+      setCurrentPage(currentPage);
+    }else{
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const handlePagePrev = () => {
+    if(currentPage === 1){
+      setCurrentPage(1)
+    }else{
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <>
@@ -448,7 +471,7 @@ const CreateCompetitionForm = () => {
                 {isLoading ? (
                   <CreateCompetitionSkeleton cardNo={6} />
                 ) : (
-                  userContests.map((contest, index) => (
+                  currentCards.map((contest, index) => (
                     <Link
                       key={contest._id}
                       _hover={{ textDecoration: "none" }}
@@ -495,6 +518,11 @@ const CreateCompetitionForm = () => {
             </Flex>
           </VStack>
         </VStack>
+        <Flex marginTop="40px" justifyContent="center">
+          <Button onClick={handlePagePrev}>Prev</Button>
+          <Text padding="8px">{currentPage}</Text>
+          <Button onClick={handlePageNext}>Next</Button>
+        </Flex>
       </Layout>
     </>
   );
