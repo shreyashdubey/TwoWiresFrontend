@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -17,39 +17,38 @@ import {
   Image,
   Flex,
   Spacer,
-} from '@chakra-ui/react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import upvote from './images/upvote.png';
-import downvote from './images/downvote.png';
-import { ADD_CONTEST_PLAN, ADD_EXECUTION_STEP } from '../utils/endpoints';
-import { jwtDecode } from 'jwt-decode';
-import instance from '../utils/api';
+} from "@chakra-ui/react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import upvote from "./images/upvote.png";
+import downvote from "./images/downvote.png";
 import {
-  useNavigate,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
-import { ACCESS_TOKEN } from '../utils/siteConstants';
-import { GET_ALL_PLAN } from '../utils/endpoints';
+  ADD_CONTEST_PLAN,
+  ADD_EXECUTION_STEP,
+  GET_ALL_PLAN,
+} from "../utils/endpoints";
+import { jwtDecode } from "jwt-decode";
+import instance from "../utils/api";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { ACCESS_TOKEN } from "../utils/siteConstants";
 
 const PlanComponent = () => {
   const location = useLocation();
   const variable = location.state;
-  console.log('var', variable);
+  console.log("var", variable);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [planName, setPlanName] = useState('');
-  const [planContent, setPlanContent] = useState('');
+  const [planName, setPlanName] = useState("");
+  const [planContent, setPlanContent] = useState("");
   const [plans, setPlans] = useState([]);
   const [initialFetch, setInitialFetch] = useState(false);
   const contestId = variable.contestId;
 
   useEffect(() => {
-    console.log('worked');
+    console.log("worked");
     // Fetch education entries when the component mounts
     const fetchContestPlans = async () => {
       try {
-        console.log('workedwithinfunction');
+        console.log("workedwithinfunction");
         const accessToken = localStorage.getItem(ACCESS_TOKEN);
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.user._id;
@@ -60,14 +59,14 @@ const PlanComponent = () => {
         setPlans(plans);
       } catch (error) {
         console.error(
-          'Error occurred while fetching education entries:',
+          "Error occurred while fetching education entries:",
           error,
         );
       }
     };
 
     if (!initialFetch) {
-      console.log('withinif');
+      console.log("withinif");
       fetchContestPlans();
       // Fetch education entries only when initialFetch is false
       setInitialFetch(true); // Set initialFetch to true after the initial fetch
@@ -80,21 +79,21 @@ const PlanComponent = () => {
     onOpen: onExecutionModalOpen,
     onClose: onExecutionModalClose,
   } = useDisclosure();
-  const [executionStepContent, setExecutionStepContent] = useState('');
-  const [executionStepName, setExecutionStepName] = useState('');
+  const [executionStepContent, setExecutionStepContent] = useState("");
+  const [executionStepName, setExecutionStepName] = useState("");
   const [currentPlanIndex, setCurrentPlanIndex] = useState(null);
   const [currentPlanId, setCurrentPlanId] = useState(null);
 
   const handleAddExecutionStep = (index, planId) => {
-    console.log('plan', planId);
+    console.log("plan", planId);
     setCurrentPlanIndex(index); // Set the current plan index
     setCurrentPlanId(planId);
     onExecutionModalOpen();
   };
 
   const handleSaveExecutionStep = async () => {
-    console.log('maakaxchi', currentPlanIndex);
-    if (executionStepContent.trim() === '') {
+    console.log("maakaxchi", currentPlanIndex);
+    if (executionStepContent.trim() === "") {
       // Validation: Don't save if executionStepContent is empty
       return;
     }
@@ -116,26 +115,26 @@ const PlanComponent = () => {
           stepName,
           stepDescription,
         },
-        { 'Content-Type': 'application/json' },
+        { "Content-Type": "application/json" },
       );
       const data = response;
       const { success, message } = data;
       if (success) {
         // Handle success
-        console.log('Data successfully posted to the backend');
+        console.log("Data successfully posted to the backend");
 
         // Clear form data and reset state after successful post
       } else {
         // Handle error
-        console.error('Failed to post data to the backend');
+        console.error("Failed to post data to the backend");
       }
     } catch (error) {
-      console.error('Error occurred while posting data:', error);
+      console.error("Error occurred while posting data:", error);
     }
 
     // Clear input field
-    setExecutionStepContent('');
-    setExecutionStepName('');
+    setExecutionStepContent("");
+    setExecutionStepName("");
 
     // Close the modal
     onExecutionModalClose();
@@ -143,7 +142,7 @@ const PlanComponent = () => {
   };
 
   const handleSave = async () => {
-    if (planName.trim() === '' || planContent.trim() === '') {
+    if (planName.trim() === "" || planContent.trim() === "") {
       // Validation: Don't save if either planName or planContent is empty
       return;
     }
@@ -161,28 +160,28 @@ const PlanComponent = () => {
           planName,
           planDescription,
         },
-        { 'Content-Type': 'application/json' },
+        { "Content-Type": "application/json" },
       );
       const data = response;
       const { success, message } = data;
       if (success) {
         // Handle success
-        console.log('Data successfully posted to the backend');
+        console.log("Data successfully posted to the backend");
 
         // Clear form data and reset state after successful post
       } else {
         // Handle error
-        console.error('Failed to post data to the backend');
+        console.error("Failed to post data to the backend");
       }
     } catch (error) {
-      console.error('Error occurred while posting data:', error);
+      console.error("Error occurred while posting data:", error);
     }
 
     // Save the plan to the state with an empty executionSteps array
 
     // Reset the input fields
-    setPlanName('');
-    setPlanContent('');
+    setPlanName("");
+    setPlanContent("");
 
     // Close the modal
     onClose();
@@ -266,13 +265,9 @@ const PlanComponent = () => {
               </Button>
               <Text ml="10px">
                 {plan.upvotes + plan.downvotes >= 0 ? (
-                  <>
-                    {plan.upvotes + plan.downvotes}
-                  </>
+                  <>{plan.upvotes + plan.downvotes}</>
                 ) : (
-                  <>
-                    0
-                  </>
+                  <>0</>
                 )}
               </Text>
             </Flex>
@@ -306,10 +301,7 @@ const PlanComponent = () => {
               Add Execution Step
             </Button>
           </Center>
-          <Modal
-            isOpen={isExecutionModalOpen}
-            onClose={onExecutionModalClose}
-          >
+          <Modal isOpen={isExecutionModalOpen} onClose={onExecutionModalClose}>
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Add Execution Step</ModalHeader>

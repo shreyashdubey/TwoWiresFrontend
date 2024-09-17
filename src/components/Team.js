@@ -14,10 +14,6 @@ import {
   Center,
   HStack,
   Text,
-  VStack,
-  Divider,
-  Stack,
-  Spacer,
 } from "@chakra-ui/react";
 import { Link as ChakraLink } from "react-router-dom";
 import { EditIcon, ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
@@ -25,7 +21,6 @@ import axios from "axios"; // Import axios for making API requests
 import instance from "../utils/api";
 import { GET_ALL_TEAM } from "../utils/endpoints";
 import { jwtDecode } from "jwt-decode";
-import UserProfile from "./UserProfile";
 import About from "./About";
 
 const TeamTab = () => {

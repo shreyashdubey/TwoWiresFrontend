@@ -13,6 +13,13 @@ const theme = extendTheme({
       scheduled: "#FBCEB1",
       mccolor: "#6082B6",
       mbutton: "#00A36C",
+      alphaBlack: "#0000007a",
+      black: "#000000",
+      teal: "#285E61",
+      blue: "#0000ff",
+      emerald: "#047857",
+      emeraldDark: "#022c22",
+      pureBlue: "#3182CE",
     },
   },
   config: {

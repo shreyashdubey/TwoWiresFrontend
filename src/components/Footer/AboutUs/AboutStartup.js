@@ -21,9 +21,8 @@ import {
   useMediaQuery,
   Hide,
 } from "@chakra-ui/react";
-import contest1 from "./images/contest1.jpeg";
-import contest2 from "./images/contest2.jpeg";
-import Layout from "./DashBoard.js";
+import contest1 from "../../images/contest1.jpeg";
+import contest2 from "../../images/contest2.jpeg";
 import {
   useScroll,
   useTransform,
@@ -32,9 +31,9 @@ import {
   useAnimation,
   useMotionValue,
 } from "framer-motion";
-import ParticleBg from "./particle.js";
-import StartFieldBg from "./StartFeild.js";
-import Key from "./KeyBoard.js";
+import ParticleBg from "../../particle.js";
+import StartFieldBg from "../../StartFeild.js";
+import Key from "../../KeyBoard.js";
 
 const textVariants = {
   hidden: { opacity: 0, y: -20 },

@@ -39,6 +39,7 @@ import {
   DELETE_EDUCATION,
 } from "../utils/endpoints";
 import { jwtDecode } from "jwt-decode";
+
 import { FaMoon, FaSun } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
 import { ACCESS_TOKEN } from "../utils/siteConstants";
@@ -61,6 +62,8 @@ const EducationComponent = () => {
   const years = Array.from({ length: 80 }, (_, index) => index + 1960);
   const [editedEducationIndex, setEditedEducationIndex] = useState(null);
   const [initialFetch, setInitialFetch] = useState(false);
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  const decodedToken = jwtDecode(accessToken);
 
   useEffect(() => {
     // Fetch education entries when the component mounts
@@ -449,27 +452,36 @@ const EducationComponent = () => {
               </Text>
             )}
             <Spacer />
-            <Button
-              onClick={() => handleEditEducation(index)}
-              bgColor="custom.button"
-              variant="solid"
-              w="10%"
-            >
-              <Image boxSize="25px" objectFit="cover" src={edit} alt="plus" />
-            </Button>
-            <Button
-              onClick={() => handleDeleteEducation(index)}
-              bgColor="custom.button"
-              variant="solid"
-              w="10%"
-            >
-              <Image
-                boxSize="25px"
-                objectFit="cover"
-                src={remove}
-                alt="remove"
-              />
-            </Button>
+            {decodedToken ? (
+              <>
+                <Button
+                  onClick={() => handleEditEducation(index)}
+                  bgColor="custom.button"
+                  variant="solid"
+                  w="10%"
+                >
+                  <Image
+                    boxSize="25px"
+                    objectFit="cover"
+                    src={edit}
+                    alt="plus"
+                  />
+                </Button>
+                <Button
+                  onClick={() => handleDeleteEducation(index)}
+                  bgColor="custom.button"
+                  variant="solid"
+                  w="10%"
+                >
+                  <Image
+                    boxSize="25px"
+                    objectFit="cover"
+                    src={remove}
+                    alt="remove"
+                  />
+                </Button>
+              </>
+            ) : null}
           </HStack>
 
           <Text color="custom.white">{education.school}</Text>

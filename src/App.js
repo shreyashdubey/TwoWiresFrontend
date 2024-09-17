@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Signup from "./components/Signup"; // Your Signup component
@@ -16,17 +17,17 @@ import SkillComponent from "./components/SkillComponent";
 import EducationComponent from "./components/EducationComponent";
 import UserProfile from "./components/UserProfile.js";
 import About from "./components/About.js";
-import ActiveCompetitions from "./components/Contest.js";
+import ActiveCompetitions from "./components/Contest/Contest.js";
 import UserContest from "./components/UserContest.js";
 import ContestDiscription from "./components/ContestDescription.js";
-import CreateCompetitionForm from "./components/CreateCompetitionForm.js";
+import CreateCompetitionForm from "./components/CreateCompetition/CreateCompetitionForm.js";
 import Experience from "./components/Experience.js";
 import TestCalendar from "./components/TestCalendar.js";
 import OverviewSection from "./components/OverviewSection.js";
 import { OverviewProvider } from "./components/OverviewContext.js";
 import PublishContest from "./components/PublishContest.js";
 import ReviewDiscription from "./components/ReviewDiscription.js";
-import AboutStartup from "./components/AboutStartup.js";
+import AboutStartup from "./components/Footer/AboutUs/AboutStartup.js";
 import MyUploader from "./components/MyUploader.js";
 import Starfeild from "./components/StartFeild.js";
 import ActiveContestDiscription from "./components/ActiveContestDiscription.js";
@@ -45,6 +46,11 @@ import ExcecutingStep from "./components/ExecutingStep.js";
 import Tutorial from "./components/Tutorial.js";
 import Stuck from "./components/Stuck.js";
 import { ACCESS_TOKEN } from "./utils/siteConstants.js";
+import Error404 from "./components/Error404/Error404.js";
+import Footer from "./components/Footer/FooterPage/Footer.js";
+import PrivacyPolicy from "./components/Footer/PrivacyPolicy/PrivacyPolicy.js";
+import Career from "./components/Footer/Career/Career.js";
+import ContactUs from "./components/Footer/ContactUs/ContactUs.js";
 
 const App = () => {
   const navigate = useNavigate();
@@ -54,14 +60,8 @@ const App = () => {
   console.log(pathname);
 
   useEffect(() => {
-    if (
-      !accessToken &&
-      pathname != "/contest" &&
-      pathname != "/aboutstartup" &&
-      pathname != "/"
-    ) {
+    if (!accessToken && pathname != "/aboutstartup" && pathname != "/") {
       // Redirect to login if accessToken is null
-      console.log("come");
       navigate("/login");
     }
   }, [accessToken, navigate]);
@@ -116,7 +116,7 @@ const App = () => {
         OneSignal.sendTag("new_app_version", "new_app_version", (tagsSent) => {
           // Callback called when tag has finished sending
           console.log("new_app_version TAG SENT", tagsSent);
-        }),
+        })
       );
     });
   }, []);
@@ -156,6 +156,7 @@ const App = () => {
               <Route path="/education" element={<EducationComponent />} />
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/about" element={<About />} />
+              <Route path="/contest" element={<ActiveCompetitions />} />
               <Route path="/competition" element={<UserContest />} />
               {/* <Route path="/create" element={<CreateConcept />} /> */}
               <Route path="/calendar" element={<TestCalendar />} />
@@ -175,6 +176,10 @@ const App = () => {
                 path="/overview/:contestId/:ok"
                 element={<OverviewSection />}
               />
+              <Route
+                path="/discription/:contestId/:ok"
+                element={<ContestDiscription />}
+              />
               <Route path="/review" element={<PublishContest />} />
               <Route
                 path="/reviewdiscription/:contestId/:ok"
@@ -190,23 +195,24 @@ const App = () => {
               <Route path="/execution" element={<ExcecutingStep />} />
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/stuck" element={<Stuck />} />
+              <Route path="/career" element={<Career/>}/>
+              <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
+              <Route path="/contactus" element={<ContactUs/>}/>
             </>
           )}
           :
           <Route path="/" element={<Signup />} />
           <Route path="/aboutstartup" element={<AboutStartup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/contest" element={<ActiveCompetitions />} />
-          <Route
-            path="/discription/:contestId/:ok"
-            element={<ContestDiscription />}
-          />
+          <Route path="*" element={<Error404 />} />
           {/* Add other routes for different pages */}
         </Routes>
         {/* {auth && ( */}
       </OverviewProvider>
       {/* )  */}
       {/* } */}
+
+      <Footer />
     </>
   );
 };
